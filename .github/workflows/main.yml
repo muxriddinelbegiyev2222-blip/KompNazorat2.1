@@ -2,33 +2,26 @@ name: Build KompNazorat 2.1 App
 
 on:
   push:
-    branches: [ main, master ]
-  workflow_dispatch:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - name: Repozitoriyani yuklab olish
-        uses: actions/checkout@v4
+    - name: Checkout kod
+      uses: actions/checkout@v4
 
-      - name: Node.js 18 ni sozlash
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+    - name: Node.js o‘rnatish
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
 
-      - name: Kutubxonalarni o'rnatish
-        run: npm install
+    - name: Bog‘liqliklarni o‘rnatish
+      run: npm install
 
-      - name: Windows (.exe) dasturini yig'ish
-        run: npm run dist
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Tayyor .exe faylni chiqarish
-        uses: actions/upload-artifact@v4
-        with:
-          name: KompNazorat2.1-Windows-Setup
-          path: dist/*.exe
-          if-no-files-found: error
+    - name: Windows ilovasini yig‘ish (Electron Builder)
+      run: npm run build
+      continue-on-error: false
