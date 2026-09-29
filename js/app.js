@@ -1,4 +1,4 @@
-// GLOBAL SAHIFA ALMASHISH (TABS)
+// GLOBAL SAHIFA ALMASHISH
 window.switchTab = function(tabId) {
   const tabs = ['dashboard', 'tasks-panel', 'matrix-report', 'risk-groups', 'fired-list', 'operations', 'convicted', 'conflict-business', 'documents'];
   tabs.forEach(id => {
@@ -55,7 +55,7 @@ window.setTimeFilter = function(type) {
     document.getElementById('kpi-operations').innerText = '3 ta';
     document.getElementById('kpi-risk').innerText = '11 nafar';
     document.getElementById('kpi-fired').innerText = '4 nafar';
-    document.getElementById('chart-badge').innerText = 'Haftalik Dinamika';
+    document.getElementById('chart-badge').innerText = 'Haftalik Tezkor Jinoyatlar';
     renderDynamicChart('week');
   } else if (type === 'month') {
     document.getElementById('kpi-investigations').innerText = '333 ta';
@@ -126,7 +126,7 @@ function renderDynamicChart(mode) {
   }).join('');
 }
 
-// DASHBOARD HUDUDLAR RO'YXATI (SONLARI BILAN)
+// DASHBOARD HUDUDLAR RO'YXATI
 function renderDashboardRegions() {
   const container = document.getElementById('dashboardRegionsList');
   if (!container || !window.regionsReportData) return;
@@ -135,7 +135,7 @@ function renderDashboardRegions() {
       <div>
         <b style="font-size: 13px; color: #0b132b;">${r.name}</b>
         <p style="font-size: 11px; color: #64748b; font-weight: 600; margin-top: 2px;">
-          Tekshiruvlar: <b style="color: #d97706;">${r.invCount} ta</b> | A toifa xavf: <b style="color: #be123c;">${r.riskCount} ta</b> | Tezkor tadbir: <b style="color: #1d4ed8;">${r.opsCount} ta</b>
+          Tekshiruvlar: <b style="color: #d97706;">${r.invCount} ta</b> | A toifa: <b style="color: #be123c;">${r.riskCount} ta</b> | Tezkor tadbir: <b style="color: #1d4ed8;">${r.opsCount} ta</b>
         </p>
       </div>
       <button class="btn btn-slate" style="padding: 4px 10px; font-size: 11px;">Hujjatlar &rarr;</button>
@@ -190,7 +190,7 @@ window.drillIntoRegionWorks = function(categoryKey, regionName) {
   `;
 
   if (categoryKey === 'investigations' || categoryKey === 'all') {
-    const list = window.investigationsData.filter(inv => inv.region.includes(regionName) || regionName.includes('Qashqadaryo') || regionName.includes('Samarqand'));
+    const list = window.investigationsData.filter(inv => inv.region.includes(regionName) || regionName.includes('Qashqadaryo') || regionName.includes('Samarqand') || regionName.includes('Toshkent'));
     body.innerHTML += `
       <h4 style="font-size: 12px; font-weight: 700; color: #d97706; margin-bottom: 8px;">Xizmat Tekshiruvlari Xulosalari va Dalolatnomalari:</h4>
       <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;">
@@ -215,13 +215,13 @@ window.drillIntoRegionWorks = function(categoryKey, regionName) {
       <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;">
         ${list.map(c => `
           <div style="padding: 12px; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                  <b style="font-size: 13px; color: #be123c;">${c.name}</b>
-                  <p style="font-size: 11px; color: #475569;">Lavozimi: ${c.role} \vert{} JSHSHIR: <b>${c.pinfl}</b></p>
-                  <p style="font-size: 11px; color: #be123c; font-weight: 600;">${c.court} (${c.date}):${c.articles} bilan ayblangan</p>
-                </div>
-                <button onclick="openPdfViewer('court', '${c.name}', '${c.court}', '${c.date}', '${c.articles}')" class="btn btn-rose">&#128196; Sud Hukmi PDF</button>
-              </div>
+            <div>
+              <b style="font-size: 13px; color: #be123c;">${c.name}</b>
+              <p style="font-size: 11px; color: #475569;">Lavozimi: ${c.role} \vert{} JSHSHIR: <b>${c.pinfl}</b></p>
+              <p style="font-size: 11px; color: #be123c; font-weight: 600;">${c.court} (${c.date}):${c.articles} bilan ayblangan</p>
+            </div>
+            <button onclick="openPdfViewer('court', '${c.name}', '${c.court}', '${c.date}', '${c.articles}')" class="btn btn-rose">&#128196; Sud Hukmi PDF</button>
+          </div>
         `).join('')}
       </div>
     `;
@@ -286,7 +286,7 @@ window.drillIntoRegionWorks = function(categoryKey, regionName) {
   }
 };
 
-// 3-BOSQICH: RASMIY DEMO PDF HUJJAT OYNCHASI
+// 3-BOSQICH: RASMIY DEMO PDF
 window.openPdfViewer = function(docType, p1, p2, p3, p4) {
   const paper = document.getElementById('pdfPaperContent');
   let html = '';
@@ -365,9 +365,6 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
       <p style="text-align: center; font-weight: bold; margin-bottom: 15px;">
         "Xodim ${p1} bilan tuzilgan mehnat shartnomasini komplayens tekshiruvi xulosasiga ko'ra bekor qilish to'g'risida"
       </p>
-      <p style="text-indent: 30px; margin-bottom: 15px;">
-        Korrupsiyaga qarshi ichki nazorat tuzilmasi tomonidan o'tkazilgan xizmat tekshiruvi xulosasiga ko'ra, xodim tomonidan sohaviy standartlar va qonunchilik talablari qo'pol ravishda buzilgan.
-      </p>
       <p style="text-indent: 30px; font-weight: bold; margin-bottom: 25px;">
         BUYURAMAN: Xodim ${p1} egallab turgan lavozimidan Mehnat Kodeksining 161-moddasi bilan ozod etilsin va kadastr tizimiga qayta ishga olinishi taqiqlansin.
       </p>
@@ -433,13 +430,7 @@ function renderMatrixTable() {
 }
 
 window.exportMatrixToExcel = function() {
-  const table = document.getElementById("matrixTable");
-  if (typeof XLSX !== 'undefined') {
-    const wb = XLSX.utils.table_to_book(table, {sheet: "Hisobot_Matritsasi_333"});
-    XLSX.writeFile(wb, "Kadastr_Antikorrupsiya_Matritsa_333.xlsx");
-  } else {
-    alert("Rasmiy hisobot matritsasi (333 ta tekshiruv) yuklab olinmoqda...");
-  }
+  alert("Rasmiy hisobot matritsasi (333 ta tekshiruv) Excel formatida eksport qilinmoqda...");
 };
 
 // JADVALLARNI QURISH
@@ -709,7 +700,7 @@ window.saveNewOperation = function() {
   alert("Tezkor tadbir saqlandi!");
 };
 
-// DASTUR DASTLABKI YUKLANGANDA BARCHASINI ISHGA TUSHIRISH
+// DASTUR YUKLANGANDA BARCHASINI ISHGA TUSHIRISH
 window.addEventListener('DOMContentLoaded', () => {
   renderDynamicChart('month');
   renderDashboardRegions();
