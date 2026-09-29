@@ -21,3 +21,14 @@ jobs:
 
     - name: Bog‘liqliklarni o‘rnatish
       run: npm install
+
+    - name: Tayyor dastur fayllarini yuklash (Artifact)
+      uses: actions/upload-artifact@v4
+      with:
+        name: KompNazorat-2.1-App
+        path: |
+          index.html
+          style.css
+          main.js
+          package.json
+          js/
