@@ -1,8 +1,9 @@
 {
-  "name": "kompnazorat",
+  "name": "kompnazorat-app",
   "version": "2.1.0",
   "description": "KompNazorat 2.1 - Komplayens Nazorati Yagona Tizimi",
   "main": "main.js",
+  "author": "KompNazorat",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --win --x64"
@@ -14,16 +15,15 @@
   "build": {
     "appId": "uz.kompnazorat.app",
     "productName": "KompNazorat 2.1",
+    "directories": {
+      "output": "dist"
+    },
     "win": {
       "target": "nsis"
     },
     "nsis": {
       "oneClick": true,
-      "perMachine": false,
-      "allowToChangeInstallationDirectory": false
-    },
-    "directories": {
-      "output": "dist"
+      "perMachine": false
     },
     "files": [
       "index.html",
