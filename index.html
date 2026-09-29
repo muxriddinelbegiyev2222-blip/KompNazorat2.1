@@ -3,469 +3,343 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KompNazorat — Davlat Kadastrlari Tizimi Komplayens Portali</title>
+  <title>KompNazorat 2.1 - Komplayens Nazorati Yagona Tizimi</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- CHAP ASOSIY MENYU -->
-  <aside>
-    <div>
+  <div class="app-layout">
+    <!-- Yon menyu (Sidebar) -->
+    <aside class="sidebar">
       <div class="brand">
-        <div class="brand-icon">&#128737;</div>
-        <div class="brand-text">
-          <h1>KOMP-NAZORAT</h1>
-          <p>Kadastr Nazorati</p>
+        <div class="brand-badge">KN 2.1</div>
+        <div class="brand-info">
+          <h2>KompNazorat</h2>
+          <span>Yagona Nazorat Portali</span>
         </div>
       </div>
-      <nav>
-        <button onclick="switchTab('dashboard')" id="btn-dashboard" class="nav-btn active">
-          <span>&#9638; Tahliliy Boshqaruv</span>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="dashboard">
+          <span class="nav-icon">📊</span> Bosh Dashboard
         </button>
-        <button onclick="switchTab('regions-matrix')" id="btn-regions-matrix" class="nav-btn">
-          <span>&#9636; 14 Hudud Matritsasi</span>
-          <span class="badge badge-blue">Agentlik/Palata</span>
+        <button class="nav-item" data-tab="matrix">
+          <span class="nav-icon">📑</span> 14 Hudud Hisobot Matritsasi
         </button>
-        <button onclick="switchTab('tasks-panel')" id="btn-tasks-panel" class="nav-btn">
-          <span>&#9745; Topshiriqlar Nazorati</span>
-          <span class="badge badge-blue">43 ta</span>
+        <button class="nav-item" data-tab="tasks">
+          <span class="nav-icon">🎯</span> Topshiriqlar Nazorati
         </button>
-        <button onclick="switchTab('matrix-report')" id="btn-matrix-report" class="nav-btn">
-          <span>&#9635; Hisobot Matritsasi</span>
-          <span class="badge badge-emerald">333 ta</span>
+        <button class="nav-item" data-tab="risk">
+          <span class="nav-icon">🛡️</span> Korrupsion Xavf (A/B/C)
         </button>
-        <button onclick="switchTab('risk-groups')" id="btn-risk-groups" class="nav-btn">
-          <span>&#9888; Korrupsion Xavf (A, B, D)</span>
-          <span class="badge badge-rose">46 nafar</span>
+        <button class="nav-item" data-tab="dismissed">
+          <span class="nav-icon">⚖️</span> Bo‘shatilgan Xodimlar
         </button>
-        <button onclick="switchTab('fired-list')" id="btn-fired-list" class="nav-btn">
-          <span>&#10006; Bo'shatilgan Xodimlar</span>
-          <span class="badge badge-amber">25 nafar</span>
+        <button class="nav-item" data-tab="operational">
+          <span class="nav-icon">⚡</span> Tezkor Tadbirlar
         </button>
-        <button onclick="switchTab('operations')" id="btn-operations" class="nav-btn">
-          <span>&#9874; Tezkor Tadbirlar</span>
-          <span class="badge badge-blue">14 ta</span>
+        <button class="nav-item" data-tab="convicted">
+          <span class="nav-icon">📁</span> Sudlanganlar Reyestri
         </button>
-        <button onclick="switchTab('convicted')" id="btn-convicted" class="nav-btn">
-          <span>&#9878; Sudlanganlar Reyestri</span>
-          <span class="badge badge-rose">18 nafar</span>
+        <button class="nav-item" data-tab="conflict">
+          <span class="nav-icon">💼</span> Manfaatlar To‘qnashuvi
         </button>
-        <button onclick="switchTab('conflict-business')" id="btn-conflict-business" class="nav-btn">
-          <span>&#9792; Manfaatlar & Tadbirkorlik</span>
-          <span class="badge badge-emerald">STIR / Hudud</span>
-        </button>
-        <button onclick="switchTab('documents')" id="btn-documents" class="nav-btn">
-          <span>&#128193; 5 Bosqichli Arxiv</span>
+        <button class="nav-item" data-tab="archive">
+          <span class="nav-icon">🗄️</span> 5 Bosqichli Arxiv
         </button>
       </nav>
-    </div>
-    <div style="padding: 16px; border-top: 1px solid #1e293b; background: #070d1e;">
-      <p style="font-size: 11px; font-weight: 800; color: #fff;">Respublika Nazoratchisi</p>
-      <p style="font-size: 10px; color: #34d399; font-weight: 700;">&#9679; To'liq Vakolat Bilan</p>
-    </div>
-  </aside>
 
-  <!-- O'NG ASOSIY PANEL -->
-  <main>
-    <header>
-      <div style="display: flex; align-items: center; gap: 14px;">
-        <h2 id="page-title" style="font-size: 14px; font-weight: 800;">Boshqaruv va Chuqur Tahlillar</h2>
-        <div class="time-filter">
-          <button onclick="setTimeFilter('week')" id="filter-week" class="time-btn">Haftalik</button>
-          <button onclick="setTimeFilter('month')" id="filter-month" class="time-btn active">Oylik</button>
-          <button onclick="setTimeFilter('year')" id="filter-year" class="time-btn">Yillik</button>
+      <div class="sidebar-footer">
+        <div class="status-indicator online"></div>
+        <small>Tizim holati: Faol (Real-vaqt)</small>
+      </div>
+    </aside>
+
+    <!-- Asosiy ishchi maydon -->
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb" id="breadcrumb-container">
+          <span>Bosh sahifa</span>
         </div>
-      </div>
-      <div class="header-btns">
-        <button onclick="openModal('newTaskModal')" class="btn btn-blue">+ Topshiriq berish</button>
-        <button onclick="openModal('newConvictedModal')" class="btn btn-rose">+ Sudlangan xodim</button>
-        <button onclick="openModal('newOperationModal')" class="btn btn-slate">+ Tezkor tadbir</button>
-        <button onclick="openModal('newInvestigationModal')" class="btn btn-amber">+ Xizmat tekshiruvi</button>
-      </div>
-    </header>
+        <div class="topbar-actions">
+          <div class="live-clock" id="live-clock">--:--:--</div>
+          <button class="btn-refresh" onclick="location.reload()">Yangilash</button>
+        </div>
+      </header>
 
-    <div class="content-area">
+      <!-- TAB 1: DASHBOARD -->
+      <section id="tab-dashboard" class="tab-content active">
+        <div class="section-header">
+          <h2>Boshqaruv Paneli va Umumiy Ko‘rsatkichlar</h2>
+          <p class="subtitle">Barcha ko‘rsatkichlar interaktiv: har bir raqam yoki diagramma ustiga bosib, tekshiruv va asoslovchi PDF hujjati darajasigacha kirish mumkin.</p>
+        </div>
 
-      <!-- 1. DASHBOARD -->
-      <section id="tab-dashboard" class="tab-section">
         <div class="kpi-grid">
-          <div onclick="startDrillFlow('investigations')" class="card" style="border-left: 4px solid #d97706;">
-            <div class="card-title">Xizmat Tekshiruvlari</div>
-            <div class="card-val" id="kpi-investigations" style="color: #d97706;">333 ta</div>
-            <div class="card-sub"><span>HMMQO: 209 | Ichki: 124</span><b style="color: #d97706;">Hudud &rarr; PDF Xulosa</b></div>
+          <div class="kpi-card clickable" onclick="drillDownDashboard('inspections', 'all')">
+            <span class="kpi-tag">Tekshiruvlar</span>
+            <div class="kpi-num" id="dash-total-inspections">333</div>
+            <div class="kpi-desc">Rejalashtirilgan nazorat tadbirlari</div>
           </div>
-          <div onclick="startDrillFlow('convicted')" class="card" style="border-left: 4px solid #be123c;">
-            <div class="card-title">Sudlangan Xodimlar</div>
-            <div class="card-val" id="kpi-convicted" style="color: #be123c;">18 nafar</div>
-            <div class="card-sub"><span>14 ta viloyat bo'yicha</span><b style="color: #be123c;">Hudud &rarr; PDF Hukm</b></div>
+          <div class="kpi-card clickable danger" onclick="drillDownDashboard('risk', 'A')">
+            <span class="kpi-tag tag-danger">A - Toifa (Yuqori)</span>
+            <div class="kpi-num" id="dash-risk-a">48</div>
+            <div class="kpi-desc">Yuqori korrupsion xavfli xodimlar</div>
           </div>
-          <div onclick="startDrillFlow('operations')" class="card" style="border-left: 4px solid #1d4ed8;">
-            <div class="card-title">Tezkor Tadbirlar</div>
-            <div class="card-val" id="kpi-operations" style="color: #1d4ed8;">14 ta</div>
-            <div class="card-sub"><span>DXX/Departament/IIB</span><b style="color: #1d4ed8;">Hudud &rarr; PDF Bayonnoma</b></div>
+          <div class="kpi-card clickable warning" onclick="drillDownDashboard('conflict', 'pending')">
+            <span class="kpi-tag tag-warning">Manfaatlar to‘qnashuvi</span>
+            <div class="kpi-num" id="dash-conflict-pending">34</div>
+            <div class="kpi-desc">Bartaraf etilishi kutilayotgan holatlar</div>
           </div>
-          <div onclick="startDrillFlow('risk')" class="card" style="border-left: 4px solid #b45309;">
-            <div class="card-title">Xavf Guruhlari (A, B, D)</div>
-            <div class="card-val" id="kpi-risk" style="color: #b45309;">46 nafar</div>
-            <div class="card-sub"><span>A: 18 | B: 16 | D: 12</span><b style="color: #b45309;">Hudud &rarr; PDF Dosye</b></div>
-          </div>
-          <div onclick="startDrillFlow('fired')" class="card" style="border-left: 4px solid #047857;">
-            <div class="card-title">Komplayens Tashabbusi Bilan</div>
-            <div class="card-val" id="kpi-fired" style="color: #047857;">25 nafar</div>
-            <div class="card-sub"><span>Bo'shatilgan xodimlar</span><b style="color: #047857;">Hudud &rarr; PDF Buyruq</b></div>
+          <div class="kpi-card clickable primary" onclick="drillDownDashboard('operational', 'Agentlik')">
+            <span class="kpi-tag tag-primary">Tezkor tadbirlar</span>
+            <div class="kpi-num" id="dash-ops-total">78</div>
+            <div class="kpi-desc">Agentlik va Palata hamkorlik reydlari</div>
           </div>
         </div>
 
-        <!-- JINOYATCHILIK VA QONUNBUZILISH DINAMIKASI DIAGRAMMASI -->
-        <div class="box chart-box">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <h3 style="font-size: 13px; font-weight: 800;">Tezkor Tadbirlarda Qo'lga Tushgan Jinoyatlar Dinamikasi (Oyma-oy O'sish / Pasayish)</h3>
-              <p style="font-size: 11px; color: #64748b; font-weight: 600;">Pora ustida ushlanganlar, firibgarlik va mansab soxtakorligi bo'yicha jinoiy ishlar soni</p>
+        <!-- Dashboard Vizual Diagrammalar bloki -->
+        <div class="charts-grid">
+          <div class="chart-panel">
+            <div class="panel-header">
+              <h3>14 Hudud bo‘yicha tekshiruvlar va aniqlangan qoidabuzarliklar taqsimoti</h3>
             </div>
-            <div style="display: flex; gap: 14px; align-items: center;">
-              <span style="font-size: 11px; font-weight: 700; color: #047857;">&#8595; Kamayish (Profilaktika)</span>
-              <span style="font-size: 11px; font-weight: 700; color: #be123c;">&#8593; O'sish (Xavf darajasi)</span>
-              <span id="chart-badge" class="badge badge-blue">Oylik Dinamika (2026-yil)</span>
-            </div>
+            <div class="bar-chart-container" id="chart-regions-bars"></div>
           </div>
-          <div class="chart-bars-wrap" id="chartBarsContainer"></div>
-        </div>
-
-        <!-- PASTKI HUDUDLAR VA MATRITSA LINKI -->
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px;">
-          <div class="box">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-              <div>
-                <h3 style="font-size: 13px; font-weight: 800;">Hududlar Kesimida Xavf va Fosh Etilgan Ishlar (14 Hudud)</h3>
-                <p style="font-size: 11px; color: #64748b; font-weight: 600;">Viloyatni tanlang — uning barcha ishlari va PDF hujjatlari ochiladi</p>
-              </div>
-              <span class="badge badge-rose">14 ta Hudud</span>
+          <div class="chart-panel">
+            <div class="panel-header">
+              <h3>Xavflilik toifalari balansi (A / B / C)</h3>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 8px;" id="dashboardRegionsList"></div>
-          </div>
-
-          <div class="box" style="display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <h3 style="font-size: 13px; font-weight: 800; margin-bottom: 4px;">Rasmiy Hisobot Matritsasi (333 ta)</h3>
-              <p style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 12px;">Xizmat tekshiruvlari va ko'rilgan choralar</p>
-              <div style="display: flex; flex-direction: column; gap: 6px;">
-                <div style="padding: 8px 10px; background: #eff6ff; border-radius: 6px; display: flex; justify-content: space-between; font-weight: 700;">
-                  <span>HMMQO xatlari bo'yicha</span><span style="color: #1d4ed8;">209 ta</span>
-                </div>
-                <div style="padding: 8px 10px; background: #f0fdf4; border-radius: 6px; display: flex; justify-content: space-between; font-weight: 700;">
-                  <span>Ichki nazorat tashabbusi bilan</span><span style="color: #047857;">124 ta</span>
-                </div>
-                <div style="padding: 8px 10px; background: #fff1f2; border-radius: 6px; display: flex; justify-content: space-between; font-weight: 700;">
-                  <span>Jinoyat ishi qo'zg'atilgan</span><span style="color: #be123c;">9 ta</span>
-                </div>
-              </div>
-            </div>
-            <button onclick="switchTab('matrix-report')" class="btn btn-slate" style="width: 100%; margin-top: 14px;">29 Ustunli Matritsani Ochish &rarr;</button>
+            <div class="risk-balance-container" id="chart-risk-balance"></div>
           </div>
         </div>
       </section>
 
-      <!-- 2. 14 TA HUDUD TOPSHIRIQLAR MATRITSASI (AGENTLIK VA PALATA KARTALARI) -->
-      <section id="tab-regions-matrix" class="tab-section hidden">
-        <div class="box">
-          <h3 style="font-size: 14px; font-weight: 800;">14 ta Hududiy Boshqarma Topshiriq Matritsasi</h3>
-          <p style="font-size: 11px; color: #64748b; font-weight: 600;">Har bir viloyat bo'yicha Kadastr Agentligi va Kadastr Palatasi ijro intizomi</p>
+      <!-- TAB 2: 14 HUDUD HISOBOT MATRITSASI -->
+      <section id="tab-matrix" class="tab-content">
+        <div class="section-header">
+          <h2>14 ta Hudud va 333 ta Tekshiruv Hisobot Matritsasi</h2>
+          <p class="subtitle">Har bir hudud kesimidagi reja, amaldagi holat, aniqlangan kamchiliklar va tegishli tekshiruv dalolatnomasi (PDF).</p>
         </div>
-        <div class="grid-2" id="regionsMatrixGridContainer"></div>
-      </section>
-
-      <!-- 3. TOPSHIRIQLAR PANELİ -->
-      <section id="tab-tasks-panel" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <h3 style="font-size: 14px; font-weight: 800;">Respublika Nazorat Topshiriqlari Ijrosi Paneli</h3>
-            <p style="font-size: 11px; color: #64748b; font-weight: 600;">Hududiy boshqarmalar (Agentlik va Palata) ijro intizomi</p>
-          </div>
-          <button onclick="openModal('newTaskModal')" class="btn btn-blue">+ Yangi topshiriq berish</button>
-        </div>
-        <div class="box" style="padding: 0; overflow: hidden;">
-          <table>
+        <div class="table-responsive">
+          <table class="data-table" id="matrix-table">
             <thead>
-              <tr><th>Topshiriq Kodi va Nomi</th><th>Ijrochi Hudud / Bo'lim</th><th>Yo'nalish</th><th>Berilgan Sana</th><th>Dedlayn</th><th>Holati</th><th style="text-align: center;">Amal</th></tr>
-            </thead>
-            <tbody id="tasksTableBody"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- 4. HISOBOT MATRITSASI (333 TA) -->
-      <section id="tab-matrix-report" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <h3 style="font-size: 14px; font-weight: 800;">Xizmat tekshiruvlari va ko'rilgan choralar hisobot matritsasi</h3>
-            <p style="font-size: 11px; color: #64748b; font-weight: 600;">14 ta hudud kesimida rasmiy hisobot shakli (Jami 333 ta)</p>
-          </div>
-          <button onclick="exportMatrixToExcel()" class="btn btn-emerald">&#128190; Excel yuklab olish</button>
-        </div>
-        <div class="box" style="overflow-x: auto; padding: 10px;">
-          <table class="matrix-tbl" id="matrixTable">
-            <thead>
-              <tr style="background: #cbd5e1; font-weight: 800;">
-                <th rowspan="3">T/r</th>
-                <th rowspan="3" style="min-width: 140px; text-align: left;">Davlat organlari nomlanishi</th>
-                <th colspan="3" style="background: #dcfce7;">O'tkazilgan xizmat tekshiruvlari</th>
-                <th colspan="4" style="background: #fef3c7;">HMMQO xatlari asosida yuborilgan</th>
-                <th colspan="4" style="background: #fee2e2;">Ichki nazorat tashabbusi bilan yuborilgan</th>
-                <th colspan="16" style="background: #dbeafe;">Xodimlarga nisbatan ko'rilgan choralar</th>
-              </tr>
-              <tr style="background: #e2e8f0; font-weight: 700;">
-                <th rowspan="2">Jami</th><th rowspan="2">HMMQO</th><th rowspan="2">Ichki</th>
-                <th rowspan="2">Prok.</th><th rowspan="2">IIB</th><th rowspan="2">DXX</th><th rowspan="2">Boshqa</th>
-                <th rowspan="2">Prok.</th><th rowspan="2">IIB</th><th rowspan="2">DXX</th><th rowspan="2">Boshqa</th>
-                <th colspan="8" style="background: #eff6ff;">HMMQO xatlari asosida</th>
-                <th colspan="8" style="background: #e0e7ff;">Ichki nazorat tashabbusi bilan</th>
-              </tr>
-              <tr style="font-size: 9px;">
-                <th>Jinoyat</th><th>Ma'mur.</th><th>JPK 83</th><th>JPK 84</th><th>Ko'rmasdan</th><th>Jarayonda</th><th style="color:#be123c; font-weight:800;">Bo'shat.</th><th>Intizom.</th>
-                <th>Jinoyat</th><th>Ma'mur.</th><th>JPK 83</th><th>JPK 84</th><th>Ko'rmasdan</th><th>Jarayonda</th><th style="color:#be123c; font-weight:800;">Bo'shat.</th><th>Intizom.</th>
+              <tr>
+                <th>№</th>
+                <th>Hudud nomi</th>
+                <th>Rejalashtirilgan tekshiruv</th>
+                <th>Yakunlangan</th>
+                <th>Jarayonda</th>
+                <th>Aniqlangan qoidabuzarlik</th>
+                <th>Ijro holati</th>
+                <th>Batafsil / PDF</th>
               </tr>
             </thead>
-            <tbody id="matrixTbody"></tbody>
+            <tbody></tbody>
           </table>
         </div>
       </section>
 
-      <!-- 5. KORRUPSION XAVF GURUHLARI -->
-      <section id="tab-risk-groups" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <h3 style="font-size: 14px; font-weight: 800;">Korrupsion Xavf Guruhlariga Kiritilgan Xodimlar Reyestri (A, B, D)</h3>
-            <p style="font-size: 11px; color: #64748b; font-weight: 600;">Viloyat komplayens xodimlari o'rganib kiritgan xodimlar dosyesi</p>
-          </div>
-          <button onclick="openModal('newRiskModal')" class="btn btn-rose">+ Yangi xodim kiritish</button>
+      <!-- TAB 3: TOPSHIRIQLAR NAZORATI -->
+      <section id="tab-tasks" class="tab-content">
+        <div class="section-header">
+          <h2>Topshiriqlar Nazorati (14 ta Hudud Kesimida)</h2>
+          <p class="subtitle">Yuqori turuvchi organlar va Komplayens xizmati topshiriqlari ijrosi monitoringi.</p>
         </div>
-        <div class="box" style="padding: 0; overflow: hidden;">
-          <table>
+        <div class="region-grid" id="tasks-region-container"></div>
+      </section>
+
+      <!-- TAB 4: KORRUPSION XAVF TOIFALASH (A, B, C) -->
+      <section id="tab-risk" class="tab-content">
+        <div class="section-header">
+          <h2>Korrupsion Xavf Darajasi Bo‘yicha Toifalash</h2>
+          <p class="subtitle">Kategoriyalar bo‘yicha tanlang va 14 ta hudud xodimlari ro‘yxati hamda xavf xulosasi PDF faylini ko‘ring.</p>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card danger clickable" onclick="filterRiskCategory('A')">
+            <span class="kpi-tag tag-danger">A - Toifa (Qizil)</span>
+            <div class="kpi-num" id="risk-count-a">0</div>
+            <div class="kpi-desc">Yuqori korrupsion xavf guruhidagi lavozimlar</div>
+          </div>
+          <div class="kpi-card warning clickable" onclick="filterRiskCategory('B')">
+            <span class="kpi-tag tag-warning">B - Toifa (Sariq)</span>
+            <div class="kpi-num" id="risk-count-b">0</div>
+            <div class="kpi-desc">O‘rta korrupsion xavf guruhidagi lavozimlar</div>
+          </div>
+          <div class="kpi-card success clickable" onclick="filterRiskCategory('C')">
+            <span class="kpi-tag tag-success">C - Toifa (Yashil)</span>
+            <div class="kpi-num" id="risk-count-c">0</div>
+            <div class="kpi-desc">Past xavf darajasidagi xodimlar</div>
+          </div>
+        </div>
+        <div id="risk-drilldown-area" class="drilldown-box"></div>
+      </section>
+
+      <!-- TAB 5: BO‘SHATILGAN XODIMLAR -->
+      <section id="tab-dismissed" class="tab-content">
+        <div class="section-header">
+          <h2>Komplayens Tashabbusi Bilan Bo‘shatilgan Xodimlar</h2>
+          <p class="subtitle">Mehnat kodeksi va qonunchilik talablarining buzilishi bo‘yicha lavozimidan ozod etilganlar reyestri.</p>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table" id="dismissed-table">
             <thead>
-              <tr><th>Xodim F.I.SH va JSHSHIR</th><th>Hudud va Lavozimi</th><th>Xavf Toifasi</th><th>Xavf Omili</th><th>Belgilangan Chora</th><th style="text-align: center;">Asos PDF</th></tr>
+              <tr>
+                <th>№</th>
+                <th>F.I.SH</th>
+                <th>Hudud</th>
+                <th>Egallagan lavozimi</th>
+                <th>Bo‘shatish asosi (Modda)</th>
+                <th>Sana</th>
+                <th>Buyruq (Demo PDF)</th>
+              </tr>
             </thead>
-            <tbody id="riskTableBody"></tbody>
+            <tbody></tbody>
           </table>
         </div>
       </section>
 
-      <!-- 6. BO'SHATILGAN XODIMLAR -->
-      <section id="tab-fired-list" class="tab-section hidden">
-        <div class="box">
-          <h3 style="font-size: 14px; font-weight: 800;">Komplayens Tashabbusi Bilan Mehnat Shartnomasi Bekor Qilingan Xodimlar</h3>
-          <p style="font-size: 11px; color: #64748b; font-weight: 600;">Xizmat tekshiruvi xulosasi va ishdan bo'shatish buyruqlari</p>
+      <!-- TAB 6: TEZKOR TADBIRLAR -->
+      <section id="tab-operational" class="tab-content">
+        <div class="section-header">
+          <h2>Tezkor Tadbirlar Dinamikasi</h2>
+          <p class="subtitle">Agentlik va Palata yo‘nalishlariga ajratilgan 14 hududiy tezkor chora-tadbirlar nazorati.</p>
         </div>
-        <div class="box" style="padding: 0; overflow: hidden;">
-          <table>
+        <div class="filters-bar">
+          <button class="filter-chip active" onclick="filterOperational('all')">Barcha tadbirlar</button>
+          <button class="filter-chip" onclick="filterOperational('Agentlik')">Faqat Agentlik</button>
+          <button class="filter-chip" onclick="filterOperational('Palata')">Faqat Palata</button>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table" id="operational-table">
             <thead>
-              <tr><th>Xodim F.I.SH</th><th>Hududiy Boshqarma</th><th>Bo'shatish Asosi</th><th>Buyruq Raqami va Sanasi</th><th>Oqibat</th><th style="text-align: center;">Buyruq PDF</th></tr>
+              <tr>
+                <th>№</th>
+                <th>Organ turi</th>
+                <th>Hudud</th>
+                <th>Tadbir mavzusi</th>
+                <th>Sana</th>
+                <th>Natijadorlik</th>
+                <th>Tergov hujjati (PDF)</th>
+              </tr>
             </thead>
-            <tbody id="firedTableBody"></tbody>
+            <tbody></tbody>
           </table>
         </div>
       </section>
 
-      <!-- 7. TEZKOR TADBIRLAR (HUDUDLAR KESIMIDA) -->
-      <section id="tab-operations" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <h3 style="font-size: 14px; font-weight: 800;">Vakolatli Organlar (DXX, Prokuratura, IIB, Departament) O'tkazgan Tezkor Tadbirlar (14 Hudud)</h3>
-            <p style="font-size: 11px; color: #64748b; font-weight: 600;">Viloyatni tanlang: Tumanlar kesimidagi tadbirlar ochiladi</p>
-          </div>
-          <button onclick="openModal('newOperationModal')" class="btn btn-blue">+ Tezkor tadbir qo'shish</button>
+      <!-- TAB 7: SUDLANGANLAR REYESTRI -->
+      <section id="tab-convicted" class="tab-content">
+        <div class="section-header">
+          <h2>Sudlanganlar Reyestri (Kamida 40 ta namunaviy ro‘yxat)</h2>
+          <p class="subtitle">Ilgari jinoiy va iqtisodiy javobgarlikka tortilgan xodimlar to‘g‘risida ma'lumotlar bazasi.</p>
         </div>
-        <div class="grid-2" id="operationsRegionsGrid"></div>
-      </section>
-
-      <!-- 8. SUDLANGANLAR REYESTRI -->
-      <section id="tab-convicted" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <h3 style="font-size: 14px; font-weight: 800;">Sudlangan va Mansab Huquqidan Mahrum Etilgan Xodimlar Reyestri</h3>
-            <p style="font-size: 11px; color: #64748b; font-weight: 600;">Qayta ishga olishni bloklash uchun 14 xonali JSHSHIR bo'yicha qidiruv</p>
-          </div>
-          <input type="text" id="convictedSearch" onkeyup="filterConvicted()" placeholder="JSHSHIR (PNFL) yoki Familiya..." style="padding: 8px 14px; border: 1px solid #cbd5e1; border-radius: 8px; width: 320px; font-weight: 700;">
-        </div>
-        <div class="box" style="padding: 0; overflow: hidden;">
-          <table>
+        <div class="table-responsive">
+          <table class="data-table" id="convicted-table">
             <thead>
-              <tr><th>Xodim F.I.SH va JSHSHIR</th><th>Hudud va Lavozimi</th><th>Sud Hukmi Sanasi</th><th>JK Moddalari</th><th>Jazo Turi</th><th>Holati</th><th style="text-align: center;">Hukm PDF</th></tr>
+              <tr>
+                <th>№</th>
+                <th>F.I.SH</th>
+                <th>Hudud / Bo‘lim</th>
+                <th>Modda (JK)</th>
+                <th>Sud qarori sanasi</th>
+                <th>Sudlanganlik holati</th>
+                <th>Sud hukmi (PDF)</th>
+              </tr>
             </thead>
-            <tbody id="convictedTableBody"></tbody>
+            <tbody></tbody>
           </table>
         </div>
       </section>
 
-      <!-- 9. MANFAATLAR & TADBIRKORLIK (HUDUDLAR KESIMIDA) -->
-      <section id="tab-conflict-business" class="tab-section hidden">
-        <div class="box">
-          <h3 style="font-size: 14px; font-weight: 800;">Manfaatlar To'qnashuvi Deklaratsiyalari va Tadbirkorlikka Aloqadorlik (STIR) — 14 Hudud</h3>
-          <p style="font-size: 11px; color: #64748b; font-weight: 600;">Viloyatni tanlang: Aniq xodimlar, yaqin qarindoshlar va MCHJ ta'sischilari ochiladi</p>
+      <!-- TAB 8: MANFAATLAR TO‘QNASHUVI VA TADBIRKORLIK -->
+      <section id="tab-conflict" class="tab-content">
+        <div class="section-header">
+          <h2>Manfaatlar To‘qnashuvi va Noqonuniy Tadbirkorlik</h2>
+          <p class="subtitle">14 ta hudud kesimida aniqlangan, bartaraf etilgan va ko‘rib chiqilayotgan holatlar monitoringi.</p>
         </div>
-        <div class="grid-2" id="conflictBusinessRegionsGrid"></div>
+        <div class="table-responsive">
+          <table class="data-table" id="conflict-matrix-table">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Hudud</th>
+                <th>Aniqlangan holatlar</th>
+                <th>Bartaraf etilgan</th>
+                <th>Ko‘rib chiqilmoqda</th>
+                <th>Tadbirkorlik bilan shug‘ullanish</th>
+                <th>Batafsil xodimlar</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="conflict-details-area" class="drilldown-box"></div>
       </section>
 
-      <!-- 10. 5 BOSQICHLI ARXIV -->
-      <section id="tab-documents" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <h3 style="font-size: 14px; font-weight: 800;">5 Bosqichli Yagona Arxiv Tizimi (Barcha 6 Toifa)</h3>
-            <p style="font-size: 11px; color: #64748b; font-weight: 600;">Hujjat Turi &rarr; Viloyat &rarr; Yil &rarr; Oy &rarr; Aniq Hujjat Fayli</p>
-          </div>
-          <span id="archivePath" style="font-weight: 800; background: #e0e7ff; color: #1d4ed8; padding: 4px 12px; border-radius: 6px;">Hujjat Turlari</span>
+      <!-- TAB 9: 5 BOSQICHLI ARXIV -->
+      <section id="tab-archive" class="tab-content">
+        <div class="section-header">
+          <h2>5 Bosqichli Yagona Arxiv Tizimi</h2>
+          <p class="subtitle">Har bir bosqich bo‘yicha nazorat hujjati, ekspertiza va yakuniy yopilgan yig‘majild demo PDF hujjati.</p>
         </div>
-        <div id="archiveViewArea"></div>
+        <div class="archive-stages" id="archive-stages-container"></div>
       </section>
+    </main>
+  </div>
 
-    </div>
-  </main>
-
-  <!-- MODALLAR -->
-  <div id="drillModal" class="modal-overlay hidden">
-    <div class="modal-box">
+  <!-- INTERAKTIV DEMO PDF MODAL DARCHASI -->
+  <div class="modal-backdrop" id="pdf-modal">
+    <div class="modal-dialog">
       <div class="modal-header">
-        <h3 id="drillModalTitle">Tahlil va Hujjatlar</h3>
-        <button onclick="closeModal('drillModal')" class="close-btn">&times;</button>
-      </div>
-      <div class="modal-body" id="drillModalBody"></div>
-    </div>
-  </div>
-
-  <div id="pdfViewerModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 800px;">
-      <div class="modal-header" style="background: #1e293b;">
-        <h3 id="pdfDocTitle">Elektron Hujjat (Demo PDF)</h3>
-        <button onclick="closeModal('pdfViewerModal')" class="close-btn">&times;</button>
-      </div>
-      <div class="modal-body" style="background: #64748b; padding: 20px;">
-        <div class="pdf-paper" id="pdfPaperContent"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FORMA MODALLARI -->
-  <div id="newTaskModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 550px;">
-      <div class="modal-header"><h3>Yangi Nazorat Topshirig'i Berish</h3><button onclick="closeModal('newTaskModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
-        <label>Topshiriq Sarlavhasi: <input type="text" id="task-title" placeholder="Topshiriq nomi..." style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <label>Ijrochi Hudud: 
-            <select id="task-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-              <option>Barcha 14 ta hudud</option>
-              <option>Samarqand viloyati</option>
-              <option>Toshkent viloyati</option>
-            </select>
-          </label>
-          <label>Yo'nalish: 
-            <select id="task-dept" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-              <option>Agentlik + Palata</option>
-              <option>Faqat Agentlik</option>
-              <option>Faqat Palata</option>
-            </select>
-          </label>
+        <div class="modal-title-group">
+          <span class="pdf-icon">📄</span>
+          <div>
+            <h3 id="modal-doc-title">Hujjat nomi</h3>
+            <span class="doc-code" id="modal-doc-code">KN-DOC-000000</span>
+          </div>
         </div>
-        <label>Dedlayn: <input type="date" id="task-deadline" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <button onclick="saveNewTask()" class="btn btn-blue" style="margin-top: 10px;">Topshiriqni Yuborish</button>
+        <button class="modal-close" onclick="closeDocModal()">&times;</button>
       </div>
-    </div>
-  </div>
-
-  <div id="newConvictedModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 550px;">
-      <div class="modal-header"><h3>Sudlangan Xodimni Reyestrga Qo'shish</h3><button onclick="closeModal('newConvictedModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
-        <label>F.I.SH: <input type="text" id="conv-name" placeholder="Familiya Ism Sharif" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>JSHSHIR: <input type="number" id="conv-pinfl" placeholder="14 xonali raqam" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>Hudud: 
-          <select id="conv-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Samarqand viloyati</option>
-            <option>Toshkent viloyati</option>
-            <option>Andijon viloyati</option>
-          </select>
-        </label>
-        <label>JK Moddalari: <input type="text" id="conv-articles" placeholder="167-m, 205-m" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <button onclick="saveNewConvicted()" class="btn btn-rose" style="margin-top: 10px;">Reyestrga Saqlash</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="newRiskModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 550px;">
-      <div class="modal-header"><h3>Xodimning Korrupsion Xavf Guruhini Kiritish</h3><button onclick="closeModal('newRiskModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
-        <label>F.I.SH: <input type="text" id="risk-name" placeholder="Familiya Ism Sharif" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>JSHSHIR: <input type="number" id="risk-pinfl" placeholder="14 xonali raqam" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>Xavf Toifasi: 
-          <select id="risk-type" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option value="A">A toifa — Yuqori Xavf</option>
-            <option value="B">B toifa — O'rta Xavf</option>
-            <option value="D">D toifa — Past Xavf</option>
-          </select>
-        </label>
-        <label>Xavf Tavsifi: <textarea id="risk-desc" rows="2" placeholder="Omil..." style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></textarea></label>
-        <button onclick="saveNewRisk()" class="btn btn-rose" style="margin-top: 10px;">Xavf Bazaga Saqlash</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="newOperationModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 550px;">
-      <div class="modal-header"><h3>Tezkor Tadbir Natijasini Kiritish</h3><button onclick="closeModal('newOperationModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
-        <label>Hudud: 
-          <select id="op-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Samarqand viloyati</option>
-            <option>Toshkent viloyati</option>
-            <option>Andijon viloyati</option>
-          </select>
-        </label>
-        <label>Filial: <input type="text" id="op-district" placeholder="Pastdarg'om tumani filiali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>Organ: 
-          <select id="op-partner" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Davlat Xavfsizlik Xizmati (DXX)</option>
-            <option>Prokuratura organlari</option>
-            <option>Bosh prokuratura huzuridagi Departament</option>
-            <option>Ichki Ishlar Vazirligi (IIB)</option>
-          </select>
-        </label>
-        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
-          <input type="checkbox" id="op-collab" style="width: 18px; height: 18px; cursor: pointer;">
-          <label for="op-collab" style="cursor: pointer; font-weight: 700; color: #1e293b;">Kadastr komplayens xizmati hamkorligida o'tkazilgan</label>
+      <div class="modal-body">
+        <div class="pdf-viewer-paper">
+          <div class="paper-header">
+            <div class="paper-emblem">🇺🇿</div>
+            <div class="paper-org-name">O‘ZBEKISTON RESPUBLIKASI KOMPLAYENS VA ICHKI NAZORAT DEPARTAMENTI</div>
+            <div class="paper-sub-org" id="paper-region-title">TOSHKENT SHAHAR BOSHQARMASI</div>
+            <div class="paper-line"></div>
+          </div>
+          <div class="paper-content">
+            <h4 class="paper-act-name" id="paper-act-title">RASMIY DALOLATNOMA VA TEKSHIRUV XULOSASI</h4>
+            <div class="paper-meta-row">
+              <span id="paper-doc-date">Sana: 2026-yil 15-mart</span>
+              <span id="paper-doc-place">Joylashuv: Toshkent shahri</span>
+            </div>
+            <div class="paper-text" id="paper-body-text"></div>
+            <div class="paper-signatures">
+              <div class="sig-block">
+                <span>Komplayens Nazoratchisi:</span>
+                <b>X. R. Karimov</b>
+                <small class="digital-sign">[Elektron raqamli imzo tasdiqlangan]</small>
+              </div>
+              <div class="sig-block right">
+                <span>Tekshiruv Guruhi Rahbari:</span>
+                <b>A. B. Saidov</b>
+                <div class="qr-stamp">QR KOD BILAN TASDIQLANGAN</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <label>Pora/Dalil: <input type="text" id="op-proof" placeholder="3,000 AQSH dollari" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <button onclick="saveNewOperation()" class="btn btn-blue" style="margin-top: 10px;">Tezkor Tadbirni Saqlash</button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeDocModal()">Yopish</button>
+        <button class="btn btn-primary" onclick="alert('Demo PDF hujjati yuklab olindi (Fayl: KompNazorat-E-Eksport.pdf)')">📥 Yuklab olish (PDF)</button>
       </div>
     </div>
   </div>
 
-  <div id="newInvestigationModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 550px;">
-      <div class="modal-header"><h3>Yangi Xizmat Tekshiruvi Ochish</h3><button onclick="closeModal('newInvestigationModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
-        <label>Hudud: 
-          <select id="inv-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Samarqand viloyati</option>
-            <option>Toshkent viloyati</option>
-            <option>Andijon viloyati</option>
-          </select>
-        </label>
-        <label>Filial va Mas'ul Xodim: <input type="text" id="inv-branch" placeholder="Masalan: Koson filiali boshlig'i" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>Tashabbus Turi: 
-          <select id="inv-type" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Ichki Nazorat Tuzilmasi</option>
-            <option>HMMQO Xati (Prokuratura/IIB)</option>
-          </select>
-        </label>
-        <label>Tekshiruv Sababi: <textarea id="inv-reason" rows="2" placeholder="Yer maydonini noqonuniy ro'yxatga olish..." style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></textarea></label>
-        <button onclick="saveNewInvestigation()" class="btn btn-amber" style="margin-top: 10px;">Tekshiruvni Boshlash</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT MODULLARI -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
