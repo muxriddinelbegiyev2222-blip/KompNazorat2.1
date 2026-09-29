@@ -1,6 +1,6 @@
-// GLOBAL SAHIFA ALMASHISH
+// GLOBAL SAHIFA ALMASHISH (TABS)
 window.switchTab = function(tabId) {
-  const tabs = ['dashboard', 'tasks-panel', 'matrix-report', 'risk-groups', 'fired-list', 'operations', 'convicted', 'conflict-business', 'documents'];
+  const tabs = ['dashboard', 'regions-matrix', 'tasks-panel', 'matrix-report', 'risk-groups', 'fired-list', 'operations', 'convicted', 'conflict-business', 'documents'];
   tabs.forEach(id => {
     const el = document.getElementById('tab-' + id);
     const btn = document.getElementById('btn-' + id);
@@ -16,6 +16,7 @@ window.switchTab = function(tabId) {
 
   const titles = {
     'dashboard': 'Boshqaruv va Chuqur Tahlillar',
+    'regions-matrix': '14 ta Hudud Topshiriq Matritsasi (Agentlik va Palata)',
     'tasks-panel': 'Respublika Nazorat Topshiriqlari Ijrosi Paneli',
     'matrix-report': 'Xizmat Tekshiruvlari Hisobot Matritsasi (333 ta)',
     'risk-groups': 'Korrupsion Xavf Guruhlari (A, B, D Toifalar)',
@@ -76,7 +77,7 @@ window.setTimeFilter = function(type) {
   }
 };
 
-// TEZKOR TADBIRLARDA QO'LGA TUSHGAN JINOYATLARNING OYMA-OY O'SISH / PASAYISH GRAFIGI
+// TEZKOR JINOYATLARNING OYMA-OY O'SISH / PASAYISH GRAFIGI
 function renderDynamicChart(mode) {
   const container = document.getElementById('chartBarsContainer');
   if (!container) return;
@@ -139,6 +140,38 @@ function renderDashboardRegions() {
         </p>
       </div>
       <button class="btn btn-slate" style="padding: 4px 10px; font-size: 11px;">Hujjatlar &rarr;</button>
+    </div>
+  `).join('');
+}
+
+// 14 TA HUDUD TOPSHIRIQLAR MATRITSASI (AGENTLIK VA PALATA KARTALARI)
+function renderRegionsMatrixGrid() {
+  const container = document.getElementById('regionsMatrixGridContainer');
+  if (!container || !window.regionsReportData) return;
+  container.innerHTML = window.regionsReportData.map(r => `
+    <div class="card" style="padding: 14px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+        <b style="font-size: 13px; color: #0b132b;">${r.name}</b>
+        <span class="badge badge-blue">Jami: ${r.total} ta ish</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+        <div style="background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+          <b style="color: #1d4ed8; font-size: 11px; display: block; margin-bottom: 4px;">Kadastr Agentligi</b>
+          <div style="font-size: 11px; line-height: 1.6;">
+            <div>Bajarildi: <b style="color: #047857;">${r.agentlik.done} ta</b></div>
+            <div>Tekshiruvda: <b style="color: #d97706;">${r.agentlik.review} ta</b></div>
+            <div>Kechikkan: <b style="color: #be123c;">${r.agentlik.overdue} ta</b></div>
+          </div>
+        </div>
+        <div style="background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+          <b style="color: #4f46e5; font-size: 11px; display: block; margin-bottom: 4px;">Kadastr Palatasi</b>
+          <div style="font-size: 11px; line-height: 1.6;">
+            <div>Bajarildi: <b style="color: #047857;">${r.palata.done} ta</b></div>
+            <div>Tekshiruvda: <b style="color: #d97706;">${r.palata.review} ta</b></div>
+            <div>Kechikkan: <b style="color: #be123c;">${r.palata.overdue} ta</b></div>
+          </div>
+        </div>
+      </div>
     </div>
   `).join('');
 }
@@ -365,6 +398,9 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
       <p style="text-align: center; font-weight: bold; margin-bottom: 15px;">
         "Xodim ${p1} bilan tuzilgan mehnat shartnomasini komplayens tekshiruvi xulosasiga ko'ra bekor qilish to'g'risida"
       </p>
+      <p style="text-indent: 30px; margin-bottom: 15px;">
+        Korrupsiyaga qarshi ichki nazorat tuzilmasi tomonidan o'tkazilgan xizmat tekshiruvi xulosasiga ko'ra, xodim tomonidan sohaviy standartlar va qonunchilik talablari qo'pol ravishda buzilgan.
+      </p>
       <p style="text-indent: 30px; font-weight: bold; margin-bottom: 25px;">
         BUYURAMAN: Xodim ${p1} egallab turgan lavozimidan Mehnat Kodeksining 161-moddasi bilan ozod etilsin va kadastr tizimiga qayta ishga olinishi taqiqlansin.
       </p>
@@ -430,7 +466,70 @@ function renderMatrixTable() {
 }
 
 window.exportMatrixToExcel = function() {
-  alert("Rasmiy hisobot matritsasi (333 ta tekshiruv) Excel formatida eksport qilinmoqda...");
+  alert("Rasmiy hisobot matritsasi (333 ta tekshiruv) Excel formatida shakllantirilmoqda...");
+};
+
+// TEZKOR TADBIRLAR (HUDUDLAR VA ICHIGA KIRISH)
+function renderOperationsRegionsGrid() {
+  const container = document.getElementById('operationsRegionsGrid');
+  if (!container || !window.regionsReportData) return;
+  container.innerHTML = window.regionsReportData.map(r => `
+    <div onclick="drillIntoRegionWorks('operations', '${r.name}')" class="card" style="border-left: 4px solid #1d4ed8;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <b style="font-size: 13px;">${r.name}</b>
+        <span class="badge ${r.opsCount>0?'badge-blue':'badge-slate'}">${r.opsCount} ta tezkor tadbir</span>
+      </div>
+      <p style="font-size: 11px; color: #64748b; margin-top: 6px;">DXX, Prokuratura, IIB va Departament reydlari</p>
+      <div style="text-align: right; margin-top: 8px;">
+        <span style="font-size: 11px; color: #1d4ed8; font-weight: 700;">Tumanlar kesimida ochish &rarr;</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// MANFAATLAR VA TADBIRKORLIK (HUDUDLAR VA ICHIGA KIRISH)
+function renderConflictBusinessRegionsGrid() {
+  const container = document.getElementById('conflictBusinessRegionsGrid');
+  if (!container || !window.regionsReportData) return;
+  container.innerHTML = window.regionsReportData.map(r => `
+    <div onclick="openConflictBusinessDetail('${r.name}')" class="card" style="border-left: 4px solid #047857;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <b style="font-size: 13px;">${r.name}</b>
+        <span class="badge badge-emerald">${r.conflictCount + r.businessCount} ta aniqlangan</span>
+      </div>
+      <p style="font-size: 11px; color: #64748b; margin-top: 6px;">Manfaatlar to'qnashuvi: <b>${r.conflictCount}</b> | STIR ta'sischilik: <b>${r.businessCount}</b></p>
+      <div style="text-align: right; margin-top: 8px;">
+        <span style="font-size: 11px; color: #047857; font-weight: 700;">Xodimlar ro'yxatini ochish &rarr;</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.openConflictBusinessDetail = function(regionName) {
+  document.getElementById('drillModalTitle').innerText = `${regionName} — Manfaatlar To'qnashuvi va Tadbirkorlik (STIR)`;
+  const body = document.getElementById('drillModalBody');
+  const list = window.combinedConflictBusinessData.filter(c => c.region.includes(regionName) || regionName.includes('Andijon') || regionName.includes('Samarqand'));
+  
+  body.innerHTML = `
+    <button onclick="closeModal('drillModal')" class="btn btn-slate" style="margin-bottom: 14px;">&larr; Viloyatlarga qaytish</button>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      ${list.map(c => `
+        <div style="padding: 14px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; border-left: 4px solid ${c.type.includes('STIR')?'#eab308':'#06b6d4'};">
+          <div style="display:flex; justify-content:space-between;">
+            <b>${c.name}</b>
+            <span class="badge ${c.type.includes('STIR')?'badge-amber':'badge-emerald'}">${c.type}</span>
+          </div>
+          <p style="font-size: 11px; margin-top: 4px;">Lavozim: ${c.role} \vert{} JSHSHIR: <b>${c.pinfl}</b></p>
+          <p style="font-size: 11px; color: #be123c; font-weight: 600; margin-top: 4px;">Holat: ${c.detail}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 8px; border-top: 1px solid #e2e8f0; padding-top: 6px;">
+            <span style="font-size: 11px; color: #047857; font-weight: 700;">Chora: ${c.action}</span>
+            <button onclick="openPdfViewer('risk', '${c.name}', '${c.region}', '2026', '${c.detail}')" class="btn btn-slate" style="padding: 4px 8px;">Dalolatnoma PDF</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  openModal('drillModal');
 };
 
 // JADVALLARNI QURISH
@@ -461,28 +560,6 @@ function renderFiredTable() {
       <td>${f.result}</td>
       <td style="text-align: center;"><button onclick="openPdfViewer('fired', '${f.name}', '${f.region}', '${f.orderDate}', '${f.reason}')" class="btn btn-emerald" style="padding: 4px 8px;">Buyruq PDF</button></td>
     </tr>
-  `).join('');
-}
-
-function renderOperationsGrid() {
-  const container = document.getElementById('operationsGrid');
-  if (!container || !window.operationsData) return;
-  container.innerHTML = window.operationsData.map(op => `
-    <div class="card" style="border-left: 4px solid #1d4ed8;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <b style="font-size: 13px;">${op.code} — ${op.region}</b>
-        <span class="badge badge-blue">${op.date}</span>
-      </div>
-      <div style="margin-top: 6px; display: flex; gap: 8px; align-items: center;">
-        <span style="font-size: 11px; color: #475569;">Organ: <b>${op.partner}</b></span>
-        ${op.isCollab ? '<span class="badge badge-emerald">Komplayens Hamkorligida</span>' : '<span class="badge badge-slate">Organ Tashabbusi</span>'}
-      </div>
-      <p style="margin-top: 6px; color: #000; font-weight: 600;">${op.desc}</p>
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #f1f5f9; padding-top: 8px;">
-        <span style="color: #be123c; font-weight: 700;">Dalil: ${op.proof}</span>
-        <button onclick="openPdfViewer('operation', '${op.code}', '${op.district}', '${op.date}', '${op.desc}')" class="btn btn-blue" style="padding: 4px 8px;">Bayonnoma PDF</button>
-      </div>
-    </div>
   `).join('');
 }
 
@@ -518,25 +595,6 @@ window.filterConvicted = function() {
     </tr>
   `).join('');
 };
-
-function renderCombinedConflictBusiness() {
-  const container = document.getElementById('combinedConflictBusinessGrid');
-  if (!container || !window.combinedConflictBusinessData) return;
-  container.innerHTML = window.combinedConflictBusinessData.map(c => `
-    <div class="card" style="border-left: 4px solid ${c.type.includes('STIR')?'#eab308':'#06b6d4'};">
-      <div style="display:flex; justify-content:space-between;">
-        <b>${c.name}</b>
-        <span class="badge ${c.type.includes('STIR')?'badge-amber':'badge-emerald'}">${c.type}</span>
-      </div>
-      <p style="font-size:11px; margin-top:4px;">Hudud: <b>${c.region}</b> | Lavozim: ${c.role} | JSHSHIR: <b>${c.pinfl}</b></p>
-      <p style="font-size:11px; color:#be123c; font-weight:600; margin-top:4px;">Holat: ${c.detail}</p>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; border-top:1px solid #f1f5f9; padding-top:6px;">
-        <span style="font-size:10px; color:#047857; font-weight:700;">Chora: ${c.action}</span>
-        <button onclick="openPdfViewer('risk', '${c.name}', '${c.region}', '2026', '${c.detail}')" class="btn btn-slate" style="padding:4px 8px;">Dalolatnoma PDF</button>
-      </div>
-    </div>
-  `).join('');
-}
 
 // 5 BOSQICHLI ARXIV TIZIMI
 window.initArchive = function() {
@@ -620,12 +678,17 @@ window.openArchiveFiles = function(catName, regName, year, month) {
     <button onclick="openArchiveMonths('${catName}', '${regName}', '${year}')" class="btn btn-slate" style="margin-bottom: 12px;">&larr; Oylarga qaytish</button>
     <div class="box" style="padding: 0; overflow: hidden;">
       <table>
-        <thead><tr><th>Hujjat Kodi va Nomi</th><th>Yuklangan Sana</th><th style="text-align: center;">Demo PDF Ko'rish</th></tr></thead>
+        <thead><tr><th>Hujjat Kodi va Nomi</th><th>Yuklangan Sana va Vaqt</th><th style="text-align: center;">Demo PDF Ko'rish</th></tr></thead>
         <tbody>
           <tr>
             <td><b>${regName}_${catName}_№041.pdf</b> (2.8 MB)</td>
             <td>24.09.2026, 14:30</td>
             <td style="text-align: center;"><button onclick="openPdfViewer('court', 'Aliyev Vali', '${regName} sudi', '24.09.2026', 'JK 210-m')" class="btn btn-rose" style="padding: 4px 10px;">Ochish PDF</button></td>
+          </tr>
+          <tr>
+            <td><b>${regName}_${catName}_№052.pdf</b> (1.4 MB)</td>
+            <td>18.09.2026, 11:15</td>
+            <td style="text-align: center;"><button onclick="openPdfViewer('operation', '#TT-08', '${regName}', '18.09.2026', 'Ashyoviy dalil')" class="btn btn-blue" style="padding: 4px 10px;">Ochish PDF</button></td>
           </tr>
         </tbody>
       </table>
@@ -645,13 +708,12 @@ window.saveNewConvicted = function() {
   const name = document.getElementById('conv-name').value;
   const pinfl = document.getElementById('conv-pinfl').value;
   const region = document.getElementById('conv-region').value;
-  const role = document.getElementById('conv-role').value;
   const articles = document.getElementById('conv-articles').value;
 
   if (!name || !pinfl) { alert("F.I.SH va JSHSHIR kiritilishi shart!"); return; }
 
   window.convictedData.unshift({
-    pinfl: pinfl, name: name, region: region, role: role || 'Mutaxassis', court: 'Shahar sudi', date: '29.09.2026', articles: articles || '205-m', punishment: '2 yil mansab taqiqi', status: 'chetlatilgan'
+    pinfl: pinfl, name: name, region: region, role: 'Kiritilgan mutaxassis', court: 'Shahar sudi', date: '29.09.2026', articles: articles || '205-m', punishment: '2 yil mansab taqiqi', status: 'chetlatilgan'
   });
 
   renderConvictedTable();
@@ -695,20 +757,42 @@ window.saveNewOperation = function() {
     result: 'Jinoyat ishi ochildi'
   });
 
-  renderOperationsGrid();
+  renderOperationsRegionsGrid();
   closeModal('newOperationModal');
   alert("Tezkor tadbir saqlandi!");
 };
 
-// DASTUR YUKLANGANDA BARCHASINI ISHGA TUSHIRISH
+window.saveNewInvestigation = function() {
+  const region = document.getElementById('inv-region').value;
+  const branch = document.getElementById('inv-branch').value;
+  const type = document.getElementById('inv-type').value;
+  const reason = document.getElementById('inv-reason').value;
+
+  window.investigationsData.unshift({
+    code: '#XT-2026-YANGI',
+    date: '29.09.2026',
+    region: region,
+    branch: branch || 'Tuman filiali',
+    officer: 'Mas\'ul mutaxassis',
+    type: type,
+    reason: reason || 'Yer maydonini noqonuniy ro\'yxatga olish',
+    result: 'Xizmat tekshiruvi jarayonda'
+  });
+
+  closeModal('newInvestigationModal');
+  alert("Xizmat tekshiruvi ochildi va nazoratga olindi!");
+};
+
+// DASTUR DASTLABKI YUKLANGANDA BARCHASINI ISHGA TUSHIRISH
 window.addEventListener('DOMContentLoaded', () => {
   renderDynamicChart('month');
   renderDashboardRegions();
+  renderRegionsMatrixGrid();
   renderMatrixTable();
   renderRiskTable();
   renderFiredTable();
-  renderOperationsGrid();
+  renderOperationsRegionsGrid();
   renderConvictedTable();
-  renderCombinedConflictBusiness();
+  renderConflictBusinessRegionsGrid();
   initArchive();
 });
