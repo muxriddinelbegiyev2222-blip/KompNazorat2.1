@@ -3,19 +3,19 @@ const path = require('path');
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1366,
-    height: 768,
-    minWidth: 1024,
-    minHeight: 600,
-    title: "KompNazorat 2.1 — Davlat Kadastrlari Tizimi Komplayens Portali",
-    autoHideMenuBar: true,
+    width: 1440,
+    height: 900,
+    minWidth: 1200,
+    minHeight: 750,
+    title: "KompNazorat 2.1 - Komplayens Nazorati Yagona Tizimi",
     webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true
+      nodeIntegration: true,
+      contextIsolation: false
     }
   });
 
   win.loadFile('index.html');
+  win.setMenuBarVisibility(false);
 }
 
 app.whenReady().then(() => {
