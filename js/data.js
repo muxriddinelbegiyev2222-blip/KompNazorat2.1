@@ -1,79 +1,131 @@
-// 14 TA HUDUDIY BOSHQARMA BO'YICHA TO'LIQ STATISTIKA VA MATRITSA MA'LUMOTLARI
-window.regionsReportData = [
-  { id: 'samarqand', name: 'Samarqand viloyati', total: 38, hmmqo: 25, ichki: 13, hmmqo_prok: 2, hmmqo_iib: 1, hmmqo_dxx: 1, hmmqo_other: 0, ichki_prok: 2, ichki_iib: 1, ichki_dxx: 1, ichki_other: 0, hmmqo_crim: 1, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 2, hmmqo_fire: 3, hmmqo_disc: 8, ichki_crim: 1, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 1, ichki_fire: 3, ichki_disc: 7, convictedCount: 3, opsCount: 2, riskCount: 4, firedCount: 3, invCount: 38, conflictCount: 2, businessCount: 2, agentlik: {done: 8, review: 1, overdue: 0}, palata: {done: 6, review: 0, overdue: 1} },
-  { id: 'toshkent_vil', name: 'Toshkent viloyati', total: 32, hmmqo: 20, ichki: 12, hmmqo_prok: 1, hmmqo_iib: 0, hmmqo_dxx: 0, hmmqo_other: 1, ichki_prok: 1, ichki_iib: 1, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 1, hmmqo_fire: 2, hmmqo_disc: 7, ichki_crim: 1, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 1, ichki_fire: 2, ichki_disc: 6, convictedCount: 4, opsCount: 2, riskCount: 5, firedCount: 2, invCount: 32, conflictCount: 2, businessCount: 1, agentlik: {done: 5, review: 1, overdue: 2}, palata: {done: 4, review: 0, overdue: 2} },
-  { id: 'andijon', name: 'Andijon viloyati', total: 13, hmmqo: 6, ichki: 7, hmmqo_prok: 3, hmmqo_iib: 3, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 1, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 6, hmmqo_fire: 2, hmmqo_disc: 2, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 4, ichki_fire: 4, ichki_disc: 2, convictedCount: 2, opsCount: 1, riskCount: 3, firedCount: 4, invCount: 13, conflictCount: 1, businessCount: 2, agentlik: {done: 7, review: 1, overdue: 0}, palata: {done: 5, review: 1, overdue: 2} },
-  { id: 'buxoro', name: 'Buxoro viloyati', total: 16, hmmqo: 3, ichki: 13, hmmqo_prok: 0, hmmqo_iib: 0, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 0, hmmqo_fire: 0, hmmqo_disc: 0, ichki_crim: 2, ichki_adm: 1, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 0, ichki_fire: 4, ichki_disc: 3, convictedCount: 1, opsCount: 1, riskCount: 3, firedCount: 2, invCount: 16, conflictCount: 1, businessCount: 1, agentlik: {done: 4, review: 0, overdue: 2}, palata: {done: 2, review: 1, overdue: 2} },
-  { id: 'xorazm', name: 'Xorazm viloyati', total: 17, hmmqo: 10, ichki: 7, hmmqo_prok: 0, hmmqo_iib: 0, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 0, hmmqo_fire: 0, hmmqo_disc: 3, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 0, ichki_fire: 1, ichki_disc: 2, convictedCount: 2, opsCount: 1, riskCount: 6, firedCount: 3, invCount: 17, conflictCount: 1, businessCount: 2, agentlik: {done: 1, review: 0, overdue: 3}, palata: {done: 1, review: 0, overdue: 3} },
-  { id: 'toshkent_sh', name: 'Toshkent shahri', total: 32, hmmqo: 21, ichki: 11, hmmqo_prok: 1, hmmqo_iib: 0, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 0, hmmqo_fire: 0, hmmqo_disc: 3, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 0, ichki_fire: 1, ichki_disc: 3, convictedCount: 2, opsCount: 2, riskCount: 4, firedCount: 2, invCount: 32, conflictCount: 2, businessCount: 1, agentlik: {done: 9, review: 0, overdue: 1}, palata: {done: 8, review: 1, overdue: 0} },
-  { id: 'namangan', name: 'Namangan viloyati', total: 24, hmmqo: 15, ichki: 9, hmmqo_prok: 1, hmmqo_iib: 1, hmmqo_dxx: 0, hmmqo_other: 1, ichki_prok: 1, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 2, hmmqo_fire: 1, hmmqo_disc: 6, ichki_crim: 1, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 1, ichki_fire: 2, ichki_disc: 5, convictedCount: 1, opsCount: 1, riskCount: 3, firedCount: 2, invCount: 24, conflictCount: 1, businessCount: 1, agentlik: {done: 7, review: 0, overdue: 1}, palata: {done: 6, review: 1, overdue: 1} },
-  { id: 'fargona', name: 'Farg\'ona viloyati', total: 29, hmmqo: 19, ichki: 10, hmmqo_prok: 1, hmmqo_iib: 1, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 1, ichki_iib: 0, ichki_dxx: 0, ichki_other: 1, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 1, hmmqo_fire: 1, hmmqo_disc: 6, ichki_crim: 1, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 0, ichki_fire: 2, ichki_disc: 5, convictedCount: 1, opsCount: 1, riskCount: 4, firedCount: 2, invCount: 29, conflictCount: 1, businessCount: 1, agentlik: {done: 6, review: 1, overdue: 1}, palata: {done: 5, review: 0, overdue: 2} },
-  { id: 'qashqadaryo', name: 'Qashqadaryo viloyati', total: 28, hmmqo: 18, ichki: 10, hmmqo_prok: 2, hmmqo_iib: 1, hmmqo_dxx: 0, hmmqo_other: 1, ichki_prok: 2, ichki_iib: 1, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 1, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 3, hmmqo_fire: 2, hmmqo_disc: 5, ichki_crim: 1, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 2, ichki_fire: 3, ichki_disc: 4, convictedCount: 1, opsCount: 1, riskCount: 4, firedCount: 2, invCount: 28, conflictCount: 1, businessCount: 1, agentlik: {done: 4, review: 1, overdue: 2}, palata: {done: 3, review: 1, overdue: 2} },
-  { id: 'surxondaryo', name: 'Surxondaryo viloyati', total: 22, hmmqo: 14, ichki: 8, hmmqo_prok: 1, hmmqo_iib: 1, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 1, hmmqo_fire: 1, hmmqo_disc: 5, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 1, ichki_fire: 1, ichki_disc: 4, convictedCount: 1, opsCount: 1, riskCount: 3, firedCount: 1, invCount: 22, conflictCount: 1, businessCount: 1, agentlik: {done: 5, review: 0, overdue: 2}, palata: {done: 4, review: 1, overdue: 2} },
-  { id: 'jizzax', name: 'Jizzax viloyati', total: 36, hmmqo: 21, ichki: 15, hmmqo_prok: 1, hmmqo_iib: 1, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 0, hmmqo_fire: 0, hmmqo_disc: 2, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 0, ichki_fire: 0, ichki_disc: 8, convictedCount: 0, opsCount: 0, riskCount: 3, firedCount: 1, invCount: 36, conflictCount: 1, businessCount: 0, agentlik: {done: 3, review: 1, overdue: 2}, palata: {done: 2, review: 0, overdue: 3} },
-  { id: 'sirdaryo', name: 'Sirdaryo viloyati', total: 15, hmmqo: 10, ichki: 5, hmmqo_prok: 0, hmmqo_iib: 0, hmmqo_dxx: 0, hmmqo_other: 1, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 1, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 1, hmmqo_fire: 1, hmmqo_disc: 3, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 1, ichki_fire: 1, ichki_disc: 3, convictedCount: 0, opsCount: 0, riskCount: 2, firedCount: 1, invCount: 15, conflictCount: 0, businessCount: 1, agentlik: {done: 3, review: 0, overdue: 2}, palata: {done: 3, review: 1, overdue: 2} },
-  { id: 'navoiy', name: 'Navoiy viloyati', total: 18, hmmqo: 11, ichki: 7, hmmqo_prok: 1, hmmqo_iib: 0, hmmqo_dxx: 1, hmmqo_other: 0, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 1, hmmqo_fire: 1, hmmqo_disc: 4, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 1, ichki_fire: 2, ichki_disc: 3, convictedCount: 0, opsCount: 1, riskCount: 2, firedCount: 1, invCount: 18, conflictCount: 0, businessCount: 1, agentlik: {done: 6, review: 1, overdue: 1}, palata: {done: 5, review: 0, overdue: 1} },
-  { id: 'qr', name: 'Qoraqalpog\'iston Resp.', total: 12, hmmqo: 7, ichki: 5, hmmqo_prok: 0, hmmqo_iib: 0, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 0, hmmqo_fire: 0, hmmqo_disc: 1, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 0, ichki_fire: 3, ichki_disc: 0, convictedCount: 0, opsCount: 0, riskCount: 2, firedCount: 0, invCount: 12, conflictCount: 1, businessCount: 0, agentlik: {done: 4, review: 1, overdue: 2}, palata: {done: 4, review: 0, overdue: 2} }
+// KompNazorat 2.1 Ma'lumotlar Bazasi va 14 ta hudud matritsasi
+const REGIONS = [
+  "Toshkent shahri", "Toshkent viloyati", "Andijon viloyati", "Buxoro viloyati",
+  "Farg‘ona viloyati", "Jizzax viloyati", "Xorazm viloyati", "Namangan viloyati",
+  "Navoiy viloyati", "Qashqadaryo viloyati", "Qoraqalpog‘iston Resp.", 
+  "Samarqand viloyati", "Sirdaryo viloyati", "Surxondaryo viloyati"
 ];
 
-// XIZMAT TEKSHIRUVLARI REYESTRI (333 TA ISHDAN NAMUNALAR)
-window.investigationsData = [
-  { code: '#XT-2026-019', date: '12.08.2026', region: 'Qashqadaryo viloyati', branch: 'Koson filiali', officer: 'Filial boshlig\'i', type: 'Ichki Nazorat', reason: 'Yer maydonini soxta hujjatlar bilan noqonuniy ro\'yxatga olish', result: 'Prokuraturaga yuborilgan (Jinoyat ishi)' },
-  { code: '#XT-2026-022', date: '03.09.2026', region: 'Farg\'ona viloyati', branch: 'Quva filiali', officer: 'Muhandis-yer tuzuvchi', type: 'HMMQO Xati (IIB)', reason: 'Yaqin qarindoshiga tegishli MCHJga kadastr pasportini navbatsiz tayyorlash', result: 'Mehnat shartnomasi bekor qilingan' },
-  { code: '#XT-2026-031', date: '15.09.2026', region: 'Samarqand viloyati', branch: 'Urgut filiali', officer: 'Yetakchi mutaxassis', type: 'Ichki Nazorat', reason: 'Yer chegaralarini o\'zboshimchalik bilan o\'zgartirib dalolatnoma tuzish', result: 'Intizomiy jazo (Hayfsan)' },
-  { code: '#XT-2026-038', date: '21.09.2026', region: 'Samarqand viloyati', branch: 'Pastdarg\'om filiali', officer: 'Bo\'lim boshlig\'i', type: 'HMMQO Xati (DXX)', reason: '1.5 gektar ekin yerini noqonuniy noturar toifaga o\'tkazish', result: 'Lavozimidan ozod etilgan, tergovda' },
-  { code: '#XT-2026-042', date: '08.08.2026', region: 'Toshkent viloyati', branch: 'Qibray tumani filiali', officer: 'Bosh muhandis', type: 'HMMQO Xati (Departament)', reason: 'Auksionsiz berilgan bino-inshootga sun\'iy kadastr raqami shakllantirish', result: 'Mehnat shartnomasi bekor qilingan' },
-  { code: '#XT-2026-049', date: '19.09.2026', region: 'Toshkent viloyati', branch: 'Zangiota filiali', officer: 'Davlat ro\'yxatidan o\'tkazuvchi', type: 'Ichki Nazorat', reason: 'Ko\'chmas mulk bazasiga asossiz o\'zgartirish kiritish', result: 'Intizomiy jazo (Jarima)' },
-  { code: '#XT-2026-055', date: '11.07.2026', region: 'Andijon viloyati', branch: 'Asaka filiali', officer: 'Arxiv mudiri', type: 'HMMQO Xati (IIB)', reason: 'Yer kadastri arxiv hujjatlarini yo\'qotish va soxtalashtirish', result: 'Mehnat shartnomasi bekor qilingan' },
-  { code: '#XT-2026-061', date: '28.08.2026', region: 'Buxoro viloyati', branch: 'G\'ijduvon filiali', officer: 'Katta inspektor', type: 'Ichki Nazorat', reason: 'Tadbirkordan hujjat tasdiqlash uchun noqonuniy mablag\' talab qilish', result: 'Prokuraturaga yuborilgan' },
-  { code: '#XT-2026-068', date: '14.06.2026', region: 'Xorazm viloyati', branch: 'Urganch shahar filiali', officer: 'Yetakchi mutaxassis', type: 'HMMQO Xati (Departament)', reason: 'Yerto\'la maydonini noqonuniy xususiylashtirishga ko\'maklashish', result: 'Mehnat shartnomasi bekor qilingan' }
+// 1. Hisobot matritsasi (333 ta tekshiruvning 14 hudud bo‘yicha to‘liq balansi)
+const MATRIX_DATA = [
+  { region: "Toshkent shahri", planned: 42, done: 39, inProgress: 3, violations: 18, rate: "93%" },
+  { region: "Toshkent viloyati", planned: 30, done: 27, inProgress: 3, violations: 12, rate: "90%" },
+  { region: "Samarqand viloyati", planned: 32, done: 28, inProgress: 4, violations: 14, rate: "88%" },
+  { region: "Farg‘ona viloyati", planned: 28, done: 25, inProgress: 3, violations: 11, rate: "89%" },
+  { region: "Andijon viloyati", planned: 26, done: 24, inProgress: 2, violations: 9, rate: "92%" },
+  { region: "Namangan viloyati", planned: 25, done: 22, inProgress: 3, violations: 8, rate: "88%" },
+  { region: "Qashqadaryo viloyati", planned: 24, done: 20, inProgress: 4, violations: 10, rate: "83%" },
+  { region: "Buxoro viloyati", planned: 22, done: 20, inProgress: 2, violations: 7, rate: "91%" },
+  { region: "Surxondaryo viloyati", planned: 21, done: 18, inProgress: 3, violations: 9, rate: "86%" },
+  { region: "Xorazm viloyati", planned: 20, done: 18, inProgress: 2, violations: 6, rate: "90%" },
+  { region: "Qoraqalpog‘iston Resp.", planned: 20, done: 17, inProgress: 3, violations: 8, rate: "85%" },
+  { region: "Jizzax viloyati", planned: 16, done: 14, inProgress: 2, violations: 5, rate: "88%" },
+  { region: "Navoiy viloyati", planned: 15, done: 14, inProgress: 1, violations: 4, rate: "93%" },
+  { region: "Sirdaryo viloyati", planned: 12, done: 11, inProgress: 1, violations: 4, rate: "92%" }
+]; // Jami 333 ta reja to'liq qamralgan
+
+// 2. Korrupsion xavf toifalari (A, B, C) va har birida hududlar bo'yicha xodimlar
+const RISK_CATEGORIES_DATA = {
+  A: {
+    title: "A - Toifa (Yuqori xavfli - Qizil)",
+    total: 48,
+    items: [
+      { id: "R-101", name: "Ibrohimov Shuhrat", region: "Toshkent shahri", position: "Bosh hisobchi", riskDesc: "Davlat xaridlari shartnomalarini asossiz imzolash", date: "2026-03-05" },
+      { id: "R-102", name: "Alimov Rustam", region: "Samarqand viloyati", position: "Moliya bo‘limi boshlig‘i", riskDesc: "Mablag‘larni maqsadsiz sarflash ehtimoli", date: "2026-02-18" },
+      { id: "R-103", name: "Xalilov Bobur", region: "Andijon viloyati", position: "Ta'minot bosh mutaxassisi", riskDesc: "Affillangan shaxslarga tender yutishda ko‘maklashish", date: "2026-03-12" },
+      { id: "R-104", name: "Sultonov Jasur", region: "Farg‘ona viloyati", position: "Nazorat inspektori", riskDesc: "Qoidabuzarliklarni yashirish holati", date: "2026-01-29" },
+      { id: "R-105", name: "Nazarov Elyor", region: "Qashqadaryo viloyati", position: "Yetakchi muhandis", riskDesc: "Qurilish obyektlarida hajmlarni oshirib ko‘rsatish", date: "2026-03-01" }
+    ]
+  },
+  B: {
+    title: "B - Toifa (O‘rta xavfli - Sariq)",
+    total: 94,
+    items: [
+      { id: "R-201", name: "Qodirov Dilshod", region: "Buxoro viloyati", position: "Kadrlar bo‘limi inspektori", riskDesc: "Qarindoshlik aloqalarini o‘z vaqtida deklaratsiya qilmaslik", date: "2026-02-14" },
+      { id: "R-202", name: "Ergashev Jamshid", region: "Xorazm viloyati", position: "Omborxona mudiri", riskDesc: "Moddiy boyliklar hisobidagi noaniqliklar", date: "2026-02-22" },
+      { id: "R-203", name: "Mirzayev Farrux", region: "Namangan viloyati", position: "Hisobchi-nazoratchi", riskDesc: "Birlamchi hujjatlarni kechiktirib topshirish", date: "2026-03-08" }
+    ]
+  },
+  C: {
+    title: "C - Toifa (Past xavfli - Yashil)",
+    total: 191,
+    items: [
+      { id: "R-301", name: "Yoqubov Akrom", region: "Navoiy viloyati", position: "Ish yurituvchi", riskDesc: "Hujjatlar aylanmasidagi texnik xatoliklar", date: "2026-01-10" },
+      { id: "R-302", name: "Valiyev Sherzod", region: "Sirdaryo viloyati", position: "Axborot xizmati xodimi", riskDesc: "Portalga ma'lumotlarni kech joylashtirish", date: "2026-02-01" }
+    ]
+  }
+};
+
+// 3. Bo'shatilgan xodimlar (Komplayens tashabbusi bilan)
+const DISMISSED_DATA = [
+  { id: "D-01", name: "Karimov Sherali Vohidovich", region: "Toshkent shahri", position: "Xaridlar bo‘lim boshlig‘i", reason: "O‘zR MK 161-moddasi (Xizmat vakolatini suiiste'mol qilish)", date: "2026-02-10", orderNum: "14-K/2026" },
+  { id: "D-02", name: "Toshmatov Botir Aliyevich", region: "Samarqand viloyati", position: "Bosh mutaxassis", reason: "O‘zR MK 161-moddasi (Manfaatlar to‘qnashuvini yashirish)", date: "2026-02-15", orderNum: "19-K/2026" },
+  { id: "D-03", name: "Rasulov Otabek Rustamovich", region: "Andijon viloyati", position: "Tuman filiali rahbari", reason: "Korrupsiyaga qarshi kurashish talablarini buzish", date: "2026-02-28", orderNum: "23-K/2026" },
+  { id: "D-04", name: "Mansurov Zokir Akromovich", region: "Farg‘ona viloyati", position: "Hisobchi", reason: "O‘zR MK 161-moddasi (Soxta hisobot tuzish)", date: "2026-03-04", orderNum: "29-K/2026" },
+  { id: "D-05", name: "Normatov Ulug‘bek Shokirovich", region: "Qashqadaryo viloyati", position: "Ombor mudiri", reason: "Talon-torojlik va ortiqcha kamomad", date: "2026-03-11", orderNum: "34-K/2026" }
 ];
 
-// TEZKOR TADBIRLAR (ORGANLAR VA HAMKORLIK PARAMETRLARI BILAN)
-window.operationsData = [
-  { code: '#TT-2026-08', date: '18.09.2026', region: 'Samarqand viloyati', district: 'Pastdarg\'om filiali', partner: 'Davlat Xavfsizlik Xizmati (DXX)', isCollab: true, proof: '3,000 AQSH dollari', desc: '1.5 gektar ekin yerini noturar joy toifasiga soxtalashtirish evaziga pora olayotganda ushlangan', result: 'JK 210-m bilan jinoyat ishi ochilgan' },
-  { code: '#TT-2026-11', date: '04.09.2026', region: 'Samarqand viloyati', district: 'Samarqand shahar filiali', partner: 'Bosh prokuratura huzuridagi Departament', isCollab: true, proof: '15,000,000 so\'m', desc: 'Davlat reyestri elektron bazasiga ruxsatsiz noqonuniy o\'zgartirish kiritish fakti', result: 'JK 209-m (Xizmat soxtakorligi)' },
-  { code: '#TT-2026-05', date: '22.08.2026', region: 'Toshkent viloyati', district: 'Qibray tumani filiali', partner: 'Bosh prokuratura huzuridagi Departament', isCollab: false, proof: '5,000 AQSH dollari', desc: 'Auksionsiz berilgan bino kadastr pasportini tayyorlab berish evaziga ushlangan', result: 'JK 168 va 211-m (Qamoq ehtiyot chorasi)' },
-  { code: '#TT-2026-09', date: '12.09.2026', region: 'Toshkent viloyati', district: 'Zangiota filiali', partner: 'Davlat Xavfsizlik Xizmati (DXX)', isCollab: true, proof: '2,500 AQSH dollari', desc: 'Qishloq xo\'jaligi yerini yakka tartibda uy-joy qurish uchun noqonuniy rasmiylashtirish', result: 'JK 210-m (Tergovda)' },
-  { code: '#TT-2026-02', date: '14.07.2026', region: 'Andijon viloyati', district: 'Asaka tumani filiali', partner: 'Ichki Ishlar Vazirligi (IIB)', isCollab: true, proof: '1,200 AQSH dollari', desc: 'Uy-joy chegaralarini noqonuniy kengaytirib rasmiylashtirish vaqtida ushlangan', result: 'JK 210-m (Sudga yuborilgan)' },
-  { code: '#TT-2026-12', date: '25.09.2026', region: 'Buxoro viloyati', district: 'G\'ijduvon filiali', partner: 'Prokuratura organlari', isCollab: false, proof: '3,500 AQSH dollari', desc: 'Tadbirkorga yer ajratish bo\'yicha ijobiy xulosa tayyorlab berish evaziga olingan', result: 'JK 210-m bilan qamoqqa olingan' },
-  { code: '#TT-2026-03', date: '19.06.2026', region: 'Xorazm viloyati', district: 'Urganch shahar filiali', partner: 'Bosh prokuratura huzuridagi Departament', isCollab: true, proof: '18,000,000 so\'m', desc: 'Ko\'p qavatli bino ostidagi yerto\'lani xususiylashtirib berish vaqtida ushlangan', result: 'JK 168-m (Firibgarlik)' }
+// 4. Tezkor tadbirlar (Agentlik va Palata kesimida)
+const OPERATIONAL_DATA = [
+  { id: "OP-01", agency: "Agentlik", region: "Toshkent shahri", topic: "Noxolis tender savdolarini to‘xtatish bo‘yicha tezkor reyd", date: "2026-03-02", result: "2 ta noqonuniy lot bekor qilindi, hujjatlar prokuraturaga yuborildi" },
+  { id: "OP-02", agency: "Palata", region: "Toshkent viloyati", topic: "Litsenziyasiz faoliyat yuritish va korrupsion zanjirlarni aniqlash", date: "2026-03-06", result: "3 nafar mas'ul shaxsga nisbatan ma'muriy bayonnoma tuzildi" },
+  { id: "OP-03", agency: "Agentlik", region: "Samarqand viloyati", topic: "Budjet mablag‘larini maqsadsiz ishlatish bo‘yicha tezkor monitoring", date: "2026-03-10", result: "140 mln so‘m asossiz to‘lovlar davlat foydasiga qaytarildi" },
+  { id: "OP-04", agency: "Palata", region: "Farg‘ona viloyati", topic: "Bojxona va omborxona nazoratidagi tezkor amaliyot", date: "2026-03-14", result: "Barcha tovarlar xatlandi, jinoiy ish qo‘zg‘atildi" },
+  { id: "OP-05", agency: "Agentlik", region: "Buxoro viloyati", topic: "Qurilish-ta'mirlash ishlarida sun'iy narx oshirish holatlari", date: "2026-03-18", result: "Tekshiruv dalolatnomasi rasmiylashtirildi" }
 ];
 
-// SUDLANGAN XODIMLAR REYESTRI
-window.convictedData = [
-  { pinfl: '31405901230018', name: 'Karimov Bahodir Shokirovich', region: 'Toshkent viloyati', role: 'Bo\'lim boshlig\'i o\'rinbosari', court: 'Toshkent viloyat JIB sudi', date: '14.01.2025', articles: '205-m, 210-m', punishment: '3 yil axloq tuzatish, 2 yil mansab taqiqi', status: 'chetlatilgan' },
-  { pinfl: '31904881120021', name: 'Ergashev Tohir Mansurovich', region: 'Toshkent viloyati', role: 'Yetakchi muhandis', court: 'Qibray tuman sudi', date: '18.04.2025', articles: '168-modda 3-qism', punishment: 'Ozodlikni cheklash, mansab taqiqi', status: 'chetlatilgan' },
-  { pinfl: '32004881120034', name: 'Aliyev Vali G\'aniyevich', region: 'Samarqand viloyati', role: 'Yetakchi mutaxassis', court: 'Samarqand shahar sudi', date: '12.03.2024', articles: '167-m 2-qism', punishment: 'Jarima va moddiy zarar', status: 'chetlatilgan' },
-  { pinfl: '31802956730055', name: 'Nazarov Ilhom Bobirovich', region: 'Buxoro viloyati', role: 'Katta inspektor', court: 'Buxoro shahar sudi', date: '20.06.2025', articles: '214-modda', punishment: '1 yil mansab taqiqi', status: 'chetlatilgan' },
-  { pinfl: '32501913340078', name: 'Qodirov Farrux Rustamovich', region: 'Andijon viloyati', role: 'Arxiv mudiri', court: 'Andijon shahar sudi', date: '15.02.2026', articles: '167-m, 205-m', punishment: 'Ozodlikni cheklash', status: 'chetlatilgan' },
-  { pinfl: '30509924510091', name: 'Oripov Jamshid Tohirovich', region: 'Xorazm viloyati', role: 'Muhandis-yer tuzuvchi', court: 'Urganch tuman sudi', date: '04.11.2025', articles: '209-modda (Xizmat soxtakorligi)', punishment: '2 yil axloq tuzatish', status: 'ishlamoqda' }
+// 5. Sudlanganlar reyestri (Kamida 40 ta namunaviy ro'yxat)
+const CONVICTED_DATA = [];
+const SAMPLE_SURNAMES = ["Abdullayev", "Rahimov", "Qodirov", "Sodiqov", "Karimov", "Yo‘ldoshev", "Mirzayev", "Nazarov", "Hasanov", "Olimov"];
+const SAMPLE_NAMES = ["Anvar", "Sardor", "Davron", "Bekzod", "Jasur", "Farhod", "Ulug‘bek", "Sherzod", "Aziz", "Temur"];
+const SAMPLE_CRIMES = [
+  "167-modda 3-qismi (O‘zlashtirish yoki rastrata qilish)",
+  "205-modda (Hokimiyat yoki mansab vakolatini suiiste'mol qilish)",
+  "209-modda (Mansab soxtakorligi)",
+  "210-modda (Pora olish)",
+  "211-modda (Pora berishda vositachilik)"
 ];
 
-// KORRUPSION XAVF GURUHLARI (A, B, D)
-window.riskGroupsData = [
-  { pinfl: '32104921230055', name: 'Rahmonov Dilshod Anvarovich', region: 'Samarqand viloyati', role: 'Mulkni ro\'yxatga olish bo\'limi boshlig\'i', type: 'A', desc: 'Yer maydonlarini noqonuniy ro\'yxatga olish va auksionsiz o\'tkazish xavfi', action: 'Doimiy audio/video nazorat ostida', docNum: 'XAVF-SAM-01', docDate: '12.09.2026' },
-  { pinfl: '31804901230077', name: 'Valiyev Sardor Olimovich', region: 'Samarqand viloyati', role: 'Katta muhandis', type: 'B', desc: 'Qarindoshlik va tijorat subyektlari bilan yashirin aloqalar', action: 'Boshqa tuman filialiga rotatsiya qilinmoqda', docNum: 'XAVF-SAM-04', docDate: '19.08.2026' },
-  { pinfl: '31908851440019', name: 'Ergashev Bobur Tohirovich', region: 'Toshkent viloyati', role: 'Qibray tumani bosh muhandisi', type: 'A', desc: 'Auksionsiz yer maydoniga xulosa tayyorlash xavfi yuqori', action: 'Imzo vakolati cheklangan', docNum: 'XAVF-TOS-04', docDate: '18.09.2026' },
-  { pinfl: '32401912230011', name: 'Karimov Jasur Shukurovich', region: 'Andijon viloyati', role: 'Yetakchi mutaxassis', type: 'B', desc: 'Yaqin qarindoshi qurilish firmasida muhandis (Manfaatlar to\'qnashuvi)', action: 'Tasdiqlash komissiyasidan chiqarilgan', docNum: 'XAVF-AND-02', docDate: '05.08.2026' },
-  { pinfl: '31502881230099', name: 'Normurodov Ilhom Bobirovich', region: 'Buxoro viloyati', role: 'Katta inspektor', type: 'B', desc: 'Rieltorlik agentligi bilan muntazam yashirin aloqa signali kelgan', action: 'Ichki tekshiruv tayinlangan', docNum: 'XAVF-BUX-09', docDate: '22.09.2026' },
-  { pinfl: '32201941230088', name: 'Qosimov Rustam Alisherovich', region: 'Xorazm viloyati', role: 'Arxiv xodimi', type: 'D', desc: 'Hujjatlarni saqlash va nusxalash intizomi sust', action: 'Profilaktik ogohlantirish berilgan', docNum: 'XAVF-XOR-11', docDate: '14.07.2026' }
+for (let i = 1; i <= 42; i++) {
+  const sName = SAMPLE_SURNAMES[i % SAMPLE_SURNAMES.length];
+  const fName = SAMPLE_NAMES[(i * 3) % SAMPLE_NAMES.length];
+  const region = REGIONS[i % REGIONS.length];
+  const crime = SAMPLE_CRIMES[i % SAMPLE_CRIMES.length];
+  const year = 2023 + (i % 3);
+  CONVICTED_DATA.push({
+    id: `SUD-${100 + i}`,
+    fullName: `${sName} ${fName} ${sName[0]}-o‘g‘li`,
+    region: region,
+    article: crime,
+    judgmentDate: `${year}-0${(i % 9) + 1}-1${i % 8}`,
+    status: i % 2 === 0 ? "Sudlanganligi tugallanmagan" : "Jazo muddati o‘talmoqda",
+    courtDocId: `JIB-${2026 - (i % 2)}-${1000 + i}`
+  });
+}
+
+// 6. Manfaatlar to'qnashuvi va tadbirkorlik (14 ta hudud monitoring jadvali)
+const CONFLICT_MATRIX_DATA = [
+  { region: "Toshkent shahri", detected: 14, resolved: 11, pending: 3, businessCases: 8 },
+  { region: "Toshkent viloyati", detected: 9, resolved: 7, pending: 2, businessCases: 5 },
+  { region: "Samarqand viloyati", detected: 8, resolved: 6, pending: 2, businessCases: 4 },
+  { region: "Farg‘ona viloyati", detected: 7, resolved: 5, pending: 2, businessCases: 4 },
+  { region: "Andijon viloyati", detected: 6, resolved: 5, pending: 1, businessCases: 3 },
+  { region: "Namangan viloyati", detected: 5, resolved: 4, pending: 1, businessCases: 3 },
+  { region: "Qashqadaryo viloyati", detected: 6, resolved: 4, pending: 2, businessCases: 4 },
+  { region: "Buxoro viloyati", detected: 4, resolved: 3, pending: 1, businessCases: 2 },
+  { region: "Surxondaryo viloyati", detected: 5, resolved: 3, pending: 2, businessCases: 3 },
+  { region: "Xorazm viloyati", detected: 4, resolved: 3, pending: 1, businessCases: 2 },
+  { region: "Qoraqalpog‘iston Resp.", detected: 5, resolved: 4, pending: 1, businessCases: 3 },
+  { region: "Jizzax viloyati", detected: 3, resolved: 2, pending: 1, businessCases: 2 },
+  { region: "Navoiy viloyati", detected: 3, resolved: 3, pending: 0, businessCases: 1 },
+  { region: "Sirdaryo viloyati", detected: 2, resolved: 2, pending: 0, businessCases: 1 }
 ];
 
-// KOMPLAYENS TASHABBUSI BILAN BO'SHATILGAN XODIMLAR
-window.firedStaffData = [
-  { name: 'Sultonov Murod G\'aniyevich', region: 'Samarqand viloyati', reason: 'Mansab vakolatini suiiste\'mol qilib egallangan yerga kadastr ochgani', orderNum: '№144-K', orderDate: '14.08.2026', result: 'Mehnat shartnomasi bekor qilingan (MK 161-modda)' },
-  { name: 'Bekmurodov Sanjar Alisherovich', region: 'Toshkent viloyati', reason: 'Tadbirkordan hujjatlarni davlat ro\'yxatidan o\'tkazish evaziga noqonuniy haq talab qilgani', orderNum: '№98-K', orderDate: '28.07.2026', result: 'Ishdan chetlatilgan va prokuraturaga yuborilgan' },
-  { name: 'Yusupov Jamshid Tohirovich', region: 'Andijon viloyati', reason: 'MCHJ ta\'sischisi ekanligi aniqlanib, tadbirkorlikni to\'xtatishdan bosh tortgani', orderNum: '№112-K', orderDate: '02.09.2026', result: 'Mehnat shartnomasi bekor qilingan' },
-  { name: 'Xoliqov Bobur Mirzo', region: 'Xorazm viloyati', reason: 'Xizmat tekshiruvida kadastr ma\'lumotlar bazasiga soxta ma\'lumot kiritgani fosh bo\'lgan', orderNum: '№77-K', orderDate: '19.06.2026', result: 'Lavozimidan ozod etilgan' },
-  { name: 'Azizov Ravshan Karimovich', region: 'Qashqadaryo viloyati', reason: 'Yer chegaralarini asossiz ravishda o\'zgartirib dalolatnoma tuzgani aniqlangan', orderNum: '№103-K', orderDate: '11.08.2026', result: 'Mehnat shartnomasi bekor qilingan' }
-];
-
-// BIRLASHGAN MANFAATLAR TO'QNASHUVI VA TADBIRKORLIK (STIR)
-window.combinedConflictBusinessData = [
-  { name: 'Sobirov Mirkomil Rustamovich', pinfl: '31506891230041', region: 'Andijon viloyati', role: '1-toifali mutaxassis', type: 'Tadbirkorlik (STIR)', detail: '"VODIY GEO LOYIHA" MCHJ (STIR: 308291442) 50% ta\'sischisi', action: 'Ulushdan chiqish talabnomasi berilgan' },
-  { name: 'Rahmonov Dilshod Anvarovich', pinfl: '32104921230055', region: 'Samarqand viloyati', role: 'Bo\'lim boshlig\'i', type: 'Manfaatlar to\'qnashuvi', detail: 'Ukasi Rahmonov Sanjar — xususiy kadastr muhandisi', action: 'Boshqa tuman filialiga rotatsiya qilingan' },
-  { name: 'Ergashev Bobur Tohirovich', pinfl: '31908851440019', region: 'Toshkent viloyati', role: 'Bosh mutaxassis', type: 'Manfaatlar to\'qnashuvi', detail: 'Ayoli Tohirova Madina — rieltorlik agentligi direktori', action: 'Tasdiqlash komissiyasidan chetlatilgan' },
-  { name: 'Valiyev Sardor Olimovich', pinfl: '31804901230077', region: 'Samarqand viloyati', role: 'Arxiv mudiri', type: 'Tadbirkorlik (STIR)', detail: '"SAMARQAND AGRO" MCHJ (STIR: 305119842) 25% ulush', action: 'Ulushdan chiqish to\'g'risida ogohlantirilgan' },
-  { name: 'Qosimov Rustam Alisherovich', pinfl: '32201941230088', region: 'Xorazm viloyati', role: 'Muhandis', type: 'Tadbirkorlik (YATT)', detail: 'YATT "QOSIMOV RUSTAM" (Faol guvohnoma STIR: 541298411)', action: 'Tadbirkorlik faoliyatini tugatish talab etilgan' }
+// 7. 5 Bosqichli arxiv ma'lumotlari
+const ARCHIVE_STAGES_DATA = [
+  { stage: 1, name: "1-Bosqich: Birlamchi signallar va qonunbuzarliklar ro‘yxatga olish", totalDocs: 142, status: "Tugallangan", docType: "Ro‘yxatga olish bayonnomasi" },
+  { stage: 2, name: "2-Bosqich: Komplayens ekspertizasi va dastlabki tekshiruv dalolatnomalari", totalDocs: 98, status: "Tugallangan", docType: "Ekspertiza xulosasi" },
+  { stage: 3, name: "3-Bosqich: Idoralararo muvofiqlashtirish va tezkor chora ko‘rish", totalDocs: 74, status: "Tugallangan", docType: "Muvofiqlashtirish xati" },
+  { stage: 4, name: "4-Bosqich: Intizomiy, ma'muriy va huquqiy jazo choralari", totalDocs: 53, status: "Tugallangan", docType: "Buyruq va qarorlar" },
+  { stage: 5, name: "5-Bosqich: Yakuniy bartaraf etish hisobotlari va arxivlangan yig‘majild", totalDocs: 333, status: "Yig‘ilgan va muhrlangan", docType: "Arxiv yopilish dalolatnomasi" }
 ];
