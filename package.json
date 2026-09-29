@@ -15,6 +15,7 @@
   "build": {
     "appId": "uz.kompnazorat.app",
     "productName": "KompNazorat 2.1",
+    "publish": null,
     "directories": {
       "output": "dist"
     },
