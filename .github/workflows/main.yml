@@ -1,4 +1,4 @@
-name: Build KompNazorat 2.1 Windows App
+name: Build KompNazorat 2.1 App
 
 on:
   push:
@@ -11,13 +11,14 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout kod
+    - name: Repozitoriyani yuklash
       uses: actions/checkout@v4
 
     - name: Node.js o‘rnatish
       uses: actions/setup-node@v4
       with:
         node-version: 18
+        cache: 'npm'
 
     - name: Bog‘liqliklarni o‘rnatish
       run: npm install
@@ -25,8 +26,9 @@ jobs:
     - name: Windows EXE dasturini yaratish
       run: npm run build
 
-    - name: Tayyor Windows o‘rnatuvchisini yuklash (EXE)
+    - name: Tayyor Windows EXE faylini yuklash
       uses: actions/upload-artifact@v4
       with:
         name: KompNazorat-2.1-Windows-Setup
         path: dist/*.exe
+        if-no-files-found: error
