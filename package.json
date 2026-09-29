@@ -1,0 +1,32 @@
+{
+  "name": "kompnazorat-app",
+  "version": "2.1.0",
+  "description": "Kadastr Tizimi Korrupsiyaga Qarshi Komplayens Portali",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "uz.kadastr.kompnazorat",
+    "productName": "KompNazorat2.1",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "files": [
+      "index.html",
+      "style.css",
+      "main.js",
+      "js/**/*"
+    ]
+  }
+}
