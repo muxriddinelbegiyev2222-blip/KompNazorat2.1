@@ -21,7 +21,3 @@ jobs:
 
     - name: Bog‘liqliklarni o‘rnatish
       run: npm install
-
-    - name: Windows ilovasini yig‘ish (Electron Builder)
-      run: npm run build
-      continue-on-error: false
