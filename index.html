@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- CHAP MENYU -->
+  <!-- CHAP ASOSIY MENYU -->
   <aside>
     <div>
       <div class="brand">
@@ -65,7 +65,7 @@
     </div>
   </aside>
 
-  <!-- ASOSIY QISM -->
+  <!-- ASOSIY ISH MAYDONI -->
   <main>
     <header>
       <div style="display: flex; align-items: center; gap: 14px;">
@@ -86,82 +86,94 @@
 
     <div class="content-area">
 
-      <!-- DASHBOARD -->
+      <!-- 1. DASHBOARD -->
       <section id="tab-dashboard" class="tab-section">
-        <!-- 5 TA ASOSIY KPI KARTALARI -->
+        
+        <!-- PAPKAGA O'XSHAB ICHIGA KIRIB BORISH MAYDONI (HUDUD > BOSHQARMA > TUMAN > XODIM) -->
+        <div id="inPageDrillArea" class="box hidden" style="border: 2px solid #1d4ed8;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div class="breadcrumb-bar" id="drillBreadcrumb">
+              <span>&#128194; Bosh sahifa</span>
+            </div>
+            <button onclick="closeInPageDrill()" class="btn btn-slate">&times; Paneldan chiqish</button>
+          </div>
+          <div id="drillFolderContent"></div>
+        </div>
+
+        <!-- ASOSIY 5 TA KPI KARTASI -->
         <div class="kpi-grid">
-          <div onclick="drillLevel1_Regions('investigations')" class="card pointer hover-scale" style="border-left: 4px solid #d97706;">
+          <div onclick="enterDrillFolder('investigations')" class="card pointer" style="border-left: 4px solid #d97706;">
             <div class="card-title">Xizmat Tekshiruvlari</div>
             <div class="card-val" id="kpi-investigations" style="color: #d97706;">333 ta</div>
-            <div class="card-sub"><span>HMMQO: 209 | Ichki: 124</span><b style="color: #d97706;">Viloyat &rarr; Tuman &rarr; Xodim &rarr; PDF</b></div>
+            <div class="card-sub"><span>HMMQO: 209 | Ichki: 124</span><b style="color: #d97706;">Papkaga kirish &rarr;</b></div>
           </div>
-          <div onclick="drillLevel1_Regions('convicted')" class="card pointer hover-scale" style="border-left: 4px solid #be123c;">
+          <div onclick="enterDrillFolder('convicted')" class="card pointer" style="border-left: 4px solid #be123c;">
             <div class="card-title">Sudlangan Xodimlar</div>
             <div class="card-val" id="kpi-convicted" style="color: #be123c;">18 nafar</div>
-            <div class="card-sub"><span>14 ta viloyat bo'yicha</span><b style="color: #be123c;">Viloyat &rarr; Tuman &rarr; Xodim &rarr; Hukm</b></div>
+            <div class="card-sub"><span>14 ta viloyat bo'yicha</span><b style="color: #be123c;">Papkaga kirish &rarr;</b></div>
           </div>
-          <div onclick="drillLevel1_Regions('operations')" class="card pointer hover-scale" style="border-left: 4px solid #1d4ed8;">
+          <div onclick="enterDrillFolder('operations')" class="card pointer" style="border-left: 4px solid #1d4ed8;">
             <div class="card-title">Tezkor Tadbirlar</div>
             <div class="card-val" id="kpi-operations" style="color: #1d4ed8;">14 ta</div>
-            <div class="card-sub"><span>DXX/Departament/IIB</span><b style="color: #1d4ed8;">Viloyat &rarr; Tuman &rarr; Xodim &rarr; Bayonnoma</b></div>
+            <div class="card-sub"><span>DXX/Departament/IIB</span><b style="color: #1d4ed8;">Papkaga kirish &rarr;</b></div>
           </div>
-          <div onclick="drillLevel1_Regions('risk')" class="card pointer hover-scale" style="border-left: 4px solid #b45309;">
+          <div onclick="enterDrillFolder('risk')" class="card pointer" style="border-left: 4px solid #b45309;">
             <div class="card-title">Xavf Guruhlari (A, B, D)</div>
             <div class="card-val" id="kpi-risk" style="color: #b45309;">46 nafar</div>
-            <div class="card-sub"><span>A: 18 | B: 16 | D: 12</span><b style="color: #b45309;">Viloyat &rarr; Tuman &rarr; Xodim &rarr; Dosye</b></div>
+            <div class="card-sub"><span>A: 18 | B: 16 | D: 12</span><b style="color: #b45309;">Papkaga kirish &rarr;</b></div>
           </div>
-          <div onclick="drillLevel1_Regions('fired')" class="card pointer hover-scale" style="border-left: 4px solid #047857;">
+          <div onclick="enterDrillFolder('fired')" class="card pointer" style="border-left: 4px solid #047857;">
             <div class="card-title">Komplayens Bo'shatgan</div>
             <div class="card-val" id="kpi-fired" style="color: #047857;">25 nafar</div>
-            <div class="card-sub"><span>Mehnat shartnomasi bekor</span><b style="color: #047857;">Viloyat &rarr; Tuman &rarr; Xodim &rarr; Buyruq</b></div>
+            <div class="card-sub"><span>Mehnat shartnomasi bekor</span><b style="color: #047857;">Papkaga kirish &rarr;</b></div>
           </div>
         </div>
 
-        <!-- O'RTA QISM: KICHIKLASHTIRILGAN OYLIK DINAMIKA VA WIDGETLAR (GRID) -->
-        <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px;">
-          <!-- Kichik ixcham dinamika paneli -->
+        <!-- O'RTA QISM: TO'G'RI GRAFIK VA VIDJETLAR -->
+        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px;">
+          <!-- Ixcham gorizontal grafik -->
           <div class="box chart-box-compact">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <div>
-                <h3 style="font-size: 12px; font-weight: 800;">Tezkor Jinoyatlar Oylik Dinamikasi</h3>
-                <p style="font-size: 10px; color: #64748b;">Pora va noqonuniy yer berish fosh etilishi</p>
+                <h3 style="font-size: 13px; font-weight: 800;">Tezkor Jinoyatlar Dinamikasi</h3>
+                <p style="font-size: 10px; color: #64748b;">Pora va soxtakorliklar soni (oyma-oy o'sish / pasayish)</p>
               </div>
-              <span id="chart-badge" class="badge badge-blue">Oylik Ko'rsatkich</span>
+              <span id="chart-badge" class="badge badge-blue">Oylik Dinamika</span>
             </div>
-            <div class="chart-bars-compact" id="chartBarsContainer"></div>
+            <div class="chart-bars-wrap" id="chartBarsContainer"></div>
           </div>
 
-          <!-- Zamonaviy Holat Vidjetlari -->
+          <!-- Vidjetlar -->
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-            <div class="box pointer hover-scale" onclick="switchTab('tasks-panel')" style="border-left: 3px solid #1d4ed8; padding: 12px;">
+            <div class="box pointer" onclick="switchTab('tasks-panel')" style="border-left: 3px solid #1d4ed8; padding: 12px;">
               <b style="font-size: 11px; color: #1d4ed8;">Topshiriqlar Ijrosi</b>
-              <div style="font-size: 18px; font-weight: 800; margin: 4px 0;">43 ta</div>
+              <div style="font-size: 20px; font-weight: 800; margin: 4px 0;">43 ta</div>
               <p style="font-size: 10px; color: #047857; font-weight: 700;">31 ta bajarildi | 4 ta kechikkan</p>
             </div>
-            <div class="box pointer hover-scale" onclick="switchTab('conflict-business')" style="border-left: 3px solid #047857; padding: 12px;">
+            <div class="box pointer" onclick="switchTab('conflict-business')" style="border-left: 3px solid #047857; padding: 12px;">
               <b style="font-size: 11px; color: #047857;">STIR & Manfaatlar</b>
-              <div style="font-size: 18px; font-weight: 800; margin: 4px 0;">34 holat</div>
+              <div style="font-size: 20px; font-weight: 800; margin: 4px 0;">34 holat</div>
               <p style="font-size: 10px; color: #b45309; font-weight: 700;">MCHJ ta'sischilari va qarindoshlik</p>
             </div>
-            <div class="box pointer hover-scale" onclick="switchTab('matrix-report')" style="border-left: 3px solid #d97706; padding: 12px;">
+            <div class="box pointer" onclick="switchTab('matrix-report')" style="border-left: 3px solid #d97706; padding: 12px;">
               <b style="font-size: 11px; color: #d97706;">29 Ustunli Matritsa</b>
-              <div style="font-size: 18px; font-weight: 800; margin: 4px 0;">333 ta ish</div>
-              <p style="font-size: 10px; color: #64748b; font-weight: 700;">HMMQO va Ichki nazorat tahlili</p>
+              <div style="font-size: 20px; font-weight: 800; margin: 4px 0;">333 ta ish</div>
+              <p style="font-size: 10px; color: #64748b; font-weight: 700;">HMMQO va Ichki nazorat</p>
             </div>
-            <div class="box pointer hover-scale" onclick="switchTab('documents')" style="border-left: 3px solid #6366f1; padding: 12px;">
+            <div class="box pointer" onclick="switchTab('documents')" style="border-left: 3px solid #6366f1; padding: 12px;">
               <b style="font-size: 11px; color: #6366f1;">Elektron Arxiv</b>
-              <div style="font-size: 18px; font-weight: 800; margin: 4px 0;">5 Bosqich</div>
+              <div style="font-size: 20px; font-weight: 800; margin: 4px 0;">5 Bosqich</div>
               <p style="font-size: 10px; color: #1d4ed8; font-weight: 700;">PDF hujjatlar to'liq bazasi</p>
             </div>
           </div>
         </div>
 
-        <!-- PASTKI QISM: 14 HUDUD KESIMIDA TO'G'RIDAN-TO'G'RI OCHISH JADVALI -->
+        <!-- 14 TA HUDUDIY BOSHQARMA ROYXATI -->
         <div class="box">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
             <div>
               <h3 style="font-size: 13px; font-weight: 800;">14 ta Hududiy Boshqarma — Agentlik va Palata Nazorati</h3>
-              <p style="font-size: 11px; color: #64748b;">Istalgan viloyat ustiga bosing — Agentlik va Palataga bo'linadi, keyin tuman, xodim va PDF hujjatlari ochiladi</p>
+              <p style="font-size: 11px; color: #64748b;">Viloyat ustiga bosing: papkadek Agentlik va Palataga, so‘ng tuman va xodimga kirib boradi</p>
             </div>
             <span class="badge badge-rose">14 ta Hudud</span>
           </div>
@@ -175,7 +187,7 @@
         <div class="grid-2" id="regionsMatrixGridContainer"></div>
       </section>
 
-      <!-- 3. TOPSHIRIQLAR PANELİ -->
+      <!-- 3. TOPSHIRIQLAR PANELI -->
       <section id="tab-tasks-panel" class="tab-section hidden">
         <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
           <h3 style="font-size: 14px; font-weight: 800;">Respublika Nazorat Topshiriqlari Ijrosi Paneli</h3>
@@ -281,35 +293,24 @@
     </div>
   </main>
 
-  <!-- YAGONA MUKAMMAL DRILL-DOWN MODAL OYNASI -->
-  <div id="universalDrillModal" class="modal-backdrop hidden">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="drillHeaderTitle">Tizimli Tahlil</h3>
-        <button onclick="closeModal('universalDrillModal')" class="close-btn">&times;</button>
-      </div>
-      <div class="modal-content" id="drillContentBody"></div>
-    </div>
-  </div>
-
-  <!-- DEMO PDF SHEET OYNASI -->
-  <div id="pdfViewerModal" class="modal-backdrop hidden">
-    <div class="modal-card" style="width: 820px;">
+  <!-- PDF KO'RISH OYNASI -->
+  <div id="pdfViewerModal" class="modal-overlay hidden">
+    <div class="modal-box" style="width: 820px;">
       <div class="modal-header" style="background: #1e293b; color: #fff;">
         <h3 id="pdfDocTitle">Elektron Hujjat (Rasmiy Blank)</h3>
         <button onclick="closeModal('pdfViewerModal')" class="close-btn" style="color:#fff;">&times;</button>
       </div>
-      <div class="modal-content" style="background: #475569; padding: 25px;">
+      <div class="modal-body" style="background: #475569; padding: 25px;">
         <div class="pdf-paper" id="pdfPaperContent"></div>
       </div>
     </div>
   </div>
 
-  <!-- 4 TA FORMA MODALLARI -->
-  <div id="newTaskModal" class="modal-backdrop hidden">
-    <div class="modal-card" style="width: 520px;">
+  <!-- FORMA MODALLARI -->
+  <div id="newTaskModal" class="modal-overlay hidden">
+    <div class="modal-box" style="width: 520px;">
       <div class="modal-header"><h3>Topshiriq Berish</h3><button onclick="closeModal('newTaskModal')" class="close-btn">&times;</button></div>
-      <div class="modal-content" style="display: flex; flex-direction: column; gap: 10px;">
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px;">
         <label>Topshiriq nomi: <input type="text" id="task-title" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
         <label>Ijrochi Hudud: 
           <select id="task-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
@@ -327,10 +328,10 @@
     </div>
   </div>
 
-  <div id="newConvictedModal" class="modal-backdrop hidden">
-    <div class="modal-card" style="width: 520px;">
+  <div id="newConvictedModal" class="modal-overlay hidden">
+    <div class="modal-box" style="width: 520px;">
       <div class="modal-header"><h3>Sudlangan Xodimni Reyestrga Qo'shish</h3><button onclick="closeModal('newConvictedModal')" class="close-btn">&times;</button></div>
-      <div class="modal-content" style="display: flex; flex-direction: column; gap: 10px;">
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px;">
         <label>F.I.SH: <input type="text" id="conv-name" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
         <label>JSHSHIR (14 xonali): <input type="text" id="conv-pinfl" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
         <label>Hudud: 
@@ -349,16 +350,16 @@
     </div>
   </div>
 
-  <div id="newOperationModal" class="modal-backdrop hidden">
-    <div class="modal-card" style="width: 520px;">
+  <div id="newOperationModal" class="modal-overlay hidden">
+    <div class="modal-box" style="width: 520px;">
       <div class="modal-header"><h3>Tezkor Tadbir Natijasini Kiritish</h3><button onclick="closeModal('newOperationModal')" class="close-btn">&times;</button></div>
-      <div class="modal-content" style="display: flex; flex-direction: column; gap: 10px;">
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px;">
         <label>Hudud: 
           <select id="op-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
             <option>Samarqand viloyati</option><option>Toshkent viloyati</option><option>Andijon viloyati</option>
           </select>
         </label>
-        <label>Tuman / Filial: <input type="text" id="op-district" placeholder="Masalan: Pastdarg'om filiali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
+        <label>Tuman / Filial: <input type="text" id="op-district" placeholder="Pastdarg'om filiali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
         <label>O'tkazgan Organ: 
           <select id="op-partner" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
             <option>Davlat Xavfsizlik Xizmati (DXX)</option><option>Prokuratura organlari</option><option>Bosh prokuratura huzuridagi Departament</option><option>Ichki Ishlar Vazirligi (IIB)</option>
@@ -374,10 +375,10 @@
     </div>
   </div>
 
-  <div id="newInvestigationModal" class="modal-backdrop hidden">
-    <div class="modal-card" style="width: 520px;">
+  <div id="newInvestigationModal" class="modal-overlay hidden">
+    <div class="modal-box" style="width: 520px;">
       <div class="modal-header"><h3>Xizmat Tekshiruvi Ochish</h3><button onclick="closeModal('newInvestigationModal')" class="close-btn">&times;</button></div>
-      <div class="modal-content" style="display: flex; flex-direction: column; gap: 10px;">
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px;">
         <label>Hudud: 
           <select id="inv-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
             <option>Samarqand viloyati</option><option>Toshkent viloyati</option><option>Andijon viloyati</option>
@@ -395,7 +396,7 @@
     </div>
   </div>
 
-  <!-- SKRIPTLAR -->
+  <!-- JAVASCRIPT MODULLARI -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
 </body>
