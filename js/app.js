@@ -1,4 +1,6 @@
-// SAHIFA ALMASHISH
+// ==========================================
+// 1. SAHIFA ALMASHISH VA MODALLAR
+// ==========================================
 window.switchTab = function(tabId) {
   const tabs = ['dashboard', 'regions-matrix', 'tasks-panel', 'matrix-report', 'risk-groups', 'fired-list', 'operations', 'convicted', 'conflict-business', 'documents'];
   tabs.forEach(id => {
@@ -31,7 +33,6 @@ window.switchTab = function(tabId) {
   }
 };
 
-// MODALLARNI ISHONCHLI OCHISH VA YOPISH
 window.openModal = function(id) {
   const el = document.getElementById(id);
   if (el) el.classList.remove('hidden');
@@ -42,7 +43,9 @@ window.closeModal = function(id) {
   if (el) el.classList.add('hidden');
 };
 
-// VAQT FILTRI
+// ==========================================
+// 2. TO'G'RI GORIZONTAL OYLIK GRAFIK
+// ==========================================
 window.setTimeFilter = function(type) {
   ['week', 'month', 'year'].forEach(t => {
     const b = document.getElementById('filter-' + t);
@@ -57,7 +60,7 @@ window.setTimeFilter = function(type) {
     document.getElementById('kpi-operations').innerText = '3 ta';
     document.getElementById('kpi-risk').innerText = '11 nafar';
     document.getElementById('kpi-fired').innerText = '4 nafar';
-    document.getElementById('chart-badge').innerText = 'Haftalik Dinamika';
+    document.getElementById('chart-badge').innerText = 'Haftalik';
     renderDynamicChart('week');
   } else if (type === 'month') {
     document.getElementById('kpi-investigations').innerText = '333 ta';
@@ -65,7 +68,7 @@ window.setTimeFilter = function(type) {
     document.getElementById('kpi-operations').innerText = '14 ta';
     document.getElementById('kpi-risk').innerText = '46 nafar';
     document.getElementById('kpi-fired').innerText = '25 nafar';
-    document.getElementById('chart-badge').innerText = 'Oylik Dinamika (2026-yil)';
+    document.getElementById('chart-badge').innerText = 'Oylik Dinamika';
     renderDynamicChart('month');
   } else if (type === 'year') {
     document.getElementById('kpi-investigations').innerText = '1,420 ta';
@@ -73,211 +76,219 @@ window.setTimeFilter = function(type) {
     document.getElementById('kpi-operations').innerText = '68 ta';
     document.getElementById('kpi-risk').innerText = '182 nafar';
     document.getElementById('kpi-fired').innerText = '94 nafar';
-    document.getElementById('chart-badge').innerText = 'Yillik Dinamika';
+    document.getElementById('chart-badge').innerText = 'Yillik';
     renderDynamicChart('year');
   }
 };
 
-// KICHIKLASHTIRILGAN OYLIK DINAMIKA GRAFIGI
 function renderDynamicChart(mode) {
   const container = document.getElementById('chartBarsContainer');
   if (!container) return;
-  let dataPoints = [];
+  let pts = [];
 
   if (mode === 'week') {
-    dataPoints = [
-      { label: 'Du', val: 1, trend: '-1', trendType: 'down', color: '#047857' },
-      { label: 'Se', val: 3, trend: '+2', trendType: 'up', color: '#be123c' },
-      { label: 'Cho', val: 4, trend: '+1', trendType: 'up', color: '#be123c' },
-      { label: 'Pa', val: 2, trend: '-2', trendType: 'down', color: '#047857' },
-      { label: 'Ju', val: 3, trend: '+1', trendType: 'up', color: '#1d4ed8' },
-      { label: 'Sha', val: 1, trend: '-2', trendType: 'down', color: '#047857' }
+    pts = [
+      { l: 'Du', v: 1, t: '-1', c: '#047857' },
+      { l: 'Se', v: 3, t: '+2', c: '#be123c' },
+      { l: 'Cho', v: 4, t: '+1', c: '#be123c' },
+      { l: 'Pa', v: 2, t: '-2', c: '#047857' },
+      { l: 'Ju', v: 3, t: '+1', c: '#1d4ed8' },
+      { l: 'Sha', v: 1, t: '-2', c: '#047857' }
     ];
   } else if (mode === 'year') {
-    dataPoints = [
-      { label: '23-y', val: 42, trend: 'Baza', trendType: 'down', color: '#1d4ed8' },
-      { label: '24-y', val: 56, trend: '+33%', trendType: 'up', color: '#1d4ed8' },
-      { label: '25-y', val: 71, trend: '+26%', trendType: 'up', color: '#be123c' },
-      { label: '26-y', val: 68, trend: '-4%', trendType: 'down', color: '#047857' }
+    pts = [
+      { l: '2023-y', v: 42, t: 'Baza', c: '#1d4ed8' },
+      { l: '2024-y', v: 56, t: '+33%', c: '#1d4ed8' },
+      { l: '2025-y', v: 71, t: '+26%', c: '#be123c' },
+      { l: '2026-y', v: 68, t: '-4%', c: '#047857' }
     ];
   } else {
-    dataPoints = [
-      { label: 'Apr', val: 8, trend: '-20%', trendType: 'down', color: '#047857' },
-      { label: 'May', val: 12, trend: '+50%', trendType: 'up', color: '#1d4ed8' },
-      { label: 'Iyun', val: 9, trend: '-25%', trendType: 'down', color: '#047857' },
-      { label: 'Iyul', val: 16, trend: '+77%', trendType: 'up', color: '#be123c' },
-      { label: 'Avg', val: 11, trend: '-31%', trendType: 'down', color: '#047857' },
-      { label: 'Sen', val: 14, trend: '+27%', trendType: 'up', color: '#be123c' }
+    pts = [
+      { l: 'Aprel', v: 8, t: '-20%', c: '#047857' },
+      { l: 'May', v: 12, t: '+50%', c: '#1d4ed8' },
+      { l: 'Iyun', v: 9, t: '-25%', c: '#047857' },
+      { l: 'Iyul', v: 16, t: '+77%', c: '#be123c' },
+      { l: 'Avgust', v: 11, t: '-31%', c: '#047857' },
+      { l: 'Sentabr', v: 14, t: '+27%', c: '#be123c' }
     ];
   }
 
-  const maxVal = Math.max(...dataPoints.map(p => p.val));
-
-  container.innerHTML = dataPoints.map(p => {
-    const heightPx = Math.round((p.val / maxVal) * 55) + 10;
-    const trendSymbol = p.trendType === 'up' ? '&#8593;' : '&#8595;';
-    const trendClass = p.trendType === 'up' ? 'trend-up' : 'trend-down';
+  const maxV = Math.max(...pts.map(p => p.v));
+  container.innerHTML = pts.map(p => {
+    const h = Math.round((p.v / maxV) * 58) + 12;
+    const isUp = p.t.includes('+');
     return `
       <div class="chart-col">
-        <span class="trend-badge ${trendClass}">${trendSymbol}${p.trend}</span>
-        <div class="chart-bar-elem" style="height: ${heightPx}px; background: ${p.color};"></div>
-        <span style="font-size: 10px; font-weight: 700; color: #475569; margin-top: 2px;">${p.label}</span>
+        <span class="trend-badge ${isUp ? 'trend-up' : 'trend-down'}">${p.t}</span>
+        <div class="chart-bar-elem" style="height: ${h}px; background: ${p.c};"></div>
+        <span style="font-size: 10px; font-weight: 700; color: #475569; margin-top: 4px;">${p.l}</span>
       </div>
     `;
   }).join('');
 }
 
-// DASHBOARDDAGI 14 TA HUDUD KARTALARI
-function renderDashboardRegionsGrid() {
-  const container = document.getElementById('dashboardRegionsGrid');
-  if (!container || !window.regionsReportData) return;
-  container.innerHTML = window.regionsReportData.map(r => `
-    <div onclick="drillLevel2_Wings('all', '${r.name}')" class="card pointer hover-scale" style="padding: 12px; border-left: 4px solid #1d4ed8;">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <b style="font-size: 13px; color: #0b132b;">${r.name}</b>
-        <span class="badge badge-blue">Agentlik va Palataga kirish &rarr;</span>
-      </div>
-      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">
-        Tekshiruv: <b style="color:#d97706;">${r.invCount} ta</b> | Sudlangan: <b style="color:#be123c;">${r.convictedCount} ta</b> | Xavf (A): <b style="color:#b45309;">${r.riskCount} ta</b>
-      </p>
+// ==========================================
+// 3. SAHIFANING O'ZIDA PAPKAGA KIRIB BORISH (IN-PAGE FOLDER DRILL-DOWN)
+// ==========================================
+
+let currentDrillState = { cat: 'all', region: null, wing: null };
+
+window.enterDrillFolder = function(catKey) {
+  currentDrillState = { cat: catKey, region: null, wing: null };
+  const area = document.getElementById('inPageDrillArea');
+  if (area) {
+    area.classList.remove('hidden');
+    area.scrollIntoView({ behavior: 'smooth' });
+  }
+  renderFolderLevel1_Regions();
+};
+
+window.closeInPageDrill = function() {
+  const area = document.getElementById('inPageDrillArea');
+  if (area) area.classList.add('hidden');
+};
+
+// 1-QADAM: VILOYATLAR PAPKASI
+function renderFolderLevel1_Regions() {
+  const bc = document.getElementById('drillBreadcrumb');
+  const body = document.getElementById('drillFolderContent');
+  bc.innerHTML = `<span>&#128194; Bosh sahifa</span> &rarr; <b>14 ta Viloyat</b>`;
+
+  body.innerHTML = `
+    <p style="font-size: 12px; color: #64748b; margin-bottom: 12px; font-weight: 600;">Viloyatni tanlang (ichiga kirganda Kadastr Agentligi va Kadastrlar Palatasi papkalari ochiladi):</p>
+    <div class="grid-2">
+      ${window.regionsReportData.map(r => `
+        <div onclick="renderFolderLevel2_Wings('${r.name}')" class="folder-item">
+          <div>
+            <b style="font-size: 13px; color: #0b132b;">&#128193; ${r.name}</b>
+            <p style="font-size: 11px; color: #64748b; margin-top: 3px;">Tekshiruvlar: <b>${r.invCount}</b> | Sudlangan: <b>${r.convictedCount}</b> \vert{} Xavf: <b>${r.riskCount}</b></p>
+          </div>
+          <span class="badge badge-blue">Ochish &rarr;</span>
+        </div>
+      `).join('')}
     </div>
-  `).join('');
+  `;
 }
 
-// -------------------------------------------------------------
-// 4 BOSQICHLI MUKAMMAL DRILL-DOWN IERARXIYASI
-// -------------------------------------------------------------
-
-// 1-BOSQICH: 14 TA HUDUD (VILOYATLAR) TANLOVI
-window.drillLevel1_Regions = function(categoryKey) {
-  const titleMap = {
-    'investigations': 'Xizmat Tekshiruvlari — 14 ta Hudud (333 ta)',
-    'convicted': 'Sudlangan Xodimlar — 14 ta Hudud (18 nafar)',
-    'operations': 'Tezkor Tadbirlar — 14 ta Hudud (14 ta)',
-    'risk': 'Korrupsion Xavf Guruhlari (A, B, D) — 14 ta Hudud',
-    'fired': 'Komplayens Bo\'shatgan Xodimlar — 14 ta Hudud'
-  };
-
-  document.getElementById('drillHeaderTitle').innerText = titleMap[categoryKey] || '14 ta Hudud Tanlovi';
-  const body = document.getElementById('drillContentBody');
-
-  body.innerHTML = `
-    <p style="font-size: 12px; color: #64748b; margin-bottom: 12px; font-weight: 600;">1-Qadam: Viloyatni tanlang (keyingi qadamda Kadastr Agentligi yoki Palataga bo'linadi):</p>
-    <div class="grid-2">
-      ${window.regionsReportData.map(reg => {
-        let count = reg.invCount;
-        if (categoryKey === 'convicted') count = reg.convictedCount;
-        if (categoryKey === 'operations') count = reg.opsCount;
-        if (categoryKey === 'risk') count = reg.riskCount;
-        if (categoryKey === 'fired') count = reg.firedCount;
-
-        return `
-          <div onclick="drillLevel2_Wings('${categoryKey}', '${reg.name}')" class="card pointer hover-scale" style="padding: 12px; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <b style="font-size: 13px; color: #0b132b;">${reg.name}</b>
-              <p style="font-size: 10px; color: #1d4ed8; font-weight: 700; margin-top: 2px;">Boshqarmalarni ochish &rarr;</p>
-            </div>
-            <span class="badge ${count>0?'badge-rose':'badge-slate'}">${count} ta ish</span>
-          </div>
-        `;
-      }).join('')}
-    </div>
+// 2-QADAM: VILOYAT ICHIDAGI 2 TA BOSHQARMA PAPKASI (AGENTLIK VA PALATA)
+window.renderFolderLevel2_Wings = function(regionName) {
+  currentDrillState.region = regionName;
+  const bc = document.getElementById('drillBreadcrumb');
+  const body = document.getElementById('drillFolderContent');
+  bc.innerHTML = `
+    <span onclick="renderFolderLevel1_Regions()" class="pointer" style="text-decoration: underline;">&#128194; Viloyatlar</span> &rarr; 
+    <b>${regionName}</b>
   `;
-  openModal('universalDrillModal');
-};
-
-// 2-BOSQICH: HUDUDNING 2 GA BO'LINISHI (AGENTLIK VA PALATA VILOYAT BOSHQARMALARI)
-window.drillLevel2_Wings = function(categoryKey, regionName) {
-  document.getElementById('drillHeaderTitle').innerText = `${regionName} — Boshqarma Tanlovi`;
-  const body = document.getElementById('drillContentBody');
 
   body.innerHTML = `
-    <button onclick="${categoryKey==='all'?'closeModal(\'universalDrillModal\')':'drillLevel1_Regions(\''+categoryKey+'\')'}" class="btn btn-slate" style="margin-bottom: 14px;">&larr; Orqaga (Viloyatlarga qaytish)</button>
-    <p style="font-size: 12px; color: #64748b; margin-bottom: 12px; font-weight: 600;">2-Qadam: Boshqarma yo'nalishini tanlang (ichiga kirganda tuman filiallari ochiladi):</p>
+    <div style="margin-bottom: 12px;">
+      <button onclick="renderFolderLevel1_Regions()" class="btn btn-slate">&larr; Viloyatlarga qaytish</button>
+    </div>
+    <p style="font-size: 12px; color: #64748b; margin-bottom: 12px; font-weight: 600;">Boshqarma yo'nalishini tanlang (ichiga kirganda tuman filiallari ochiladi):</p>
     
     <div class="grid-2">
-      <div onclick="drillLevel3_Districts('${categoryKey}', '${regionName}', 'agentlik')" class="card pointer hover-scale" style="border-left: 4px solid #1d4ed8; padding: 16px;">
-        <b style="font-size: 14px; color: #1d4ed8;">Kadastr Agentligi ${regionName} boshqarmasi</b>
-        <p style="font-size: 11px; color: #64748b; margin-top: 6px;">Davlat yer nazorati, geodeziya va ma'muriy amaliyot tizimi</p>
-        <div style="margin-top: 12px; text-align: right;"><span class="badge badge-blue">Tumanlar va Xodimlarni ochish &rarr;</span></div>
+      <div onclick="renderFolderLevel3_Districts('agentlik')" class="folder-item" style="border-left: 5px solid #1d4ed8; padding: 18px;">
+        <div>
+          <b style="font-size: 14px; color: #1d4ed8;">&#128193; Kadastr Agentligi ${regionName} boshqarmasi</b>
+          <p style="font-size: 11px; color: #64748b; margin-top: 6px;">Davlat yer nazorati, geodeziya va noqonuniy yerlarni aniqlash bo'limlari</p>
+        </div>
+        <span class="badge badge-blue">Tumanlar &rarr;</span>
       </div>
 
-      <div onclick="drillLevel3_Districts('${categoryKey}', '${regionName}', 'palata')" class="card pointer hover-scale" style="border-left: 4px solid #4f46e5; padding: 16px;">
-        <b style="font-size: 14px; color: #4f46e5;">Davlat Kadastrlari Palatasi ${regionName} boshqarmasi</b>
-        <p style="font-size: 11px; color: #64748b; margin-top: 6px;">Ko'chmas mulkni ro'yxatga olish, kadastr pasportlari va arxiv</p>
-        <div style="margin-top: 12px; text-align: right;"><span class="badge badge-emerald">Tumanlar va Xodimlarni ochish &rarr;</span></div>
+      <div onclick="renderFolderLevel3_Districts('palata')" class="folder-item" style="border-left: 5px solid #4f46e5; padding: 18px;">
+        <div>
+          <b style="font-size: 14px; color: #4f46e5;">&#128193; Davlat Kadastrlari Palatasi ${regionName} boshqarmasi</b>
+          <p style="font-size: 11px; color: #64748b; margin-top: 6px;">Ko'chmas mulkni ro'yxatga olish, arxiv ishlari va kadastr pasportlari</p>
+        </div>
+        <span class="badge badge-emerald">Tumanlar &rarr;</span>
       </div>
     </div>
   `;
-  openModal('universalDrillModal');
 };
 
-// 3-BOSQICH: TUMAN FILIALLARI VA MAS'UL XODIMLAR KESIMI
-window.drillLevel3_Districts = function(categoryKey, regionName, wing) {
-  const wingTitle = wing === 'agentlik' ? `Kadastr Agentligi ${regionName} boshqarmasi` : `Davlat Kadastrlari Palatasi ${regionName} boshqarmasi`;
-  document.getElementById('drillHeaderTitle').innerText = `${wingTitle} — Tumanlar va Xodimlar`;
-  const body = document.getElementById('drillContentBody');
+// 3-QADAM: TUMAN FILIALLARI VA ANIQ XODIMLAR JILDI
+window.renderFolderLevel3_Districts = function(wing) {
+  currentDrillState.wing = wing;
+  const regionName = currentDrillState.region;
+  const wingName = wing === 'agentlik' ? `Kadastr Agentligi ${regionName} boshqarmasi` : `Davlat Kadastrlari Palatasi ${regionName} boshqarmasi`;
 
-  // Bazadan qidirish (agar kategoriya 'all' bo'lsa barcha turlardan yig'adi)
+  const bc = document.getElementById('drillBreadcrumb');
+  const body = document.getElementById('drillFolderContent');
+  bc.innerHTML = `
+    <span onclick="renderFolderLevel1_Regions()" class="pointer" style="text-decoration: underline;">&#128194; Viloyatlar</span> &rarr; 
+    <span onclick="renderFolderLevel2_Wings('${regionName}')" class="pointer" style="text-decoration: underline;">${regionName}</span> &rarr; 
+    <b>${wing === 'agentlik' ? 'Agentlik boshqarmasi' : 'Palata boshqarmasi'}</b>
+  `;
+
   let list = [];
-  if (categoryKey === 'all') {
-    for (let k in window.deepDrillDatabase) {
-      list.push(...window.deepDrillDatabase[k].filter(item => (item.region.includes(regionName) || regionName.includes('Samarqand') || regionName.includes('Toshkent')) && item.wing === wing));
+  if (window.deepDrillDatabase) {
+    if (currentDrillState.cat === 'all') {
+      for (let k in window.deepDrillDatabase) {
+        list.push(...window.deepDrillDatabase[k].filter(i => (i.region.includes(regionName) || regionName.includes('Samarqand') || regionName.includes('Toshkent')) && i.wing === wing));
+      }
+    } else {
+      const raw = window.deepDrillDatabase[currentDrillState.cat] || [];
+      list = raw.filter(i => (i.region.includes(regionName) || regionName.includes('Samarqand') || regionName.includes('Toshkent')) && i.wing === wing);
     }
-  } else {
-    const raw = window.deepDrillDatabase[categoryKey] || [];
-    list = raw.filter(item => (item.region.includes(regionName) || regionName.includes('Samarqand') || regionName.includes('Toshkent')) && item.wing === wing);
   }
 
   body.innerHTML = `
-    <button onclick="drillLevel2_Wings('${categoryKey}', '${regionName}')" class="btn btn-slate" style="margin-bottom: 14px;">&larr; Boshqarmalarga qaytish</button>
-    <p style="font-size: 12px; color: #64748b; margin-bottom: 12px; font-weight: 600;">3-Qadam: Tuman filiali va xodimni tanlang (tugmani bosib demo PDF hujjatini ko'ring):</p>
+    <div style="margin-bottom: 12px;">
+      <button onclick="renderFolderLevel2_Wings('${regionName}')" class="btn btn-slate">&larr; Boshqarmalarga qaytish</button>
+    </div>
+    <p style="font-size: 12px; color: #64748b; margin-bottom: 12px; font-weight: 600;">Tuman filiallari va qonunbuzilishda aniqlangan xodimlar jildlari:</p>
     
     <div style="display: flex; flex-direction: column; gap: 10px;">
       ${list.length > 0 ? list.map(item => `
-        <div class="card" style="padding: 12px 16px; border-left: 4px solid ${item.docType==='court'?'#be123c':item.docType==='operation'?'#1d4ed8':'#d97706'};">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div class="card" style="padding: 14px; border-left: 5px solid ${item.docType === 'court' ? '#be123c' : item.docType === 'operation' ? '#1d4ed8' : '#d97706'};">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <b style="font-size: 13px; color: #0b132b;">${item.district} —${item.officer}</b>
-              <p style="font-size: 11px; color: #475569; margin: 3px 0;">Lavozimi: <b>${item.role}</b> | JSHSHIR: <b style="color:#2563eb;">${item.pinfl}</b></p>
-              <p style="font-size: 11px; color: #b45309; font-weight: 600;">Holat/Sabab: ${item.reason}</p>
+              <b style="font-size: 14px; color: #0b132b;">&#128196; ${item.district} —${item.officer}</b>
+              <p style="font-size: 11px; color: #475569; margin: 4px 0;">Lavozim: <b>${item.role}</b> | JSHSHIR: <b style="color:#2563eb;">${item.pinfl}</b></p>
+              <p style="font-size: 11px; color: #b45309; font-weight: 600;">Sabab: ${item.reason}</p>
             </div>
-            <button onclick="openPdfViewer('${item.docType}', '${item.code}', '${item.district}', '${item.date}', '${item.officer}:${item.reason}')" class="btn btn-slate" style="padding: 6px 12px; font-size: 11px;">
-              &#128196; Demo PDF Hujjat &rarr;
+            <button onclick="openPdfViewer('${item.docType}', '${item.code}', '${item.district}', '${item.date}', '${item.officer}:${item.reason}')" class="btn btn-slate" style="padding: 8px 14px; font-size: 11px;">
+              &#128196; Asos PDF Hujjati &rarr;
             </button>
           </div>
         </div>
       `).join('') : `
-        <div style="padding: 20px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 8px;">
-          Ushbu boshqarma va tuman filiallarida hozircha faol qonunbuzilish ishi mavjud emas (yoki profilaktik nazoratda).
+        <div style="padding: 30px; text-align: center; color: #64748b; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;">
+          Ushbu boshqarma va tuman filiallarida hozircha ochiq ish mavjud emas (profilaktik monitoringda).
         </div>
       `}
     </div>
   `;
-  openModal('universalDrillModal');
 };
 
-// 4-BOSQICH: RASMIY DEMO PDF BLANKI
+// 4-QADAM: DEMO PDF VARAQASI
 window.openPdfViewer = function(docType, p1, p2, p3, p4) {
   const paper = document.getElementById('pdfPaperContent');
-  let html = '';
+  if (!paper) return;
+
+  let html = `
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid #ccc; padding-bottom: 8px;">
+      <span style="font-size: 12px; font-weight: bold; color: #333;">Davlat Kadastrlari Yagona Komplayens Tizimi</span>
+      <button onclick="window.print()" class="btn btn-blue">&#128438; Chop etish / PDF Saqlash</button>
+    </div>
+  `;
 
   if (docType === 'investigation') {
     document.getElementById('pdfDocTitle').innerText = `Xizmat Tekshiruvi Xulosasi — ${p1}`;
-    html = `
+    html += `
       <div class="pdf-header">
         <h2>O'ZBEKISTON RESPUBLIKASI KADASTR AGENTLIGI</h2>
         <h2>XIZMAT TEKSHIRUVI XULOSASI VA DALOLATNOMASI</h2>
         <p>Hujjat kodi: ${p1} | Filial: ${p2} | Sana: ${p3}</p>
       </div>
       <p style="text-indent: 30px; margin-bottom: 15px;">
-        Korrupsiyaga qarshi ichki nazorat tuzilmasi tomonidan o'tkazilgan tekshiruv davomida quyidagi jiddiy qonunbuzilish aniqlandi:
+        Korrupsiyaga qarshi ichki nazorat tuzilmasi mutaxassislari o'tkazgan tekshiruv davomida quyidagi qonunbuzilish aniqlandi:
       </p>
       <p style="text-indent: 30px; margin-bottom: 15px;">
-        Holat tafsiloti: <b>${p4}</b>. Mazkur holat yuzasidan mas'ul xodimlar davlat yer kadastri rejimini qo'pol ravishda buzgan deb topildi.
+        Holat: <b>${p4}</b>. Mazkur holat bo'yicha mas'ul xodimlar sohaviy qonunchilikni buzib, yer maydonlarini noqonuniy ro'yxatga olgan.
       </p>
       <p style="text-indent: 30px; font-weight: bold; margin-bottom: 25px;">
-        XULOSA: Materiallar huquqiy baho berish uchun prokuratura organlariga yuborilsin va xodim lavozimidan chetlatilsin.
+        XULOSA: Materiallar prokuratura organlariga yuborilsin va xodim lavozimidan ozod etilsin.
       </p>
       <div class="pdf-stamp">
         <div><p>Komplayens inspektori: ____________</p><p style="font-size: 10px; color: #666;">Elektron raqamli imzo tasdiqlangan</p></div>
@@ -286,36 +297,36 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
     `;
   } else if (docType === 'court') {
     document.getElementById('pdfDocTitle').innerText = `Sud Hukmi Nusxasi — ${p1}`;
-    html = `
+    html += `
       <div class="pdf-header">
         <h2>O'ZBEKISTON RESPUBLIKASI NOMI BILAN</h2>
         <h2>JINOYAT ISHLARI BO'YICHA SUD HUKMI (NUSXA)</h2>
         <p>Hujjat kodi: ${p1} | Sud: ${p2} | Sana: ${p3}</p>
       </div>
       <p style="text-indent: 30px; margin-bottom: 15px;">
-        Sud hay'ati, kadastr tizimi xodimi bo'yicha jinoyat ishini ko'rib chiqib, uning mansab vakolatini suiiste'mol qilganligini isbotladi:
+        Sud hay'ati, xodimning jinoiy javobgarligi masalasini ko'rib chiqib quyidagini aniqladi:
       </p>
       <p style="text-indent: 30px; font-weight: bold; margin-bottom: 25px;">
-        HUKM: ${p4}. Kadastr va davlat ro'yxatidan o'tkazish tizimida 2 yil muddatga mansabdorlik lavozimlarida ishlash huquqidan mahrum etilsin.
+        HUKM: ${p4}. Davlat kadastrlari tizimida 2 yil muddatga mansabdorlik lavozimlarida ishlash huquqidan mahrum etilsin.
       </p>
       <div class="pdf-stamp">
-        <div><p>Sudya: ____________</p><p style="font-size: 10px; color: #666;">Yagona sud axborot tizimi orqali tasdiqlangan</p></div>
+        <div><p>Sudya: ____________</p><p style="font-size: 10px; color: #666;">Sud tizimi orqali tasdiqlangan</p></div>
         <div class="stamp-box" style="border-color: #be123c; color: #be123c;">SUD HUKMI QONUNIY<br>KUCHGA KIRGAN</div>
       </div>
     `;
   } else if (docType === 'operation') {
     document.getElementById('pdfDocTitle').innerText = `Tezkor Tadbir Bayonnomasi — ${p1}`;
-    html = `
+    html += `
       <div class="pdf-header">
         <h2>VAKOLATLI HUQUQNI MUHOFAZA QILUVCHI ORGAN</h2>
         <h2>MAXSUS TEZKOR TADBIR BAYONNOMASI</h2>
         <p>Hujjat: ${p1} | Hudud: ${p2} | Sana: ${p3}</p>
       </div>
       <p style="text-indent: 30px; margin-bottom: 15px;">
-        O'tkazilgan tezkor tadbir natijasida noqonuniy yer pasporti rasmiylashtirish evaziga mablag' olayotgan xodim jinoyat ustida ushlandi.
+        Tezkor tadbir natijasida fuqarodan noqonuniy yer pasporti rasmiylashtirish evaziga mablag' olayotgan xodim jinoyat ustida ushlandi.
       </p>
       <p style="text-indent: 30px; font-weight: bold; margin-bottom: 25px;">
-        Ashyoviy dalillar va tafsilot: ${p4}. Barcha dalillar xolislar ishtirokida muhrlandi va tergovga taqdim etildi.
+        Dalillar va holat: ${p4}. Ashyoviy dalillar tergovga taqdim etildi.
       </p>
       <div class="pdf-stamp">
         <div><p>Tezkor guruh rahbari: __________</p><p>Kadastr komplayens vakili: __________</p></div>
@@ -324,13 +335,13 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
     `;
   } else {
     document.getElementById('pdfDocTitle').innerText = `Rasmiy Hujjat — ${p1}`;
-    html = `
+    html += `
       <div class="pdf-header">
         <h2>O'ZBEKISTON RESPUBLIKASI KADASTR AGENTLIGI</h2>
-        <h2>BUYRUQ VA KOMPLAYENS DALOLATNOMASI</h2>
+        <h2>KOMPLAYENS BUYRUG'I VA XULOSASI</h2>
         <p>${p1} | ${p2} | ${p3}</p>
       </div>
-      <p style="text-indent: 30px; margin-bottom: 25px;">Tafsilot: <b>${p4}</b>. Mehnat shartnomasi bekor qilingan va tizimga qayta kirishi bloklangan.</p>
+      <p style="text-indent: 30px; margin-bottom: 25px;">Tafsilot: <b>${p4}</b>. Mehnat shartnomasi bekor qilingan.</p>
       <div class="pdf-stamp">
         <div><p>Mas'ul rahbar: ____________</p></div>
         <div class="stamp-box" style="border-color: #047857; color: #047857;">KADASTR AGENTLIGI<br>BUYRUQ IJRO ETILDI</div>
@@ -342,7 +353,26 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
   openModal('pdfViewerModal');
 };
 
-// BOSHQA BO'LIMLARNI CHIQARISH
+// ==========================================
+// 4. BOSHQA MODULLAR VA BAZA FUNKSIYALARI
+// ==========================================
+
+function renderDashboardRegionsGrid() {
+  const container = document.getElementById('dashboardRegionsGrid');
+  if (!container || !window.regionsReportData) return;
+  container.innerHTML = window.regionsReportData.map(r => `
+    <div onclick="enterDrillFolder('all'); renderFolderLevel2_Wings('${r.name}');" class="card pointer" style="padding: 12px; border-left: 4px solid #1d4ed8;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <b style="font-size: 13px; color: #0b132b;">&#128193; ${r.name}</b>
+        <span class="badge badge-blue">Agentlik va Palataga kirish &rarr;</span>
+      </div>
+      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">
+        Tekshiruv: <b style="color:#d97706;">${r.invCount} ta</b> | Sudlangan: <b style="color:#be123c;">${r.convictedCount} ta</b> | Xavf (A): <b style="color:#b45309;">${r.riskCount} ta</b>
+      </p>
+    </div>
+  `).join('');
+}
+
 function renderTasksTable() {
   const tbody = document.getElementById('tasksTableBody');
   if (!tbody || !window.tasksData) return;
@@ -353,7 +383,7 @@ function renderTasksTable() {
       <td>${t.target}</td>
       <td>${t.date}</td>
       <td>${t.deadline}</td>
-      <td><span class="badge ${t.status==='Bajarildi'?'badge-emerald':'badge-amber'}">${t.status}</span></td>
+      <td><span class="badge ${t.status === 'Bajarildi' ? 'badge-emerald' : 'badge-amber'}">${t.status}</span></td>
       <td style="text-align: center;"><button onclick="openPdfViewer('investigation', '${t.id}', '${t.region}', '${t.date}', '${t.title}')" class="btn btn-slate" style="padding: 4px 8px;">Topshiriq PDF</button></td>
     </tr>
   `).join('');
@@ -381,10 +411,10 @@ function renderMatrixTable() {
       <tr>
         <td>${idx + 1}</td><td style="text-align:left; font-weight:600;">${r.name}</td>
         <td style="background:#f0fdf4; font-weight:700;">${r.total}</td><td>${r.hmmqo}</td><td>${r.ichki}</td>
-        <td>${r.hmmqo_prok||'-'}</td><td>${r.hmmqo_iib||'-'}</td><td>${r.hmmqo_dxx||'-'}</td><td>${r.hmmqo_other||'-'}</td>
-        <td>${r.ichki_prok||'-'}</td><td>${r.ichki_iib||'-'}</td><td>${r.ichki_dxx||'-'}</td><td>${r.ichki_other||'-'}</td>
-        <td>${r.hmmqo_crim||'-'}</td><td>${r.hmmqo_adm||'-'}</td><td>${r.hmmqo_83||'-'}</td><td>${r.hmmqo_84||'-'}</td><td>${r.hmmqo_rej||'-'}</td><td>${r.hmmqo_proc||'-'}</td><td style="color:#be123c; font-weight:700;">${r.hmmqo_fire||'-'}</td><td>${r.hmmqo_disc||'-'}</td>
-        <td>${r.ichki_crim||'-'}</td><td>${r.ichki_adm||'-'}</td><td>${r.ichki_83||'-'}</td><td>${r.ichki_84||'-'}</td><td>${r.ichki_rej||'-'}</td><td>${r.ichki_proc||'-'}</td><td style="color:#be123c; font-weight:700;">${r.ichki_fire||'-'}</td><td>${r.ichki_disc||'-'}</td>
+        <td>${r.hmmqo_prok || '-'}</td><td>${r.hmmqo_iib || '-'}</td><td>${r.hmmqo_dxx || '-'}</td><td>${r.hmmqo_other || '-'}</td>
+        <td>${r.ichki_prok || '-'}</td><td>${r.ichki_iib || '-'}</td><td>${r.ichki_dxx || '-'}</td><td>${r.ichki_other || '-'}</td>
+        <td>${r.hmmqo_crim || '-'}</td><td>${r.hmmqo_adm || '-'}</td><td>${r.hmmqo_83 || '-'}</td><td>${r.hmmqo_84 || '-'}</td><td>${r.hmmqo_rej || '-'}</td><td>${r.hmmqo_proc || '-'}</td><td style="color:#be123c; font-weight:700;">${r.hmmqo_fire || '-'}</td><td>${r.hmmqo_disc || '-'}</td>
+        <td>${r.ichki_crim || '-'}</td><td>${r.ichki_adm || '-'}</td><td>${r.ichki_83 || '-'}</td><td>${r.ichki_84 || '-'}</td><td>${r.ichki_rej || '-'}</td><td>${r.ichki_proc || '-'}</td><td style="color:#be123c; font-weight:700;">${r.ichki_fire || '-'}</td><td>${r.ichki_disc || '-'}</td>
       </tr>
     `;
   });
@@ -400,7 +430,7 @@ function renderConvictedTable() {
       <td>${c.court}<br><small style="color: #64748b;">${c.date}</small></td>
       <td><span class="badge badge-rose">${c.articles}</span></td>
       <td>${c.punishment}</td>
-      <td><span class="badge ${c.status==='chetlatilgan'?'badge-emerald':'badge-rose'}">${c.status==='chetlatilgan'?'Chetlatilgan':'Ishlamoqda'}</span></td>
+      <td><span class="badge ${c.status === 'chetlatilgan' ? 'badge-emerald' : 'badge-rose'}">${c.status === 'chetlatilgan' ? 'Chetlatilgan' : 'Ishlamoqda'}</span></td>
       <td style="text-align: center;"><button onclick="openPdfViewer('court', '${c.name}', '${c.court}', '${c.date}', '${c.articles}')" class="btn btn-rose" style="padding: 4px 8px;">Hukm PDF</button></td>
     </tr>
   `).join('');
@@ -424,9 +454,9 @@ function renderRegionsMatrixGrid() {
   const container = document.getElementById('regionsMatrixGridContainer');
   if (!container || !window.regionsReportData) return;
   container.innerHTML = window.regionsReportData.map(r => `
-    <div class="card pointer hover-scale" style="padding: 14px;" onclick="drillLevel2_Wings('all', '${r.name}')">
+    <div class="card pointer" style="padding: 14px;" onclick="enterDrillFolder('all'); renderFolderLevel2_Wings('${r.name}');">
       <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
-        <b style="font-size: 13px; color: #0b132b;">${r.name}</b>
+        <b style="font-size: 13px; color: #0b132b;">&#128193; ${r.name}</b>
         <span class="badge badge-blue">Tumanlar &rarr;</span>
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
@@ -450,30 +480,30 @@ function renderOtherRegionsGrids() {
   const confBox = document.getElementById('conflictBusinessRegionsGrid');
 
   if (riskBox) riskBox.innerHTML = window.regionsReportData.map(r => `
-    <div onclick="drillLevel2_Wings('risk', '${r.name}')" class="card pointer hover-scale" style="border-left: 4px solid #b45309; padding: 12px;">
-      <b>${r.name}</b> <span class="badge badge-rose">${r.riskCount} ta xavf</span>
-      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Agentlik va Palata xodimlar dosyesi &rarr;</p>
+    <div onclick="enterDrillFolder('risk'); renderFolderLevel2_Wings('${r.name}');" class="card pointer" style="border-left: 4px solid #b45309; padding: 12px;">
+      <b>&#128193; ${r.name}</b> <span class="badge badge-rose">${r.riskCount} ta xavf</span>
+      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Xodimlar dosyesi &rarr;</p>
     </div>
   `).join('');
 
   if (firedBox) firedBox.innerHTML = window.regionsReportData.map(r => `
-    <div onclick="drillLevel2_Wings('fired', '${r.name}')" class="card pointer hover-scale" style="border-left: 4px solid #047857; padding: 12px;">
-      <b>${r.name}</b> <span class="badge badge-emerald">${r.firedCount} ta bo'shatilgan</span>
-      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Xulosalar va Buyruqlar PDF &rarr;</p>
+    <div onclick="enterDrillFolder('fired'); renderFolderLevel2_Wings('${r.name}');" class="card pointer" style="border-left: 4px solid #047857; padding: 12px;">
+      <b>&#128193; ${r.name}</b> <span class="badge badge-emerald">${r.firedCount} ta bo'shatilgan</span>
+      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Buyruqlar PDF &rarr;</p>
     </div>
   `).join('');
 
   if (opsBox) opsBox.innerHTML = window.regionsReportData.map(r => `
-    <div onclick="drillLevel2_Wings('operations', '${r.name}')" class="card pointer hover-scale" style="border-left: 4px solid #1d4ed8; padding: 12px;">
-      <b>${r.name}</b> <span class="badge badge-blue">${r.opsCount} ta tezkor tadbir</span>
-      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">DXX, Departament reyd bayonnomalari &rarr;</p>
+    <div onclick="enterDrillFolder('operations'); renderFolderLevel2_Wings('${r.name}');" class="card pointer" style="border-left: 4px solid #1d4ed8; padding: 12px;">
+      <b>&#128193; ${r.name}</b> <span class="badge badge-blue">${r.opsCount} ta tezkor tadbir</span>
+      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Reyd bayonnomalari &rarr;</p>
     </div>
   `).join('');
 
   if (confBox) confBox.innerHTML = window.regionsReportData.map(r => `
-    <div onclick="drillLevel2_Wings('all', '${r.name}')" class="card pointer hover-scale" style="border-left: 4px solid #047857; padding: 12px;">
-      <b>${r.name}</b> <span class="badge badge-emerald">${r.conflictCount + r.businessCount} ta holat</span>
-      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">MCHJ ta'sischilari va qarindoshlik &rarr;</p>
+    <div onclick="enterDrillFolder('all'); renderFolderLevel2_Wings('${r.name}');" class="card pointer" style="border-left: 4px solid #047857; padding: 12px;">
+      <b>&#128193; ${r.name}</b> <span class="badge badge-emerald">${r.conflictCount + r.businessCount} ta holat</span>
+      <p style="font-size: 11px; color: #64748b; margin-top: 4px;">MCHJ va qarindoshlik &rarr;</p>
     </div>
   `).join('');
 }
@@ -485,8 +515,8 @@ window.initArchive = function() {
   area.innerHTML = `
     <div class="grid-3">
       ${['Tezkor Tadbirlar Arxivi', 'Tekshiruv Xulosalari', 'Manfaatlar To\'qnashuvi', 'STIR Dalolatnomalari', 'Sud Hukmlari', 'Ijro Xatlari'].map((name, i) => `
-        <div onclick="openArchiveRegions('${name}')" class="card pointer hover-scale">
-          <b style="font-size: 13px;">&#128193; ${i+1}.${name}</b>
+        <div onclick="openArchiveRegions('${name}')" class="card pointer">
+          <b style="font-size: 13px;">&#128193; ${i + 1}.${name}</b>
           <p style="font-size: 11px; color: #64748b; margin-top: 4px;">14 ta viloyat bo'yicha papkalar</p>
         </div>
       `).join('')}
@@ -501,15 +531,15 @@ window.openArchiveRegions = function(catName) {
     <button onclick="initArchive()" class="btn btn-slate" style="margin-bottom: 12px;">&larr; Hujjat turlariga qaytish</button>
     <div class="grid-4">
       ${window.regionsReportData.map(r => `
-        <div onclick="openPdfViewer('investigation', 'ARXIV-${r.id}', '${r.name}', '2026', '${catName} arxivi')" class="card pointer hover-scale">
-          <b>${r.name}</b><p style="font-size: 11px; color: #64748b;">Hujjatlarni ochish PDF &rarr;</p>
+        <div onclick="openPdfViewer('investigation', 'ARXIV-${r.id}', '${r.name}', '2026', '${catName} arxivi')" class="card pointer">
+          <b>&#128193; ${r.name}</b><p style="font-size: 11px; color: #64748b;">Hujjatlarni ochish PDF &rarr;</p>
         </div>
       `).join('')}
     </div>
   `;
 };
 
-// FORMALARNI SAQLASH
+// FORMALAR
 window.saveNewTask = function() {
   const title = document.getElementById('task-title').value;
   if (!title) return alert("Topshiriq sarlavhasini yozing!");
