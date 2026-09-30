@@ -9,7 +9,7 @@ body {
   display: flex;
   height: 100vh;
   overflow: hidden;
-  background-color: #f8fafc;
+  background-color: #f1f5f9;
   color: #0f172a;
 }
 
@@ -66,7 +66,7 @@ nav {
 .nav-btn:hover { background: #1e293b; color: #fff; }
 .nav-btn.active { background: #1d4ed8; color: #fff; font-weight: 700; }
 
-/* ASOSIY MAYDON */
+/* ASOSIY OYNA */
 main {
   flex: 1;
   display: flex;
@@ -149,7 +149,7 @@ header {
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
 .card-title { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; }
@@ -167,9 +167,59 @@ header {
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 
-/* ZAMONAVIY VA TO'G'RI GRAFIK (GORIZONTAL TAQSIMOT) */
+/* PAPKA BREADCRUMB (MY COMPUTER EXPLORER USLUBI) */
+.explorer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.breadcrumb-path {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-path span {
+  cursor: pointer;
+  color: #1d4ed8;
+}
+
+.breadcrumb-path span:hover {
+  text-decoration: underline;
+}
+
+.folder-grid-item {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.folder-grid-item:hover {
+  border-color: #1d4ed8;
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+/* ZAMONAVIY GRAFIK */
 .chart-box-compact {
-  height: 155px;
+  height: 160px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -181,9 +231,9 @@ header {
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-around;
-  height: 90px;
+  height: 95px;
   border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 2px;
+  padding-bottom: 4px;
 }
 
 .chart-col {
@@ -192,13 +242,14 @@ header {
   align-items: center;
   justify-content: flex-end;
   height: 100%;
-  width: 45px;
+  width: 48px;
 }
 
 .chart-bar-elem {
-  width: 24px;
+  width: 26px;
   border-radius: 4px 4px 0 0;
   transition: height 0.3s ease;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
 }
 
 .trend-badge {
@@ -206,45 +257,13 @@ header {
   font-weight: 800;
   padding: 1px 5px;
   border-radius: 4px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .trend-up { background: #fee2e2; color: #be123c; }
 .trend-down { background: #dcfce7; color: #047857; }
 
-/* PAPKA BREADCRUMB (ICHIGA KIRIB BORISH ZANJIRI) */
-.breadcrumb-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #1d4ed8;
-}
-
-.folder-item {
-  background: #fff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.folder-item:hover {
-  border-color: #1d4ed8;
-  background: #f8fafc;
-  transform: translateX(4px);
-}
-
-/* JADVALLAR VA TUGMALAR */
+/* JADVALLAR */
 table { width: 100%; border-collapse: collapse; font-size: 12px; }
 th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #f1f5f9; }
 th { background: #f8fafc; color: #475569; font-weight: 700; }
@@ -275,7 +294,7 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .btn-amber { background: #d97706; color: #fff; }
 .btn-slate { background: #e2e8f0; color: #1e293b; }
 
-/* MODALLAR VA PDF QOG'OZI */
+/* MODALLAR */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -283,7 +302,7 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
+  z-index: 99999;
 }
 
 .modal-box {
