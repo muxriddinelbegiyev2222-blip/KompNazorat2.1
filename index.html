@@ -1,403 +1,355 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KompNazorat 2.1 — Davlat Kadastrlari Tizimi Komplayens Portali</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
 
-  <!-- CHAP ASOSIY MENYU -->
-  <aside>
-    <div>
-      <div class="brand">
-        <div class="brand-icon">&#128737;</div>
-        <div class="brand-text">
-          <h1>KOMP-NAZORAT</h1>
-          <p>Kadastr Nazorati 2.1</p>
-        </div>
-      </div>
-      <nav>
-        <button onclick="switchTab('dashboard')" id="btn-dashboard" class="nav-btn active">
-          <span>&#9638; Tahliliy Boshqaruv</span>
-        </button>
-        <button onclick="switchTab('regions-matrix')" id="btn-regions-matrix" class="nav-btn">
-          <span>&#9636; 14 Hudud Matritsasi</span>
-          <span class="badge badge-blue">Agentlik/Palata</span>
-        </button>
-        <button onclick="switchTab('tasks-panel')" id="btn-tasks-panel" class="nav-btn">
-          <span>&#9745; Topshiriqlar Nazorati</span>
-          <span class="badge badge-blue">43 ta</span>
-        </button>
-        <button onclick="switchTab('matrix-report')" id="btn-matrix-report" class="nav-btn">
-          <span>&#9635; Hisobot Matritsasi</span>
-          <span class="badge badge-emerald">333 ta</span>
-        </button>
-        <button onclick="switchTab('risk-groups')" id="btn-risk-groups" class="nav-btn">
-          <span>&#9888; Korrupsion Xavf (A, B, D)</span>
-          <span class="badge badge-rose">14 Hudud</span>
-        </button>
-        <button onclick="switchTab('fired-list')" id="btn-fired-list" class="nav-btn">
-          <span>&#10006; Bo'shatilgan Xodimlar</span>
-          <span class="badge badge-amber">14 Hudud</span>
-        </button>
-        <button onclick="switchTab('operations')" id="btn-operations" class="nav-btn">
-          <span>&#9874; Tezkor Tadbirlar</span>
-          <span class="badge badge-blue">14 Hudud</span>
-        </button>
-        <button onclick="switchTab('convicted')" id="btn-convicted" class="nav-btn">
-          <span>&#9878; Sudlanganlar Reyestri</span>
-          <span class="badge badge-rose">18 nafar</span>
-        </button>
-        <button onclick="switchTab('conflict-business')" id="btn-conflict-business" class="nav-btn">
-          <span>&#9792; Manfaatlar & Tadbirkorlik</span>
-          <span class="badge badge-emerald">STIR / Hudud</span>
-        </button>
-        <button onclick="switchTab('documents')" id="btn-documents" class="nav-btn">
-          <span>&#128193; 5 Bosqichli Arxiv</span>
-        </button>
-      </nav>
-    </div>
-    <div style="padding: 16px; border-top: 1px solid #1e293b; background: #070d1e;">
-      <p style="font-size: 11px; font-weight: 800; color: #fff;">Respublika Nazoratchisi</p>
-      <p style="font-size: 10px; color: #34d399; font-weight: 700;">&#9679; To'liq Vakolat Bilan</p>
-    </div>
-  </aside>
+body {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
 
-  <!-- ASOSIY ISH MAYDONI -->
-  <main>
-    <header>
-      <div style="display: flex; align-items: center; gap: 14px;">
-        <h2 id="page-title" style="font-size: 14px; font-weight: 800;">Boshqaruv va Chuqur Tahlillar</h2>
-        <div class="time-filter">
-          <button onclick="setTimeFilter('week')" id="filter-week" class="time-btn">Haftalik</button>
-          <button onclick="setTimeFilter('month')" id="filter-month" class="time-btn active">Oylik</button>
-          <button onclick="setTimeFilter('year')" id="filter-year" class="time-btn">Yillik</button>
-        </div>
-      </div>
-      <div class="header-btns">
-        <button onclick="openModal('newTaskModal')" class="btn btn-blue">+ Topshiriq berish</button>
-        <button onclick="openModal('newConvictedModal')" class="btn btn-rose">+ Sudlangan xodim</button>
-        <button onclick="openModal('newOperationModal')" class="btn btn-slate">+ Tezkor tadbir</button>
-        <button onclick="openModal('newInvestigationModal')" class="btn btn-amber">+ Xizmat tekshiruvi</button>
-      </div>
-    </header>
+/* CHAP MENYU */
+aside {
+  width: 250px;
+  background: #0b132b;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #1e293b;
+  flex-shrink: 0;
+}
 
-    <div class="content-area">
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #070d1e;
+  border-bottom: 1px solid #1e293b;
+}
 
-      <!-- 1. DASHBOARD -->
-      <section id="tab-dashboard" class="tab-section">
-        
-        <!-- PAPKAGA O'XSHAB ICHIGA KIRIB BORISH MAYDONI (HUDUD > BOSHQARMA > TUMAN > XODIM) -->
-        <div id="inPageDrillArea" class="box hidden" style="border: 2px solid #1d4ed8;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <div class="breadcrumb-bar" id="drillBreadcrumb">
-              <span>&#128194; Bosh sahifa</span>
-            </div>
-            <button onclick="closeInPageDrill()" class="btn btn-slate">&times; Paneldan chiqish</button>
-          </div>
-          <div id="drillFolderContent"></div>
-        </div>
+.brand-icon { font-size: 24px; }
+.brand-text h1 { font-size: 14px; font-weight: 800; color: #fff; }
+.brand-text p { font-size: 11px; color: #94a3b8; font-weight: 600; }
 
-        <!-- ASOSIY 5 TA KPI KARTASI -->
-        <div class="kpi-grid">
-          <div onclick="enterDrillFolder('investigations')" class="card pointer" style="border-left: 4px solid #d97706;">
-            <div class="card-title">Xizmat Tekshiruvlari</div>
-            <div class="card-val" id="kpi-investigations" style="color: #d97706;">333 ta</div>
-            <div class="card-sub"><span>HMMQO: 209 | Ichki: 124</span><b style="color: #d97706;">Papkaga kirish &rarr;</b></div>
-          </div>
-          <div onclick="enterDrillFolder('convicted')" class="card pointer" style="border-left: 4px solid #be123c;">
-            <div class="card-title">Sudlangan Xodimlar</div>
-            <div class="card-val" id="kpi-convicted" style="color: #be123c;">18 nafar</div>
-            <div class="card-sub"><span>14 ta viloyat bo'yicha</span><b style="color: #be123c;">Papkaga kirish &rarr;</b></div>
-          </div>
-          <div onclick="enterDrillFolder('operations')" class="card pointer" style="border-left: 4px solid #1d4ed8;">
-            <div class="card-title">Tezkor Tadbirlar</div>
-            <div class="card-val" id="kpi-operations" style="color: #1d4ed8;">14 ta</div>
-            <div class="card-sub"><span>DXX/Departament/IIB</span><b style="color: #1d4ed8;">Papkaga kirish &rarr;</b></div>
-          </div>
-          <div onclick="enterDrillFolder('risk')" class="card pointer" style="border-left: 4px solid #b45309;">
-            <div class="card-title">Xavf Guruhlari (A, B, D)</div>
-            <div class="card-val" id="kpi-risk" style="color: #b45309;">46 nafar</div>
-            <div class="card-sub"><span>A: 18 | B: 16 | D: 12</span><b style="color: #b45309;">Papkaga kirish &rarr;</b></div>
-          </div>
-          <div onclick="enterDrillFolder('fired')" class="card pointer" style="border-left: 4px solid #047857;">
-            <div class="card-title">Komplayens Bo'shatgan</div>
-            <div class="card-val" id="kpi-fired" style="color: #047857;">25 nafar</div>
-            <div class="card-sub"><span>Mehnat shartnomasi bekor</span><b style="color: #047857;">Papkaga kirish &rarr;</b></div>
-          </div>
-        </div>
+nav {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow-y: auto;
+}
 
-        <!-- O'RTA QISM: TO'G'RI GRAFIK VA VIDJETLAR -->
-        <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px;">
-          <!-- Ixcham gorizontal grafik -->
-          <div class="box chart-box-compact">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <h3 style="font-size: 13px; font-weight: 800;">Tezkor Jinoyatlar Dinamikasi</h3>
-                <p style="font-size: 10px; color: #64748b;">Pora va soxtakorliklar soni (oyma-oy o'sish / pasayish)</p>
-              </div>
-              <span id="chart-badge" class="badge badge-blue">Oylik Dinamika</span>
-            </div>
-            <div class="chart-bars-wrap" id="chartBarsContainer"></div>
-          </div>
+.nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 12px;
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
 
-          <!-- Vidjetlar -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-            <div class="box pointer" onclick="switchTab('tasks-panel')" style="border-left: 3px solid #1d4ed8; padding: 12px;">
-              <b style="font-size: 11px; color: #1d4ed8;">Topshiriqlar Ijrosi</b>
-              <div style="font-size: 20px; font-weight: 800; margin: 4px 0;">43 ta</div>
-              <p style="font-size: 10px; color: #047857; font-weight: 700;">31 ta bajarildi | 4 ta kechikkan</p>
-            </div>
-            <div class="box pointer" onclick="switchTab('conflict-business')" style="border-left: 3px solid #047857; padding: 12px;">
-              <b style="font-size: 11px; color: #047857;">STIR & Manfaatlar</b>
-              <div style="font-size: 20px; font-weight: 800; margin: 4px 0;">34 holat</div>
-              <p style="font-size: 10px; color: #b45309; font-weight: 700;">MCHJ ta'sischilari va qarindoshlik</p>
-            </div>
-            <div class="box pointer" onclick="switchTab('matrix-report')" style="border-left: 3px solid #d97706; padding: 12px;">
-              <b style="font-size: 11px; color: #d97706;">29 Ustunli Matritsa</b>
-              <div style="font-size: 20px; font-weight: 800; margin: 4px 0;">333 ta ish</div>
-              <p style="font-size: 10px; color: #64748b; font-weight: 700;">HMMQO va Ichki nazorat</p>
-            </div>
-            <div class="box pointer" onclick="switchTab('documents')" style="border-left: 3px solid #6366f1; padding: 12px;">
-              <b style="font-size: 11px; color: #6366f1;">Elektron Arxiv</b>
-              <div style="font-size: 20px; font-weight: 800; margin: 4px 0;">5 Bosqich</div>
-              <p style="font-size: 10px; color: #1d4ed8; font-weight: 700;">PDF hujjatlar to'liq bazasi</p>
-            </div>
-          </div>
-        </div>
+.nav-btn:hover { background: #1e293b; color: #fff; }
+.nav-btn.active { background: #1d4ed8; color: #fff; font-weight: 700; }
 
-        <!-- 14 TA HUDUDIY BOSHQARMA ROYXATI -->
-        <div class="box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <div>
-              <h3 style="font-size: 13px; font-weight: 800;">14 ta Hududiy Boshqarma — Agentlik va Palata Nazorati</h3>
-              <p style="font-size: 11px; color: #64748b;">Viloyat ustiga bosing: papkadek Agentlik va Palataga, so‘ng tuman va xodimga kirib boradi</p>
-            </div>
-            <span class="badge badge-rose">14 ta Hudud</span>
-          </div>
-          <div class="grid-2" id="dashboardRegionsGrid"></div>
-        </div>
-      </section>
+/* ASOSIY OYNA */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-      <!-- 2. 14 TA HUDUD TOPSHIRIQLAR MATRITSASI -->
-      <section id="tab-regions-matrix" class="tab-section hidden">
-        <div class="box"><h3 style="font-size: 14px; font-weight: 800;">14 ta Hudud Topshiriq Matritsasi (Agentlik va Palata kesimida)</h3></div>
-        <div class="grid-2" id="regionsMatrixGridContainer"></div>
-      </section>
+header {
+  height: 54px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
 
-      <!-- 3. TOPSHIRIQLAR PANELI -->
-      <section id="tab-tasks-panel" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="font-size: 14px; font-weight: 800;">Respublika Nazorat Topshiriqlari Ijrosi Paneli</h3>
-          <button onclick="openModal('newTaskModal')" class="btn btn-blue">+ Yangi topshiriq</button>
-        </div>
-        <div class="box" style="padding: 0; overflow: hidden;">
-          <table>
-            <thead><tr><th>Topshiriq Kodi va Nomi</th><th>Hudud</th><th>Yo'nalish</th><th>Sana</th><th>Dedlayn</th><th>Holati</th><th style="text-align: center;">Hujjat</th></tr></thead>
-            <tbody id="tasksTableBody"></tbody>
-          </table>
-        </div>
-      </section>
+.time-filter {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
 
-      <!-- 4. HISOBOT MATRITSASI (333 TA) -->
-      <section id="tab-matrix-report" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="font-size: 14px; font-weight: 800;">Xizmat tekshiruvlari va ko'rilgan choralar hisobot matritsasi (333 ta)</h3>
-          <button onclick="exportMatrixToExcel()" class="btn btn-emerald">&#128190; Excel yuklab olish</button>
-        </div>
-        <div class="box" style="overflow-x: auto; padding: 10px;">
-          <table class="matrix-tbl" id="matrixTable">
-            <thead>
-              <tr style="background: #cbd5e1; font-weight: 800;">
-                <th rowspan="3">T/r</th><th rowspan="3" style="min-width: 140px; text-align: left;">Davlat organlari nomlanishi</th>
-                <th colspan="3" style="background: #dcfce7;">O'tkazilgan tekshiruvlar</th>
-                <th colspan="4" style="background: #fef3c7;">HMMQO xatlari asosida</th>
-                <th colspan="4" style="background: #fee2e2;">Ichki nazorat tashabbusi</th>
-                <th colspan="16" style="background: #dbeafe;">Ko'rilgan choralar taqsimoti</th>
-              </tr>
-              <tr style="background: #e2e8f0; font-weight: 700;">
-                <th rowspan="2">Jami</th><th rowspan="2">HMMQO</th><th rowspan="2">Ichki</th>
-                <th rowspan="2">Prok.</th><th rowspan="2">IIB</th><th rowspan="2">DXX</th><th rowspan="2">Boshqa</th>
-                <th rowspan="2">Prok.</th><th rowspan="2">IIB</th><th rowspan="2">DXX</th><th rowspan="2">Boshqa</th>
-                <th colspan="8" style="background: #eff6ff;">HMMQO xatlari bo'yicha</th>
-                <th colspan="8" style="background: #e0e7ff;">Ichki nazorat bo'yicha</th>
-              </tr>
-              <tr style="font-size: 9px;">
-                <th>Jinoyat</th><th>Ma'mur.</th><th>JPK 83</th><th>JPK 84</th><th>Ko'rmasdan</th><th>Jarayonda</th><th style="color:#be123c;">Bo'shat.</th><th>Intizom.</th>
-                <th>Jinoyat</th><th>Ma'mur.</th><th>JPK 83</th><th>JPK 84</th><th>Ko'rmasdan</th><th>Jarayonda</th><th style="color:#be123c;">Bo'shat.</th><th>Intizom.</th>
-              </tr>
-            </thead>
-            <tbody id="matrixTbody"></tbody>
-          </table>
-        </div>
-      </section>
+.time-btn {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #64748b;
+}
 
-      <!-- 5. KORRUPSION XAVF GURUHLARI -->
-      <section id="tab-risk-groups" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="font-size: 14px; font-weight: 800;">Korrupsion Xavf Guruhlari (A, B, D Toifalar) — 14 Hudud</h3>
-          <button onclick="openModal('newRiskModal')" class="btn btn-rose">+ Yangi xodim kiritish</button>
-        </div>
-        <div class="grid-2" id="riskRegionsGridContainer"></div>
-      </section>
+.time-btn.active {
+  background: #fff;
+  color: #0f172a;
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
 
-      <!-- 6. BO'SHATILGAN XODIMLAR -->
-      <section id="tab-fired-list" class="tab-section hidden">
-        <div class="box"><h3 style="font-size: 14px; font-weight: 800;">Komplayens Tashabbusi Bilan Bo'shatilgan Xodimlar — 14 Hudud</h3></div>
-        <div class="grid-2" id="firedRegionsGridContainer"></div>
-      </section>
+.header-btns { display: flex; gap: 8px; }
 
-      <!-- 7. TEZKOR TADBIRLAR -->
-      <section id="tab-operations" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="font-size: 14px; font-weight: 800;">Vakolatli Organlar (DXX, Prokuratura, IIB, Departament) O'tkazgan Tezkor Tadbirlar</h3>
-          <button onclick="openModal('newOperationModal')" class="btn btn-blue">+ Tezkor tadbir qo'shish</button>
-        </div>
-        <div class="grid-2" id="operationsRegionsGrid"></div>
-      </section>
+.content-area {
+  flex: 1;
+  padding: 16px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-      <!-- 8. SUDLANGANLAR REYESTRI -->
-      <section id="tab-convicted" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="font-size: 14px; font-weight: 800;">Sudlangan va Mansab Huquqidan Mahrum Etilgan Xodimlar Reyestri</h3>
-          <div style="display: flex; gap: 10px;">
-            <input type="text" id="convictedSearch" onkeyup="filterConvicted()" placeholder="JSHSHIR (PNFL) yoki Familiya..." style="padding: 8px 14px; border: 1px solid #cbd5e1; border-radius: 8px; width: 300px; font-weight: 700;">
-            <button onclick="openModal('newConvictedModal')" class="btn btn-rose">+ Sudlangan xodim</button>
-          </div>
-        </div>
-        <div class="box" style="padding: 0; overflow: hidden;">
-          <table>
-            <thead><tr><th>Xodim F.I.SH va JSHSHIR</th><th>Hudud va Lavozimi</th><th>Sud Hukmi Sanasi</th><th>JK Moddalari</th><th>Jazo Turi</th><th>Holati</th><th style="text-align: center;">Hukm PDF</th></tr></thead>
-            <tbody id="convictedTableBody"></tbody>
-          </table>
-        </div>
-      </section>
+.tab-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-      <!-- 9. MANFAATLAR & TADBIRKORLIK -->
-      <section id="tab-conflict-business" class="tab-section hidden">
-        <div class="box"><h3 style="font-size: 14px; font-weight: 800;">Manfaatlar To'qnashuvi va Tadbirkorlikka Aloqadorlik (STIR) — 14 Hudud</h3></div>
-        <div class="grid-2" id="conflictBusinessRegionsGrid"></div>
-      </section>
+.hidden { display: none !important; }
+.pointer { cursor: pointer; }
 
-      <!-- 10. 5 BOSQICHLI ARXIV -->
-      <section id="tab-documents" class="tab-section hidden">
-        <div class="box" style="display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="font-size: 14px; font-weight: 800;">5 Bosqichli Yagona Elektron Arxiv Tizimi</h3>
-          <span id="archivePath" style="font-weight: 800; background: #e0e7ff; color: #1d4ed8; padding: 4px 12px; border-radius: 6px;">Hujjat Turlari</span>
-        </div>
-        <div id="archiveViewArea"></div>
-      </section>
+/* KARTALAR */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
 
-    </div>
-  </main>
+.card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
 
-  <!-- PDF KO'RISH OYNASI -->
-  <div id="pdfViewerModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 820px;">
-      <div class="modal-header" style="background: #1e293b; color: #fff;">
-        <h3 id="pdfDocTitle">Elektron Hujjat (Rasmiy Blank)</h3>
-        <button onclick="closeModal('pdfViewerModal')" class="close-btn" style="color:#fff;">&times;</button>
-      </div>
-      <div class="modal-body" style="background: #475569; padding: 25px;">
-        <div class="pdf-paper" id="pdfPaperContent"></div>
-      </div>
-    </div>
-  </div>
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
 
-  <!-- FORMA MODALLARI -->
-  <div id="newTaskModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 520px;">
-      <div class="modal-header"><h3>Topshiriq Berish</h3><button onclick="closeModal('newTaskModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px;">
-        <label>Topshiriq nomi: <input type="text" id="task-title" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>Ijrochi Hudud: 
-          <select id="task-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Samarqand viloyati</option><option>Toshkent viloyati</option><option>Andijon viloyati</option><option>Buxoro viloyati</option>
-          </select>
-        </label>
-        <label>Yo'nalish: 
-          <select id="task-dept" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Kadastr Agentligi viloyat boshqarmasi</option><option>Kadastrlar Palatasi viloyat boshqarmasi</option>
-          </select>
-        </label>
-        <label>Dedlayn: <input type="date" id="task-deadline" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <button onclick="saveNewTask()" class="btn btn-blue" style="margin-top: 10px;">Topshiriqni Yuborish</button>
-      </div>
-    </div>
-  </div>
+.card-title { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; }
+.card-val { font-size: 22px; font-weight: 800; margin: 4px 0; }
+.card-sub { font-size: 10px; color: #64748b; font-weight: 600; display: flex; justify-content: space-between; }
 
-  <div id="newConvictedModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 520px;">
-      <div class="modal-header"><h3>Sudlangan Xodimni Reyestrga Qo'shish</h3><button onclick="closeModal('newConvictedModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px;">
-        <label>F.I.SH: <input type="text" id="conv-name" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>JSHSHIR (14 xonali): <input type="text" id="conv-pinfl" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>Hudud: 
-          <select id="conv-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Samarqand viloyati</option><option>Toshkent viloyati</option><option>Andijon viloyati</option>
-          </select>
-        </label>
-        <label>Holati: 
-          <select id="conv-status" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option value="chetlatilgan">Chetlatilgan</option><option value="ishlamoqda">Ishlamoqda</option>
-          </select>
-        </label>
-        <label>JK Moddalari: <input type="text" id="conv-articles" placeholder="167-m, 205-m" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <button onclick="saveNewConvicted()" class="btn btn-rose" style="margin-top: 10px;">Reyestrga Saqlash</button>
-      </div>
-    </div>
-  </div>
+.box {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+}
 
-  <div id="newOperationModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 520px;">
-      <div class="modal-header"><h3>Tezkor Tadbir Natijasini Kiritish</h3><button onclick="closeModal('newOperationModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px;">
-        <label>Hudud: 
-          <select id="op-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Samarqand viloyati</option><option>Toshkent viloyati</option><option>Andijon viloyati</option>
-          </select>
-        </label>
-        <label>Tuman / Filial: <input type="text" id="op-district" placeholder="Pastdarg'om filiali" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>O'tkazgan Organ: 
-          <select id="op-partner" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Davlat Xavfsizlik Xizmati (DXX)</option><option>Prokuratura organlari</option><option>Bosh prokuratura huzuridagi Departament</option><option>Ichki Ishlar Vazirligi (IIB)</option>
-          </select>
-        </label>
-        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; display: flex; align-items: center; gap: 10px;">
-          <input type="checkbox" id="op-collab" style="width: 18px; height: 18px; cursor: pointer;">
-          <label for="op-collab" style="cursor: pointer; font-weight: 700;">Kadastr komplayens xizmati hamkorligida</label>
-        </div>
-        <label>Ashyoviy dalil / Pora: <input type="text" id="op-proof" placeholder="3,000 AQSH dollari" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <button onclick="saveNewOperation()" class="btn btn-blue" style="margin-top: 10px;">Tadbirni Saqlash</button>
-      </div>
-    </div>
-  </div>
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 
-  <div id="newInvestigationModal" class="modal-overlay hidden">
-    <div class="modal-box" style="width: 520px;">
-      <div class="modal-header"><h3>Xizmat Tekshiruvi Ochish</h3><button onclick="closeModal('newInvestigationModal')" class="close-btn">&times;</button></div>
-      <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px;">
-        <label>Hudud: 
-          <select id="inv-region" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Samarqand viloyati</option><option>Toshkent viloyati</option><option>Andijon viloyati</option>
-          </select>
-        </label>
-        <label>Tuman filiali va xodim: <input type="text" id="inv-branch" placeholder="Urgut filiali muhandisi" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></label>
-        <label>Tashabbus: 
-          <select id="inv-type" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-            <option>Ichki Nazorat Tuzilmasi</option><option>HMMQO Xati (Prokuratura/IIB/DXX)</option>
-          </select>
-        </label>
-        <label>Sabab: <textarea id="inv-reason" rows="2" placeholder="Yer chegaralarini noqonuniy o'zgartirish..." style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;"></textarea></label>
-        <button onclick="saveNewInvestigation()" class="btn btn-amber" style="margin-top: 10px;">Tekshiruvni Boshlash</button>
-      </div>
-    </div>
-  </div>
+/* PAPKA BREADCRUMB (MY COMPUTER EXPLORER USLUBI) */
+.explorer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
 
-  <!-- JAVASCRIPT MODULLARI -->
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
-</body>
-</html>
+.breadcrumb-path {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-path span {
+  cursor: pointer;
+  color: #1d4ed8;
+}
+
+.breadcrumb-path span:hover {
+  text-decoration: underline;
+}
+
+.folder-grid-item {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.folder-grid-item:hover {
+  border-color: #1d4ed8;
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+/* ZAMONAVIY GRAFIK */
+.chart-box-compact {
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 18px;
+}
+
+.chart-bars-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 95px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 4px;
+}
+
+.chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  width: 48px;
+}
+
+.chart-bar-elem {
+  width: 26px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+}
+
+.trend-badge {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
+.trend-up { background: #fee2e2; color: #be123c; }
+.trend-down { background: #dcfce7; color: #047857; }
+
+/* JADVALLAR */
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #f1f5f9; }
+th { background: #f8fafc; color: #475569; font-weight: 700; }
+.matrix-tbl th, .matrix-tbl td { padding: 5px 3px; text-align: center; border: 1px solid #cbd5e1; font-size: 10px; }
+
+.badge { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+.badge-blue { background: #dbeafe; color: #1d4ed8; }
+.badge-emerald { background: #dcfce7; color: #047857; }
+.badge-rose { background: #fee2e2; color: #be123c; }
+.badge-amber { background: #fef3c7; color: #b45309; }
+.badge-slate { background: #f1f5f9; color: #475569; }
+
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-blue { background: #1d4ed8; color: #fff; }
+.btn-rose { background: #be123c; color: #fff; }
+.btn-emerald { background: #047857; color: #fff; }
+.btn-amber { background: #d97706; color: #fff; }
+.btn-slate { background: #e2e8f0; color: #1e293b; }
+
+/* MODALLAR */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 10px;
+  width: 780px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 12px 18px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+}
+
+.modal-header h3 { font-size: 13px; font-weight: 800; }
+.close-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; color: #64748b; }
+.modal-body { padding: 16px 20px; overflow-y: auto; }
+
+.pdf-paper {
+  background: #fff;
+  padding: 40px;
+  border-radius: 4px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #111;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.pdf-header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px; }
+.pdf-header h2 { font-size: 16px; font-weight: bold; }
+.pdf-stamp { margin-top: 30px; display: flex; justify-content: space-between; align-items: center; }
+.stamp-box {
+  border: 3px double #1d4ed8;
+  color: #1d4ed8;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 900;
+  text-align: center;
+  transform: rotate(-3deg);
+}
