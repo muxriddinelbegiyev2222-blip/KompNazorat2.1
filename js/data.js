@@ -1,4 +1,4 @@
-// 14 TA HUDUDIY BOSHQARMA BO'YICHA TO'LIQ STATISTIKA VA MATRITSA
+// 14 TA HUDUD MATRITSA MA'LUMOTLARI
 window.regionsReportData = [
   { id: 'samarqand', name: 'Samarqand viloyati', total: 38, hmmqo: 25, ichki: 13, hmmqo_prok: 2, hmmqo_iib: 1, hmmqo_dxx: 1, hmmqo_other: 0, ichki_prok: 2, ichki_iib: 1, ichki_dxx: 1, ichki_other: 0, hmmqo_crim: 1, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 2, hmmqo_fire: 3, hmmqo_disc: 8, ichki_crim: 1, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 1, ichki_fire: 3, ichki_disc: 7, convictedCount: 3, opsCount: 2, riskCount: 4, firedCount: 3, invCount: 38, conflictCount: 2, businessCount: 2, agentlik: {done: 8, review: 1, overdue: 0}, palata: {done: 6, review: 0, overdue: 1} },
   { id: 'toshkent_vil', name: 'Toshkent viloyati', total: 32, hmmqo: 20, ichki: 12, hmmqo_prok: 1, hmmqo_iib: 0, hmmqo_dxx: 0, hmmqo_other: 1, ichki_prok: 1, ichki_iib: 1, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 1, hmmqo_fire: 2, hmmqo_disc: 7, ichki_crim: 1, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 1, ichki_fire: 2, ichki_disc: 6, convictedCount: 4, opsCount: 2, riskCount: 5, firedCount: 2, invCount: 32, conflictCount: 2, businessCount: 1, agentlik: {done: 5, review: 1, overdue: 2}, palata: {done: 4, review: 0, overdue: 2} },
@@ -16,74 +16,53 @@ window.regionsReportData = [
   { id: 'qr', name: 'Qoraqalpog\'iston Resp.', total: 12, hmmqo: 7, ichki: 5, hmmqo_prok: 0, hmmqo_iib: 0, hmmqo_dxx: 0, hmmqo_other: 0, ichki_prok: 0, ichki_iib: 0, ichki_dxx: 0, ichki_other: 0, hmmqo_crim: 0, hmmqo_adm: 0, hmmqo_83: 0, hmmqo_84: 0, hmmqo_rej: 0, hmmqo_proc: 0, hmmqo_fire: 0, hmmqo_disc: 1, ichki_crim: 0, ichki_adm: 0, ichki_83: 0, ichki_84: 0, ichki_rej: 0, ichki_proc: 0, ichki_fire: 3, ichki_disc: 0, convictedCount: 0, opsCount: 0, riskCount: 2, firedCount: 0, invCount: 12, conflictCount: 1, businessCount: 0, agentlik: {done: 4, review: 1, overdue: 2}, palata: {done: 4, review: 0, overdue: 2} }
 ];
 
-// TOPSHIRIQLAR REYESTRI (HAR BIR HUDUD UCHUN ANIQ RO'YXAT)
+// 4 BOSQICHLI CHUQUR IERARXIYA BAZASI (HUDUD -> AGENTLIK/PALATA -> TUMAN -> XODIM -> ASOS HUJJAT)
+window.deepDrillDatabase = {
+  'investigations': [
+    { region: 'Samarqand viloyati', wing: 'agentlik', wingName: 'Kadastr Agentligi Samarqand viloyat boshqarmasi', district: 'Pastdarg\'om tuman filiali', officer: 'Aliyev Mansur G\'aniyevich', pinfl: '31804901230011', role: 'Bo\'lim boshlig\'i', reason: '1.5 gektar ekin yerini noqonuniy noturar toifaga o\'tkazish', code: 'XT-SAM-081', date: '21.09.2026', docType: 'investigation' },
+    { region: 'Samarqand viloyati', wing: 'palata', wingName: 'Kadastrlar Palatasi Samarqand viloyat boshqarmasi', district: 'Urgut tuman filiali', officer: 'Rustamov Bobur Shokirovich', pinfl: '32001881230022', role: 'Yetakchi muhandis', reason: 'Yer chegaralarini asossiz o\'zgartirib dalolatnoma tuzish', code: 'XT-SAM-094', date: '15.09.2026', docType: 'investigation' },
+    { region: 'Toshkent viloyati', wing: 'agentlik', wingName: 'Kadastr Agentligi Toshkent viloyat boshqarmasi', district: 'Qibray tumani filiali', officer: 'Ergashev Tohir Mansurovich', pinfl: '31904881120021', role: 'Bosh muhandis', reason: 'Auksionsiz berilgan bino-inshootga sun\'iy kadastr ochish', code: 'XT-TOS-033', date: '08.08.2026', docType: 'investigation' },
+    { region: 'Toshkent viloyati', wing: 'palata', wingName: 'Kadastrlar Palatasi Toshkent viloyat boshqarmasi', district: 'Zangiota filiali', officer: 'Karimov Jasur Shukurovich', pinfl: '32401912230011', role: 'Davlat ro\'yxatidan o\'tkazuvchi', reason: 'Ko\'chmas mulk bazasiga ruxsatsiz o\'zgartirish kiritish', code: 'XT-TOS-051', date: '19.09.2026', docType: 'investigation' },
+    { region: 'Andijon viloyati', wing: 'palata', wingName: 'Kadastrlar Palatasi Andijon viloyat boshqarmasi', district: 'Asaka tuman filiali', officer: 'Qodirov Farrux Rustamovich', pinfl: '32501913340078', role: 'Arxiv mudiri', reason: 'Yer kadastri arxiv hujjatlarini soxtalashtirish', code: 'XT-AND-012', date: '11.07.2026', docType: 'investigation' },
+    { region: 'Buxoro viloyati', wing: 'agentlik', wingName: 'Kadastr Agentligi Buxoro viloyat boshqarmasi', district: 'G\'ijduvon filiali', officer: 'Nazarov Ilhom Bobirovich', pinfl: '31802956730055', role: 'Katta inspektor', reason: 'Tadbirkordan hujjat tasdiqlash uchun mablag\' talab qilish', code: 'XT-BUX-044', date: '28.08.2026', docType: 'investigation' }
+  ],
+  'convicted': [
+    { region: 'Toshkent viloyati', wing: 'agentlik', wingName: 'Kadastr Agentligi Toshkent viloyat boshqarmasi', district: 'Qibray tumani filiali', officer: 'Ergashev Tohir Mansurovich', pinfl: '31904881120021', role: 'Yetakchi muhandis', reason: '168-m 3-qism, 205-m (Firibgarlik)', code: 'SUD-TOS-019', date: '18.04.2025', court: 'Qibray tuman sudi', status: 'chetlatilgan', docType: 'court' },
+    { region: 'Samarqand viloyati', wing: 'palata', wingName: 'Kadastrlar Palatasi Samarqand viloyat boshqarmasi', district: 'Samarqand shahar filiali', officer: 'Aliyev Vali G\'aniyevich', pinfl: '32004881120034', role: 'Davlat ro\'yxatidan o\'tkazuvchi', reason: '167-m, 210-m (Pora olish)', code: 'SUD-SAM-007', date: '12.03.2024', court: 'Samarqand shahar JIB sudi', status: 'chetlatilgan', docType: 'court' },
+    { region: 'Andijon viloyati', wing: 'palata', wingName: 'Kadastrlar Palatasi Andijon viloyat boshqarmasi', district: 'Asaka filiali', officer: 'Qodirov Farrux Rustamovich', pinfl: '32501913340078', role: 'Arxiv mudiri', reason: '209-modda (Xizmat soxtakorligi)', code: 'SUD-AND-031', date: '15.02.2026', court: 'Andijon shahar sudi', status: 'chetlatilgan', docType: 'court' }
+  ],
+  'operations': [
+    { region: 'Samarqand viloyati', wing: 'agentlik', wingName: 'Kadastr Agentligi Samarqand viloyat boshqarmasi', district: 'Pastdarg\'om tuman filiali', officer: 'Filial boshlig\'i o\'rinbosari', pinfl: '32104921230055', role: 'Muhandis', partner: 'Davlat Xavfsizlik Xizmati (DXX)', isCollab: true, proof: '3,000 AQSH dollari', reason: 'Ekin yerini noturar joy toifasiga o\'tkazish evaziga pora', code: 'TT-SAM-08', date: '18.09.2026', docType: 'operation' },
+    { region: 'Toshkent viloyati', wing: 'palata', wingName: 'Kadastrlar Palatasi Toshkent viloyat boshqarmasi', district: 'Zangiota filiali', officer: 'Ro\'yxatga oluvchi mutaxassis', pinfl: '31908851440019', role: 'Yetakchi mutaxassis', partner: 'Bosh prokuratura huzuridagi Departament', isCollab: true, proof: '2,500 AQSH dollari', reason: 'Uy-joy chegaralarini noqonuniy kengaytirib rasmiylashtirish', code: 'TT-TOS-09', date: '12.09.2026', docType: 'operation' }
+  ],
+  'risk': [
+    { region: 'Samarqand viloyati', wing: 'palata', wingName: 'Kadastrlar Palatasi Samarqand viloyat boshqarmasi', district: 'Samarqand shahar filiali', officer: 'Rahmonov Dilshod Anvarovich', pinfl: '32104921230055', role: 'Mulkni ro\'yxatga olish bo\'lim boshlig\'i', type: 'A', reason: 'Yer maydonlarini auksionsiz o\'tkazish xavfi yuqori', action: 'Video nazorat ostida', code: 'XAVF-SAM-01', date: '12.09.2026', docType: 'risk' },
+    { region: 'Toshkent viloyati', wing: 'agentlik', wingName: 'Kadastr Agentligi Toshkent viloyat boshqarmasi', district: 'Qibray tumani filiali', officer: 'Ergashev Bobur Tohirovich', pinfl: '31908851440019', role: 'Bosh muhandis', type: 'A', reason: 'Qurilish firmalari bilan yashirin aloqalar', action: 'Imzo vakolati to\'xtatilgan', code: 'XAVF-TOS-04', date: '18.09.2026', docType: 'risk' }
+  ],
+  'fired': [
+    { region: 'Samarqand viloyati', wing: 'agentlik', wingName: 'Kadastr Agentligi Samarqand viloyat boshqarmasi', district: 'Urgut filiali', officer: 'Sultonov Murod G\'aniyevich', pinfl: '31804901230077', role: 'Yetakchi inspektor', reason: 'Egallangan yerga soxta kadastr pasporti tuzgan', orderNum: '№144-K', date: '14.08.2026', docType: 'fired' },
+    { region: 'Toshkent viloyati', wing: 'palata', wingName: 'Kadastrlar Palatasi Toshkent viloyat boshqarmasi', district: 'Zangiota filiali', officer: 'Bekmurodov Sanjar Alisherovich', pinfl: '31405901230018', role: 'Davlat ro\'yxatidan o\'tkazuvchi', reason: 'Tadbirkordan noqonuniy pul talab qilganligi fosh bo\'lgan', orderNum: '№98-K', date: '28.07.2026', docType: 'fired' }
+  ]
+};
+
+// TOPSHIRIQLAR RO'YXATI
 window.tasksData = [
-  { id: 'T-SAM-01', region: 'Samarqand viloyati', target: 'Agentlik', title: 'Pastdarg\'om tumanidagi ekin yerlarini xatlovdan o\'tkazish', date: '10.09.2026', deadline: '25.09.2026', status: 'Bajarildi' },
-  { id: 'T-SAM-02', region: 'Samarqand viloyati', target: 'Palata', title: 'Urgut filiali arxiv hujjatlarini raqamlashtirish intizomi', date: '15.09.2026', deadline: '05.10.2026', status: 'Jarayonda' },
-  { id: 'T-SAM-03', region: 'Samarqand viloyati', target: 'Palata', title: 'Samarqand shahar ko\'chmas mulk bazasidagi ruxsatsiz yozuvlar auditi', date: '01.09.2026', deadline: '20.09.2026', status: 'Kechikkan' },
-  { id: 'T-TOS-01', region: 'Toshkent viloyati', target: 'Agentlik', title: 'Qibray tumani bino-inshoot kadastr pasportlari haqqoniyligini tekshirish', date: '12.09.2026', deadline: '28.09.2026', status: 'Bajarildi' },
-  { id: 'T-TOS-02', region: 'Toshkent viloyati', target: 'Palata', title: 'Zangiota tumanida auksionsiz berilgan yerlarning toifasini aniqlash', date: '05.09.2026', deadline: '22.09.2026', status: 'Kechikkan' },
-  { id: 'T-AND-01', region: 'Andijon viloyati', target: 'Agentlik', title: 'Asaka tuman filiali yer ajratish xulosalari monitoringi', date: '14.09.2026', deadline: '30.09.2026', status: 'Bajarildi' }
+  { id: 'T-SAM-01', region: 'Samarqand viloyati', target: 'Kadastr Agentligi viloyat boshqarmasi', title: 'Pastdarg\'om tumanidagi ekin yerlarini xatlovdan o\'tkazish', date: '10.09.2026', deadline: '25.09.2026', status: 'Bajarildi' },
+  { id: 'T-SAM-02', region: 'Samarqand viloyati', target: 'Kadastrlar Palatasi viloyat boshqarmasi', title: 'Urgut filiali arxiv hujjatlarini raqamlashtirish', date: '15.09.2026', deadline: '05.10.2026', status: 'Jarayonda' },
+  { id: 'T-TOS-01', region: 'Toshkent viloyati', target: 'Kadastr Agentligi viloyat boshqarmasi', title: 'Qibray tumani bino pasportlari haqqoniyligi auditi', date: '12.09.2026', deadline: '28.09.2026', status: 'Bajarildi' },
+  { id: 'T-TOS-02', region: 'Toshkent viloyati', target: 'Kadastrlar Palatasi viloyat boshqarmasi', title: 'Zangiota tumanida auksionsiz berilgan yerlar tekshiruvi', date: '05.09.2026', deadline: '22.09.2026', status: 'Kechikkan' }
 ];
 
-// XIZMAT TEKSHIRUVLARI REYESTRI
-window.investigationsData = [
-  { code: '#XT-2026-019', date: '12.08.2026', region: 'Qashqadaryo viloyati', branch: 'Koson filiali', officer: 'Filial boshlig\'i', type: 'Ichki Nazorat', reason: 'Yer maydonini soxta hujjatlar bilan noqonuniy ro\'yxatga olish', result: 'Prokuraturaga yuborilgan (Jinoyat ishi)' },
-  { code: '#XT-2026-022', date: '03.09.2026', region: 'Farg\'ona viloyati', branch: 'Quva filiali', officer: 'Muhandis-yer tuzuvchi', type: 'HMMQO Xati (IIB)', reason: 'Yaqin qarindoshiga tegishli MCHJga kadastr pasportini navbatsiz tayyorlash', result: 'Mehnat shartnomasi bekor qilingan' },
-  { code: '#XT-2026-031', date: '15.09.2026', region: 'Samarqand viloyati', branch: 'Urgut filiali', officer: 'Yetakchi mutaxassis', type: 'Ichki Nazorat', reason: 'Yer chegaralarini o\'zboshimchalik bilan o\'zgartirib dalolatnoma tuzish', result: 'Intizomiy jazo (Hayfsan)' },
-  { code: '#XT-2026-038', date: '21.09.2026', region: 'Samarqand viloyati', branch: 'Pastdarg\'om filiali', officer: 'Bo\'lim boshlig\'i', type: 'HMMQO Xati (DXX)', reason: '1.5 gektar ekin yerini noqonuniy noturar toifaga o\'tkazish', result: 'Lavozimidan ozod etilgan, tergovda' },
-  { code: '#XT-2026-042', date: '08.08.2026', region: 'Toshkent viloyati', branch: 'Qibray tumani filiali', officer: 'Bosh muhandis', type: 'HMMQO Xati (Departament)', reason: 'Auksionsiz berilgan bino-inshootga sun\'iy kadastr raqami shakllantirish', result: 'Mehnat shartnomasi bekor qilingan' },
-  { code: '#XT-2026-049', date: '19.09.2026', region: 'Toshkent viloyati', branch: 'Zangiota filiali', officer: 'Davlat ro\'yxatidan o\'tkazuvchi', type: 'Ichki Nazorat', reason: 'Ko\'chmas mulk bazasiga asossiz o\'zgartirish kiritish', result: 'Intizomiy jazo (Jarima)' },
-  { code: '#XT-2026-055', date: '11.07.2026', region: 'Andijon viloyati', branch: 'Asaka filiali', officer: 'Arxiv mudiri', type: 'HMMQO Xati (IIB)', reason: 'Yer kadastri arxiv hujjatlarini yo\'qotish va soxtalashtirish', result: 'Mehnat shartnomasi bekor qilingan' },
-  { code: '#XT-2026-061', date: '28.08.2026', region: 'Buxoro viloyati', branch: 'G\'ijduvon filiali', officer: 'Katta inspektor', type: 'Ichki Nazorat', reason: 'Tadbirkordan hujjat tasdiqlash uchun noqonuniy mablag\' talab qilish', result: 'Prokuraturaga yuborilgan' },
-  { code: '#XT-2026-068', date: '14.06.2026', region: 'Xorazm viloyati', branch: 'Urganch shahar filiali', officer: 'Yetakchi mutaxassis', type: 'HMMQO Xati (Departament)', reason: 'Yerto\'la maydonini noqonuniy xususiylashtirishga ko\'maklashish', result: 'Mehnat shartnomasi bekor qilingan' }
-];
-
-// TEZKOR TADBIRLAR (ORGANLAR VA HAMKORLIK PARAMETRLARI BILAN)
-window.operationsData = [
-  { code: '#TT-2026-08', date: '18.09.2026', region: 'Samarqand viloyati', district: 'Pastdarg\'om filiali', partner: 'Davlat Xavfsizlik Xizmati (DXX)', isCollab: true, proof: '3,000 AQSH dollari', desc: '1.5 gektar ekin yerini noturar joy toifasiga soxtalashtirish evaziga pora olayotganda ushlangan', result: 'JK 210-m bilan jinoyat ishi ochilgan' },
-  { code: '#TT-2026-11', date: '04.09.2026', region: 'Samarqand viloyati', district: 'Samarqand shahar filiali', partner: 'Bosh prokuratura huzuridagi Departament', isCollab: true, proof: '15,000,000 so\'m', desc: 'Davlat reyestri elektron bazasiga ruxsatsiz noqonuniy o\'zgartirish kiritish fakti', result: 'JK 209-m (Xizmat soxtakorligi)' },
-  { code: '#TT-2026-05', date: '22.08.2026', region: 'Toshkent viloyati', district: 'Qibray tumani filiali', partner: 'Bosh prokuratura huzuridagi Departament', isCollab: false, proof: '5,000 AQSH dollari', desc: 'Auksionsiz berilgan bino kadastr pasportini tayyorlab berish evaziga ushlangan', result: 'JK 168 va 211-m (Qamoq ehtiyot chorasi)' },
-  { code: '#TT-2026-09', date: '12.09.2026', region: 'Toshkent viloyati', district: 'Zangiota filiali', partner: 'Davlat Xavfsizlik Xizmati (DXX)', isCollab: true, proof: '2,500 AQSH dollari', desc: 'Qishloq xo\'jaligi yerini yakka tartibda uy-joy qurish uchun noqonuniy rasmiylashtirish', result: 'JK 210-m (Tergovda)' },
-  { code: '#TT-2026-02', date: '14.07.2026', region: 'Andijon viloyati', district: 'Asaka tumani filiali', partner: 'Ichki Ishlar Vazirligi (IIB)', isCollab: true, proof: '1,200 AQSH dollari', desc: 'Uy-joy chegaralarini noqonuniy kengaytirib rasmiylashtirish vaqtida ushlangan', result: 'JK 210-m (Sudga yuborilgan)' },
-  { code: '#TT-2026-12', date: '25.09.2026', region: 'Buxoro viloyati', district: 'G\'ijduvon filiali', partner: 'Prokuratura organlari', isCollab: false, proof: '3,500 AQSH dollari', desc: 'Tadbirkorga yer ajratish bo\'yicha ijobiy xulosa tayyorlab berish evaziga olingan', result: 'JK 210-m bilan qamoqqa olingan' },
-  { code: '#TT-2026-03', date: '19.06.2026', region: 'Xorazm viloyati', district: 'Urganch shahar filiali', partner: 'Bosh prokuratura huzuridagi Departament', isCollab: true, proof: '18,000,000 so\'m', desc: 'Ko\'p qavatli bino ostidagi yerto\'lani xususiylashtirib berish vaqtida ushlangan', result: 'JK 168-m (Firibgarlik)' }
-];
-
-// SUDLANGAN XODIMLAR REYESTRI
+// SUDLANGANLAR RO'YXATI
 window.convictedData = [
-  { pinfl: '31405901230018', name: 'Karimov Bahodir Shokirovich', region: 'Toshkent viloyati', role: 'Bo\'lim boshlig\'i o\'rinbosari', court: 'Toshkent viloyat JIB sudi', date: '14.01.2025', articles: '205-m, 210-m', punishment: '3 yil axloq tuzatish, 2 yil mansab taqiqi', status: 'chetlatilgan' },
-  { pinfl: '31904881120021', name: 'Ergashev Tohir Mansurovich', region: 'Toshkent viloyati', role: 'Yetakchi muhandis', court: 'Qibray tuman sudi', date: '18.04.2025', articles: '168-modda 3-qism', punishment: 'Ozodlikni cheklash, mansab taqiqi', status: 'chetlatilgan' },
-  { pinfl: '32004881120034', name: 'Aliyev Vali G\'aniyevich', region: 'Samarqand viloyati', role: 'Yetakchi mutaxassis', court: 'Samarqand shahar sudi', date: '12.03.2024', articles: '167-m 2-qism', punishment: 'Jarima va moddiy zarar', status: 'chetlatilgan' },
-  { pinfl: '31802956730055', name: 'Nazarov Ilhom Bobirovich', region: 'Buxoro viloyati', role: 'Katta inspektor', court: 'Buxoro shahar sudi', date: '20.06.2025', articles: '214-modda', punishment: '1 yil mansab taqiqi', status: 'chetlatilgan' },
-  { pinfl: '32501913340078', name: 'Qodirov Farrux Rustamovich', region: 'Andijon viloyati', role: 'Arxiv mudiri', court: 'Andijon shahar sudi', date: '15.02.2026', articles: '167-m, 205-m', punishment: 'Ozodlikni cheklash', status: 'chetlatilgan' },
-  { pinfl: '30509924510091', name: 'Oripov Jamshid Tohirovich', region: 'Xorazm viloyati', role: 'Muhandis-yer tuzuvchi', court: 'Urganch tuman sudi', date: '04.11.2025', articles: '209-modda (Xizmat soxtakorligi)', punishment: '2 yil axloq tuzatish', status: 'ishlamoqda' }
+  { pinfl: '31904881120021', name: 'Ergashev Tohir Mansurovich', region: 'Toshkent viloyati', role: 'Yetakchi muhandis', court: 'Qibray tuman sudi', date: '18.04.2025', articles: '168-m, 205-m', punishment: 'Ozodlikni cheklash, mansab taqiqi', status: 'chetlatilgan' },
+  { pinfl: '32004881120034', name: 'Aliyev Vali G\'aniyevich', region: 'Samarqand viloyati', role: 'Davlat ro\'yxatidan o\'tkazuvchi', court: 'Samarqand shahar sudi', date: '12.03.2024', articles: '167-m, 210-m', punishment: 'Jarima va moddiy zarar', status: 'chetlatilgan' },
+  { pinfl: '32501913340078', name: 'Qodirov Farrux Rustamovich', region: 'Andijon viloyati', role: 'Arxiv mudiri', court: 'Andijon shahar sudi', date: '15.02.2026', articles: '209-modda', punishment: 'Ozodlikni cheklash', status: 'chetlatilgan' }
 ];
 
-// KORRUPSION XAVF GURUHLARI (A, B, D)
-window.riskGroupsData = [
-  { pinfl: '32104921230055', name: 'Rahmonov Dilshod Anvarovich', region: 'Samarqand viloyati', role: 'Mulkni ro\'yxatga olish bo\'limi boshlig\'i', type: 'A', desc: 'Yer maydonlarini noqonuniy ro\'yxatga olish va auksionsiz o\'tkazish xavfi', action: 'Doimiy audio/video nazorat ostida', docNum: 'XAVF-SAM-01', docDate: '12.09.2026' },
-  { pinfl: '31804901230077', name: 'Valiyev Sardor Olimovich', region: 'Samarqand viloyati', role: 'Katta muhandis', type: 'B', desc: 'Qarindoshlik va tijorat subyektlari bilan yashirin aloqalar', action: 'Boshqa tuman filialiga rotatsiya qilinmoqda', docNum: 'XAVF-SAM-04', docDate: '19.08.2026' },
-  { pinfl: '31908851440019', name: 'Ergashev Bobur Tohirovich', region: 'Toshkent viloyati', role: 'Qibray tumani bosh muhandisi', type: 'A', desc: 'Auksionsiz yer maydoniga xulosa tayyorlash xavfi yuqori', action: 'Imzo vakolati cheklangan', docNum: 'XAVF-TOS-04', docDate: '18.09.2026' },
-  { pinfl: '32401912230011', name: 'Karimov Jasur Shukurovich', region: 'Andijon viloyati', role: 'Yetakchi mutaxassis', type: 'B', desc: 'Yaqin qarindoshi qurilish firmasida muhandis (Manfaatlar to\'qnashuvi)', action: 'Tasdiqlash komissiyasidan chiqarilgan', docNum: 'XAVF-AND-02', docDate: '05.08.2026' },
-  { pinfl: '31502881230099', name: 'Normurodov Ilhom Bobirovich', region: 'Buxoro viloyati', role: 'Katta inspektor', type: 'B', desc: 'Rieltorlik agentligi bilan muntazam yashirin aloqa signali kelgan', action: 'Ichki tekshiruv tayinlangan', docNum: 'XAVF-BUX-09', docDate: '22.09.2026' },
-  { pinfl: '32201941230088', name: 'Qosimov Rustam Alisherovich', region: 'Xorazm viloyati', role: 'Arxiv xodimi', type: 'D', desc: 'Hujjatlarni saqlash va nusxalash intizomi sust', action: 'Profilaktik ogohlantirish berilgan', docNum: 'XAVF-XOR-11', docDate: '14.07.2026' }
-];
-
-// KOMPLAYENS TASHABBUSI BILAN BO'SHATILGAN XODIMLAR
-window.firedStaffData = [
-  { name: 'Sultonov Murod G\'aniyevich', region: 'Samarqand viloyati', reason: 'Mansab vakolatini suiiste\'mol qilib egallangan yerga kadastr ochgani', orderNum: '№144-K', orderDate: '14.08.2026', result: 'Mehnat shartnomasi bekor qilingan (MK 161-modda)' },
-  { name: 'Bekmurodov Sanjar Alisherovich', region: 'Toshkent viloyati', reason: 'Tadbirkordan hujjatlarni davlat ro\'yxatidan o\'tkazish evaziga noqonuniy haq talab qilgani', orderNum: '№98-K', orderDate: '28.07.2026', result: 'Ishdan chetlatilgan va prokuraturaga yuborilgan' },
-  { name: 'Yusupov Jamshid Tohirovich', region: 'Andijon viloyati', reason: 'MCHJ ta\'sischisi ekanligi aniqlanib, tadbirkorlikni to\'xtatishdan bosh tortgani', orderNum: '№112-K', orderDate: '02.09.2026', result: 'Mehnat shartnomasi bekor qilingan' },
-  { name: 'Xoliqov Bobur Mirzo', region: 'Xorazm viloyati', reason: 'Xizmat tekshiruvida kadastr ma\'lumotlar bazasiga soxta ma\'lumot kiritgani fosh bo\'lgan', orderNum: '№77-K', orderDate: '19.06.2026', result: 'Lavozimidan ozod etilgan' },
-  { name: 'Azizov Ravshan Karimovich', region: 'Qashqadaryo viloyati', reason: 'Yer chegaralarini asossiz ravishda o\'zgartirib dalolatnoma tuzgani aniqlangan', orderNum: '№103-K', orderDate: '11.08.2026', result: 'Mehnat shartnomasi bekor qilingan' }
-];
-
-// BIRLASHGAN MANFAATLAR TO'QNASHUVI VA TADBIRKORLIK (STIR)
+// STIR VA MANFAATLAR RO'YXATI
 window.combinedConflictBusinessData = [
   { name: 'Sobirov Mirkomil Rustamovich', pinfl: '31506891230041', region: 'Andijon viloyati', role: '1-toifali mutaxassis', type: 'Tadbirkorlik (STIR)', detail: '"VODIY GEO LOYIHA" MCHJ (STIR: 308291442) 50% ta\'sischisi', action: 'Ulushdan chiqish talabnomasi berilgan' },
   { name: 'Rahmonov Dilshod Anvarovich', pinfl: '32104921230055', region: 'Samarqand viloyati', role: 'Bo\'lim boshlig\'i', type: 'Manfaatlar to\'qnashuvi', detail: 'Ukasi Rahmonov Sanjar — xususiy kadastr muhandisi', action: 'Boshqa tuman filialiga rotatsiya qilingan' },
-  { name: 'Ergashev Bobur Tohirovich', pinfl: '31908851440019', region: 'Toshkent viloyati', role: 'Bosh mutaxassis', type: 'Manfaatlar to\'qnashuvi', detail: 'Ayoli Tohirova Madina — rieltorlik agentligi direktori', action: 'Tasdiqlash komissiyasidan chetlatilgan' },
-  { name: 'Valiyev Sardor Olimovich', pinfl: '31804901230077', region: 'Samarqand viloyati', role: 'Arxiv mudiri', type: 'Tadbirkorlik (STIR)', detail: '"SAMARQAND AGRO" MCHJ (STIR: 305119842) 25% ulush', action: 'Ulushdan chiqish to\'g'risida ogohlantirilgan' },
-  { name: 'Qosimov Rustam Alisherovich', pinfl: '32201941230088', region: 'Xorazm viloyati', role: 'Muhandis', type: 'Tadbirkorlik (YATT)', detail: 'YATT "QOSIMOV RUSTAM" (Faol guvohnoma STIR: 541298411)', action: 'Tadbirkorlik faoliyatini tugatish talab etilgan' }
+  { name: 'Ergashev Bobur Tohirovich', pinfl: '31908851440019', region: 'Toshkent viloyati', role: 'Bosh mutaxassis', type: 'Manfaatlar to\'qnashuvi', detail: 'Ayoli Tohirova Madina — rieltorlik agentligi rahbari', action: 'Tasdiqlash komissiyasidan chetlatilgan' }
 ];
