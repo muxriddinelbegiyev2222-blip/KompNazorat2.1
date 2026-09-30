@@ -1,5 +1,5 @@
 // ==========================================
-// 1. ASOSIY NAVIGATSIYA (TABS) VA MODALLAR
+// 1. SAHIFA ALMASHISH VA MODALLAR
 // ==========================================
 window.switchTab = function(tabId) {
   exitExplorerToDashboard();
@@ -45,7 +45,7 @@ window.closeModal = function(id) {
 };
 
 // ==========================================
-// 2. TEZKOR JINOYATLAR GRAFIGI (SONI VA FOIZI BILAN)
+// 2. GRAFIK (HAQIQIY SON VA FOIZLARI BILAN)
 // ==========================================
 window.setTimeFilter = function(type) {
   ['week', 'month', 'year'].forEach(t => {
@@ -130,18 +130,15 @@ function renderDynamicChart(mode) {
 }
 
 // ==========================================
-// 3. WINDOWS EXPLORER USLUBIDA BUTUN EKRAN PAPKAGA KIRISH
+// 3. BUTUN EKRAN PAPKA EXPLORER (HUDUD > BOSHQARMA > TUMAN > XODIM)
 // ==========================================
 
 let explorerPath = { cat: null, region: null, wing: null };
 
 window.openExplorer = function(categoryKey, regionName, wing) {
   explorerPath = { cat: categoryKey, region: regionName, wing: wing };
-  
-  // Dashboardning pastki qismini yashiramiz, to'liq Explorer ochiladi
   document.getElementById('dashboardMainView').classList.add('hidden');
   document.getElementById('explorerViewArea').classList.remove('hidden');
-
   renderExplorerContent();
 };
 
@@ -158,7 +155,7 @@ function renderExplorerContent() {
     'investigations': 'Xizmat Tekshiruvlari (333 ta)',
     'convicted': 'Sudlangan Xodimlar Reyestri (18 nafar)',
     'operations': 'Tezkor Tadbirlar (14 ta)',
-    'risk': 'Korrupsion Xavf Guruhlari (A, B, D)',
+    'risk': 'Korrupsion Xavf Guruhlari (A, B, D Toifalar)',
     'fired': 'Komplayens Bo\'shatgan Xodimlar (25 nafar)',
     'all': '14 ta Hududiy Boshqarma'
   };
@@ -184,7 +181,7 @@ function renderExplorerContent() {
               <div>
                 <b style="font-size: 14px; color: #0b132b;">&#128193; ${r.name}</b>
                 <p style="font-size: 11px; color: #64748b; margin-top: 4px;">
-                  Tekshiruvlar: <b>${r.invCount}</b> | Sudlangan: <b>${r.convictedCount}</b> \vert{} Xavf (A): <b>${r.riskCount}</b>
+                  Tekshiruvlar: <b>${r.invCount}</b> | Sudlangan: <b>${r.convictedCount}</b> \vert{} Xavf (A, B, D): <b>${r.riskCount}</b>
                 </p>
               </div>
               <span class="badge ${count > 0 ? 'badge-rose' : 'badge-slate'}">${count} ta ish &rarr;</span>
@@ -196,7 +193,7 @@ function renderExplorerContent() {
     return;
   }
 
-  // 2-BOSQICH: VILOYAT ICHIDAGI AGENTLIK VA PALATA BOSHQARMALARI
+  // 2-BOSQICH: AGENTLIK VA PALATA
   if (!explorerPath.wing) {
     bc.innerHTML = `
       <span onclick="exitExplorerToDashboard()">&#128194; Bosh sahifa</span> &rarr; 
@@ -229,24 +226,23 @@ function renderExplorerContent() {
     return;
   }
 
-  // 3-BOSQICH: TUMAN FILIALLARI VA ANIQ XODIMLAR JILDI
-  const wingName = explorerPath.wing === 'agentlik' ? `Kadastr Agentligi ${explorerPath.region} boshqarmasi` : `Davlat Kadastrlari Palatasi ${explorerPath.region} boshqarmasi`;
+  // 3-BOSQICH: ANIQ TUMANLAR VA MAS'UL XODIMLAR JILDI
   bc.innerHTML = `
     <span onclick="exitExplorerToDashboard()">&#128194; Bosh sahifa</span> &rarr; 
     <span onclick="openExplorer('${explorerPath.cat}', null, null)">${catNames[explorerPath.cat]}</span> &rarr; 
     <span onclick="openExplorer('${explorerPath.cat}', '${explorerPath.region}', null)">${explorerPath.region}</span> &rarr; 
-    <b>${explorerPath.wing === 'agentlik' ? 'Agentlik' : 'Palata'}</b>
+    <b>${explorerPath.wing === 'agentlik' ? 'Agentlik boshqarmasi' : 'Palata boshqarmasi'}</b>
   `;
 
   let list = [];
   if (window.deepDrillDatabase) {
     if (explorerPath.cat === 'all') {
       for (let k in window.deepDrillDatabase) {
-        list.push(...window.deepDrillDatabase[k].filter(i => (i.region.includes(explorerPath.region) || explorerPath.region.includes('Samarqand') || explorerPath.region.includes('Toshkent')) && i.wing === explorerPath.wing));
+        list.push(...window.deepDrillDatabase[k].filter(i => i.region === explorerPath.region && i.wing === explorerPath.wing));
       }
     } else {
       const raw = window.deepDrillDatabase[explorerPath.cat] || [];
-      list = raw.filter(i => (i.region.includes(explorerPath.region) || explorerPath.region.includes('Samarqand') || explorerPath.region.includes('Toshkent')) && i.wing === explorerPath.wing);
+      list = raw.filter(i => i.region === explorerPath.region && i.wing === explorerPath.wing);
     }
   }
 
@@ -256,12 +252,14 @@ function renderExplorerContent() {
     </div>
     <div style="display: flex; flex-direction: column; gap: 10px;">
       ${list.length > 0 ? list.map(item => `
-        <div class="card" style="padding: 16px; border-left: 5px solid ${item.docType === 'court' ? '#be123c' : item.docType === 'operation' ? '#1d4ed8' : '#d97706'};">
+        <div class="card" style="padding: 16px; border-left: 5px solid ${item.type === 'A' ? '#be123c' : item.type === 'B' ? '#d97706' : item.type === 'D' ? '#047857' : '#1d4ed8'};">
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <b style="font-size: 14px; color: #0b132b;">&#128196; ${item.district} —${item.officer}</b>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <b style="font-size: 14px; color: #0b132b;">&#128196; ${item.district} — ${item.officer}</b>${item.type ? `<span class="risk-badge-${item.type}">${item.type} toifa xavf</span>` : ''}
+              </div>
               <p style="font-size: 11px; color: #475569; margin: 4px 0;">Lavozimi: <b>${item.role}</b> | JSHSHIR: <b style="color:#2563eb;">${item.pinfl}</b></p>
-              <p style="font-size: 11px; color: #b45309; font-weight: 600;">Holat/Sabab: ${item.reason}</p>
+              <p style="font-size: 11px; color: #b45309; font-weight: 600;">Asos / Omil: ${item.reason}</p>
             </div>
             <button onclick="openPdfViewer('${item.docType}', '${item.code}', '${item.district}', '${item.date}', '${item.officer}:${item.reason}')" class="btn btn-slate" style="padding: 8px 14px;">
               &#128196; Asos Hujjat (PDF) &rarr;
@@ -270,7 +268,7 @@ function renderExplorerContent() {
         </div>
       `).join('') : `
         <div style="padding: 30px; text-align: center; color: #64748b; background: #fff; border-radius: 8px; border: 1px dashed #cbd5e1;">
-          Ushbu boshqarma va tuman filiallarida hozircha ochiq qonunbuzilish ishi mavjud emas (profilaktik monitoringda).
+          Ushbu boshqarma va unga qarashli tuman filiallarida hozircha ochiq ish mavjud emas (profilaktik monitoringda).
         </div>
       `}
     </div>
@@ -291,26 +289,23 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
     </div>
   `;
 
-  if (docType === 'investigation') {
-    document.getElementById('pdfDocTitle').innerText = `Xizmat Tekshiruvi Xulosasi — ${p1}`;
+  if (docType === 'risk') {
+    document.getElementById('pdfDocTitle').innerText = `Korrupsion Xavf Baholash Xulosasi — ${p1}`;
     html += `
       <div class="pdf-header">
         <h2>O'ZBEKISTON RESPUBLIKASI KADASTR AGENTLIGI</h2>
-        <h2>XIZMAT TEKSHIRUVI XULOSASI VA DALOLATNOMASI</h2>
-        <p>Hujjat: ${p1} | Hudud: ${p2} | Sana: ${p3}</p>
+        <h2>XODIMNING KORRUPSION XAVF DARAJASINI BAHOLASH XULOSASI</h2>
+        <p>Hujjat kodi: ${p1} | Filial: ${p2} | Sana: ${p3}</p>
       </div>
       <p style="text-indent: 30px; margin-bottom: 15px;">
-        Korrupsiyaga qarshi ichki nazorat tuzilmasi o'tkazgan tekshiruv davomida quyidagi jiddiy qonunbuzilish aniqlandi:
+        Korrupsiyaga qarshi ichki nazorat tuzilmasi o'tkazgan baholash natijasida quyidagi xavf omili aniqlangan:
       </p>
       <p style="text-indent: 30px; margin-bottom: 15px;">
-        Holat tafsiloti: <b>${p4}</b>. Mazkur holat yuzasidan mas'ul xodimlar davlat kadastri qonunchiligini qo'pol ravishda buzgan deb topildi.
-      </p>
-      <p style="text-indent: 30px; font-weight: bold; margin-bottom: 25px;">
-        XULOSA: Materiallar prokuratura organlariga yuborilsin va xodim lavozimidan ozod etilsin.
+        Xavf asosi: <b>${p4}</b>. Mazkur xodim bevosita moddiy javobgarlik va ruxsat beruvchi vakolatga egaligi sababli maxsus nazorat reyestriga kiritildi.
       </p>
       <div class="pdf-stamp">
         <div><p>Komplayens inspektori: ____________</p><p style="font-size: 10px; color: #666;">Elektron raqamli imzo tasdiqlangan</p></div>
-        <div class="stamp-box" style="border-color: #d97706; color: #d97706;">KOMPLAYENS NAZORATI<br>RASMIY TEKSHIRUV XULOSASI</div>
+        <div class="stamp-box" style="border-color: #be123c; color: #be123c;">KORRUPSION XAVF REYESTRI<br>XULOSA TASDIQLANDI</div>
       </div>
     `;
   } else if (docType === 'court') {
@@ -319,7 +314,7 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
       <div class="pdf-header">
         <h2>O'ZBEKISTON RESPUBLIKASI NOMI BILAN</h2>
         <h2>JINOYAT ISHLARI BO'YICHA SUD HUKMI (NUSXA)</h2>
-        <p>Hujjat: ${p1} | Sud: ${p2} | Sana: ${p3}</p>
+        <p>Hujjat kodi: ${p1} | Sud: ${p2} | Sana: ${p3}</p>
       </div>
       <p style="text-indent: 30px; margin-bottom: 15px;">
         Sud hay'ati, xodimning jinoiy javobgarligi masalasini ko'rib chiqib quyidagini aniqladi:
@@ -344,7 +339,7 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
         Tezkor tadbir natijasida fuqarodan noqonuniy yer pasporti rasmiylashtirish evaziga mablag' olayotgan xodim jinoyat ustida ushlandi.
       </p>
       <p style="text-indent: 30px; font-weight: bold; margin-bottom: 25px;">
-        Ashyoviy dalillar va tafsilot: ${p4}. Barcha dalillar tergov organiga taqdim etildi.
+        Ashyoviy dalillar va holat: ${p4}. Barcha dalillar tergov organiga taqdim etildi.
       </p>
       <div class="pdf-stamp">
         <div><p>Tezkor guruh rahbari: __________</p><p>Kadastr komplayens vakili: __________</p></div>
@@ -352,16 +347,16 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
       </div>
     `;
   } else {
-    document.getElementById('pdfDocTitle').innerText = `Rasmiy Hujjat — ${p1}`;
+    document.getElementById('pdfDocTitle').innerText = `Rasmiy Buyruq Nusxasi — ${p1}`;
     html += `
       <div class="pdf-header">
         <h2>O'ZBEKISTON RESPUBLIKASI KADASTR AGENTLIGI</h2>
-        <h2>BUYRUQ VA KOMPLAYENS XULOSASI</h2>
+        <h2>MEHNAT SHARTNOMASINI BEKOR QILISH TO'G'RISIDA BUYRUQ</h2>
         <p>${p1} | ${p2} | ${p3}</p>
       </div>
-      <p style="text-indent: 30px; margin-bottom: 25px;">Tafsilot: <b>${p4}</b>. Mehnat shartnomasi bekor qilingan.</p>
+      <p style="text-indent: 30px; margin-bottom: 25px;">Tafsilot: <b>${p4}</b>. Mehnat Kodeksining 161-moddasi bilan mehnat munosabatlari to'xtatildi.</p>
       <div class="pdf-stamp">
-        <div><p>Mas'ul rahbar: ____________</p></div>
+        <div><p>Boshqarma boshlig'i: ____________</p></div>
         <div class="stamp-box" style="border-color: #047857; color: #047857;">KADASTR AGENTLIGI<br>BUYRUQ IJRO ETILDI</div>
       </div>
     `;
@@ -372,13 +367,111 @@ window.openPdfViewer = function(docType, p1, p2, p3, p4) {
 };
 
 // ==========================================
-// 5. 5 BOSQICHLI MUKAMMAL ARXIV (TOIFA > HUDUD > YIL > OY > ISH FAYLI)
+// 5. HUDUDLAR KESIMIDAGI 3 TA YANGI MATRITSA JADVALI
 // ==========================================
 
-let archiveState = { cat: null, region: null, year: null, month: null };
+// MANFAATLAR TO'QNASHUVI MATRITSA JADVALI
+function renderConflictMatritsaTable() {
+  const tbody = document.getElementById('conflictMatritsaTableBody');
+  if (!tbody || !window.regionsReportData) return;
+  tbody.innerHTML = window.regionsReportData.map((r, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td style="font-weight: 700;">${r.name}</td>
+      <td style="text-align: center; font-weight: 800;">${r.conflictCount + r.businessCount} ta</td>
+      <td style="text-align: center; color: #d97706; font-weight: 700;">${r.conflictProcess} ta</td>
+      <td style="text-align: center; color: #047857; font-weight: 700;">${r.conflictDone} ta</td>
+      <td style="text-align: center; color: #be123c; font-weight: 700;">${r.conflictUndone} ta</td>
+      <td style="text-align: center;"><span class="badge ${r.conflictUndone > 0 ? 'badge-rose' : 'badge-emerald'}">${r.conflictUndone > 0 ? 'Nazoratda' : 'Bartaraf etilgan'}</span></td>
+    </tr>
+  `).join('');
+}
 
+// BO'SHATILGANLAR RAQAMLI ASOS JADVALI
+function renderFiredMatritsaTable() {
+  const tbody = document.getElementById('firedMatritsaTableBody');
+  if (!tbody || !window.regionsReportData) return;
+  tbody.innerHTML = window.regionsReportData.map((r, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td style="font-weight: 700;">${r.name}</td>
+      <td style="text-align: center; font-weight: 800; color: #be123c;">${r.firedCount} nafar</td>
+      <td>Yer chegaralarini o'zboshimchalik bilan o'zgartirish, noqonuniy kadastr pasporti tuzish</td>
+      <td style="font-weight: 600;">Mehnat Kodeksi 161-moddasi bilan mehnat shartnomasi bekor qilingan</td>
+      <td style="text-align: center;"><span class="badge badge-emerald">Tizimdan chetlatilgan</span></td>
+    </tr>
+  `).join('');
+}
+
+// KORRUPSION XAVF (A, B, D) 3 TOIFALI JADVALI
+function renderRiskCategoryTable() {
+  const tbody = document.getElementById('riskCategoryTableBody');
+  if (!tbody || !window.regionsReportData) return;
+  tbody.innerHTML = window.regionsReportData.map((r, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td style="font-weight: 700;">${r.name}</td>
+      <td style="text-align: center;"><b class="risk-badge-A">${r.riskA || 1} nafar</b></td>
+      <td style="text-align: center;"><b class="risk-badge-B">${r.riskB || 1} nafar</b></td>
+      <td style="text-align: center;"><b class="risk-badge-D">${r.riskD || 1} nafar</b></td>
+      <td style="text-align: center; font-weight: 800;">${r.riskCount} nafar</td>
+      <td style="text-align: center;"><span class="badge badge-amber">Audio/video nazorat & Rotatsiya</span></td>
+    </tr>
+  `).join('');
+}
+
+// ==========================================
+// 6. YANGI XODIM KIRITISH FORMALARI
+// ==========================================
+window.saveNewRiskEmployee = function() {
+  const name = document.getElementById('risk-input-name').value;
+  const pinfl = document.getElementById('risk-input-pinfl').value;
+  const region = document.getElementById('risk-input-region').value;
+  const wing = document.getElementById('risk-input-wing').value;
+  const district = document.getElementById('risk-input-district').value;
+  const category = document.getElementById('risk-input-category').value;
+  const role = document.getElementById('risk-input-role').value;
+  const reason = document.getElementById('risk-input-reason').value;
+
+  if (!name || !pinfl || !district) {
+    alert("Iltimos, xodimning F.I.SH, JSHSHIR va tuman filiali nomini to'liq kiriting!");
+    return;
+  }
+
+  // Bazaga yangi xodimni qo'shamiz
+  if (!window.deepDrillDatabase.risk) window.deepDrillDatabase.risk = [];
+  window.deepDrillDatabase.risk.unshift({
+    region: region,
+    wing: wing,
+    district: district,
+    officer: name,
+    pinfl: pinfl,
+    role: role || 'Yetakchi mutaxassis',
+    type: category,
+    reason: reason || 'Korrupsion xavf omili qayd etildi',
+    action: 'Maxsus nazoratga olindi',
+    code: 'XAVF-2026-' + Date.now().toString().slice(-3),
+    date: '30.09.2026',
+    docType: 'risk'
+  });
+
+  // Viloyat statistikasini oshiramiz
+  const regObj = window.regionsReportData.find(r => r.name === region);
+  if (regObj) {
+    regObj.riskCount++;
+    if (category === 'A') regObj.riskA = (regObj.riskA || 0) + 1;
+    if (category === 'B') regObj.riskB = (regObj.riskB || 0) + 1;
+    if (category === 'D') regObj.riskD = (regObj.riskD || 0) + 1;
+  }
+
+  renderRiskCategoryTable();
+  renderOtherRegionsGrids();
+  closeModal('newRiskModal');
+  alert("Yangi xodim korrupsion xavf reyestriga muvaffaqiyatli kiritildi!");
+};
+
+// 5 BOSQICHLI ARXIV
 window.initArchive = function() {
-  archiveState = { cat: null, region: null, year: null, month: null };
   const badge = document.getElementById('archivePathBadge');
   if (badge) badge.innerText = "1-Bosqich: Hujjat Toifalari";
 
@@ -409,19 +502,14 @@ window.initArchive = function() {
   `;
 };
 
-// 2-BOSQICH: HUDUDLARNI TANLASH
 window.openArchiveStage2 = function(catName) {
-  archiveState.cat = catName;
   document.getElementById('archivePathBadge').innerText = `${catName} > Hududlar`;
   const area = document.getElementById('archiveViewArea');
-
   area.innerHTML = `
-    <div style="margin-bottom: 12px;">
-      <button onclick="initArchive()" class="btn btn-slate">&larr; Hujjat toifalariga qaytish</button>
-    </div>
+    <div style="margin-bottom: 12px;"><button onclick="initArchive()" class="btn btn-slate">&larr; Hujjat toifalariga qaytish</button></div>
     <div class="grid-4">
       ${window.regionsReportData.map(r => `
-        <div onclick="openArchiveStage3('${r.name}')" class="folder-grid-item">
+        <div onclick="openArchiveStage3('${catName}', '${r.name}')" class="folder-grid-item">
           <b>&#128193; ${r.name}</b>
           <span class="badge badge-slate">Ochish &rarr;</span>
         </div>
@@ -430,51 +518,33 @@ window.openArchiveStage2 = function(catName) {
   `;
 };
 
-// 3-BOSQICH: YILLARNI TANLASH (2026, 2025)
-window.openArchiveStage3 = function(regionName) {
-  archiveState.region = regionName;
-  document.getElementById('archivePathBadge').innerText = `${archiveState.cat} > ${regionName} > Yillar`;
+window.openArchiveStage3 = function(catName, regionName) {
+  document.getElementById('archivePathBadge').innerText = `${catName} > ${regionName} > Yillar`;
   const area = document.getElementById('archiveViewArea');
-
   area.innerHTML = `
-    <div style="margin-bottom: 12px;">
-      <button onclick="openArchiveStage2('${archiveState.cat}')" class="btn btn-slate">&larr; Viloyatlarga qaytish</button>
-    </div>
+    <div style="margin-bottom: 12px;"><button onclick="openArchiveStage2('${catName}')" class="btn btn-slate">&larr; Viloyatlarga qaytish</button></div>
     <div class="grid-2">
-      <div onclick="openArchiveStage4('2026-yil')" class="folder-grid-item" style="border-left: 5px solid #1d4ed8; padding: 20px;">
-        <div>
-          <b style="font-size: 16px; color: #1d4ed8;">&#128193; 2026-yil</b>
-          <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Joriy yilgi 12 oy arxiv jildlari</p>
-        </div>
+      <div onclick="openArchiveStage4('${catName}', '${regionName}', '2026-yil')" class="folder-grid-item" style="border-left: 5px solid #1d4ed8; padding: 20px;">
+        <div><b style="font-size: 16px; color: #1d4ed8;">&#128193; 2026-yil</b><p style="font-size: 11px; color: #64748b; margin-top: 4px;">Joriy yilgi 12 oy arxiv jildlari</p></div>
         <span class="badge badge-blue">Oylar &rarr;</span>
       </div>
-
-      <div onclick="openArchiveStage4('2025-yil')" class="folder-grid-item" style="border-left: 5px solid #64748b; padding: 20px;">
-        <div>
-          <b style="font-size: 16px; color: #475569;">&#128193; 2025-yil</b>
-          <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Yopilgan yillik arxiv jildlari</p>
-        </div>
+      <div onclick="openArchiveStage4('${catName}', '${regionName}', '2025-yil')" class="folder-grid-item" style="border-left: 5px solid #64748b; padding: 20px;">
+        <div><b style="font-size: 16px; color: #475569;">&#128193; 2025-yil</b><p style="font-size: 11px; color: #64748b; margin-top: 4px;">Yopilgan yillik arxiv jildlari</p></div>
         <span class="badge badge-slate">Oylar &rarr;</span>
       </div>
     </div>
   `;
 };
 
-// 4-BOSQICH: OYLARNI TANLASH (YANVAR - DEKABR)
-window.openArchiveStage4 = function(year) {
-  archiveState.year = year;
-  document.getElementById('archivePathBadge').innerText = `${archiveState.cat} > ${archiveState.region} > ${year} > Oylar`;
+window.openArchiveStage4 = function(catName, regionName, year) {
+  document.getElementById('archivePathBadge').innerText = `${catName} > ${regionName} > ${year} > Oylar`;
   const area = document.getElementById('archiveViewArea');
-
   const months = ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktyabr', 'Noyabr', 'Dekabr'];
-
   area.innerHTML = `
-    <div style="margin-bottom: 12px;">
-      <button onclick="openArchiveStage3('${archiveState.region}')" class="btn btn-slate">&larr; Yillarga qaytish</button>
-    </div>
+    <div style="margin-bottom: 12px;"><button onclick="openArchiveStage3('${catName}', '${regionName}')" class="btn btn-slate">&larr; Yillarga qaytish</button></div>
     <div class="grid-4">
       ${months.map(m => `
-        <div onclick="openArchiveStage5('${m}')" class="folder-grid-item">
+        <div onclick="openArchiveStage5('${catName}', '${regionName}', '${year}', '${m}')" class="folder-grid-item">
           <b>&#128193; ${m}</b>
           <span class="badge badge-blue">Fayllar &rarr;</span>
         </div>
@@ -483,41 +553,21 @@ window.openArchiveStage4 = function(year) {
   `;
 };
 
-// 5-BOSQICH: ANIQ ISH HUJJATLARI VA PDF OCHISH
-window.openArchiveStage5 = function(month) {
-  archiveState.month = month;
-  document.getElementById('archivePathBadge').innerText = `${archiveState.region} > ${archiveState.year} > ${month} > Hujjatlar`;
+window.openArchiveStage5 = function(catName, regionName, year, month) {
+  document.getElementById('archivePathBadge').innerText = `${regionName} > ${year} > ${month} > Hujjatlar`;
   const area = document.getElementById('archiveViewArea');
-
   area.innerHTML = `
-    <div style="margin-bottom: 12px;">
-      <button onclick="openArchiveStage4('${archiveState.year}')" class="btn btn-slate">&larr; Oylarga qaytish</button>
-    </div>
+    <div style="margin-bottom: 12px;"><button onclick="openArchiveStage4('${catName}', '${regionName}', '${year}')" class="btn btn-slate">&larr; Oylarga qaytish</button></div>
     <div class="box" style="padding: 0; overflow: hidden;">
       <table>
-        <thead>
-          <tr>
-            <th>Hujjat Kodi va Nomi</th>
-            <th>Boshqarma va Filial</th>
-            <th>Yuklangan Sana</th>
-            <th>Fayl Hajmi</th>
-            <th style="text-align: center;">Asos Hujjat</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Hujjat Kodi va Nomi</th><th>Boshqarma va Filial</th><th>Yuklangan Sana</th><th>Hajmi</th><th style="text-align: center;">Asos Hujjat</th></tr></thead>
         <tbody>
           <tr>
-            <td><b>${archiveState.region}_${archiveState.month}_№041_Xulosa.pdf</b></td>
-            <td>Davlat Kadastrlari Palatasi filiali</td>
-            <td>24.${month === 'Sentabr' ? '09' : '05'}.${archiveState.year.slice(0, 4)}</td>
+            <td><b>${regionName}_${month}_№041_Xulosa.pdf</b></td>
+            <td>Davlat Kadastrlari Palatasi tuman filiali</td>
+            <td>24.09.2026</td>
             <td>2.8 MB</td>
-            <td style="text-align: center;"><button onclick="openPdfViewer('investigation', 'ARX-041', '${archiveState.region}', '2026', '${archiveState.cat} bo\'yicha dalolatnoma')" class="btn btn-blue">Ochish PDF</button></td>
-          </tr>
-          <tr>
-            <td><b>${archiveState.region}_${archiveState.month}_№052_Sud_Hukmi.pdf</b></td>
-            <td>Jinoyat ishlari bo'yicha shahar sudi</td>
-            <td>18.${month === 'Sentabr' ? '09' : '05'}.${archiveState.year.slice(0, 4)}</td>
-            <td>1.4 MB</td>
-            <td style="text-align: center;"><button onclick="openPdfViewer('court', 'ARX-052', '${archiveState.region}', '2026', 'JK 210-modda bo\'yicha hukm')" class="btn btn-rose">Ochish PDF</button></td>
+            <td style="text-align: center;"><button onclick="openPdfViewer('investigation', 'ARX-041', '${regionName}', '2026', '${catName} arxividan rasmiy dalolatnoma')" class="btn btn-blue">Ochish PDF</button></td>
           </tr>
         </tbody>
       </table>
@@ -525,9 +575,34 @@ window.openArchiveStage5 = function(month) {
   `;
 };
 
-// ==========================================
-// 6. QOLGAN JADVALLAR VA TIZIM SOZLAMALARI
-// ==========================================
+// FORMALAR
+window.saveNewTask = function() {
+  const title = document.getElementById('task-title').value;
+  if (!title) return alert("Topshiriq sarlavhasini yozing!");
+  alert("Topshiriq kiritildi va nazoratga olindi!");
+  closeModal('newTaskModal');
+};
+
+window.saveNewConvicted = function() {
+  const name = document.getElementById('conv-name').value;
+  if (!name) return alert("Xodim F.I.SH kiritilishi shart!");
+  alert("Sudlangan xodim bazaga kiritildi!");
+  closeModal('newConvictedModal');
+};
+
+window.saveNewOperation = function() {
+  alert("Tezkor tadbir saqlandi!");
+  closeModal('newOperationModal');
+};
+
+window.saveNewInvestigation = function() {
+  alert("Xizmat tekshiruvi ochildi!");
+  closeModal('newInvestigationModal');
+};
+
+window.exportMatrixToExcel = function() {
+  alert("333 ta xizmat tekshiruvi matritsasi Excel formatida eksport qilinmoqda...");
+};
 
 function renderDashboardRegionsGrid() {
   const container = document.getElementById('dashboardRegionsGrid');
@@ -537,7 +612,7 @@ function renderDashboardRegionsGrid() {
       <div>
         <b style="font-size: 13px; color: #0b132b;">&#128193; ${r.name}</b>
         <p style="font-size: 11px; color: #64748b; margin-top: 4px;">
-          Tekshiruv: <b style="color:#d97706;">${r.invCount} ta</b> | Sudlangan: <b style="color:#be123c;">${r.convictedCount} ta</b> | Xavf (A): <b style="color:#b45309;">${r.riskCount} ta</b>
+          Tekshiruv: <b style="color:#d97706;">${r.invCount} ta</b> | Sudlangan: <b style="color:#be123c;">${r.convictedCount} ta</b> | Xavf (A, B, D): <b style="color:#b45309;">${r.riskCount} ta</b>
         </p>
       </div>
       <span class="badge badge-blue">Agentlik va Palataga kirish &rarr;</span>
@@ -608,20 +683,6 @@ function renderConvictedTable() {
   `).join('');
 }
 
-window.filterConvicted = function() {
-  const q = document.getElementById('convictedSearch').value.toLowerCase().trim();
-  const tbody = document.getElementById('convictedTableBody');
-  if (!tbody || !window.convictedData) return;
-  tbody.innerHTML = window.convictedData.filter(c => c.name.toLowerCase().includes(q) || c.pinfl.includes(q)).map(c => `
-    <tr>
-      <td><b>${c.name}</b><br><small style="color: #2563eb;">${c.pinfl}</small></td>
-      <td>${c.region}</td><td>${c.court}</td><td><span class="badge badge-rose">${c.articles}</span></td><td>${c.punishment}</td>
-      <td><span class="badge badge-emerald">Chetlatilgan</span></td>
-      <td style="text-align: center;"><button onclick="openPdfViewer('court', '${c.name}', '${c.court}', '${c.date}', '${c.articles}')" class="btn btn-rose" style="padding: 4px 8px;">Hukm PDF</button></td>
-    </tr>
-  `).join('');
-};
-
 function renderRegionsMatrixGrid() {
   const container = document.getElementById('regionsMatrixGridContainer');
   if (!container || !window.regionsReportData) return;
@@ -646,7 +707,14 @@ function renderOtherRegionsGrids() {
 
   if (riskBox) riskBox.innerHTML = window.regionsReportData.map(r => `
     <div onclick="switchTab('dashboard'); openExplorer('risk', '${r.name}', null);" class="folder-grid-item" style="border-left: 4px solid #b45309; padding: 12px;">
-      <div><b>&#128193; ${r.name}</b><p style="font-size: 11px; color: #64748b;">Xodimlar dosyesi va xavf darajalari</p></div>
+      <div>
+        <b>&#128193; ${r.name}</b>
+        <p style="font-size: 11px; color: #64748b; margin-top: 4px;">
+          <b class="risk-badge-A">A: ${r.riskA || 1}</b> | 
+          <b class="risk-badge-B">B: ${r.riskB || 1}</b> | 
+          <b class="risk-badge-D">D: ${r.riskD || 1}</b>
+        </p>
+      </div>
       <span class="badge badge-rose">${r.riskCount} ta xavf &rarr;</span>
     </div>
   `).join('');
@@ -673,35 +741,6 @@ function renderOtherRegionsGrids() {
   `).join('');
 }
 
-// FORMALAR
-window.saveNewTask = function() {
-  const title = document.getElementById('task-title').value;
-  if (!title) return alert("Topshiriq sarlavhasini yozing!");
-  alert("Topshiriq kiritildi va nazoratga olindi!");
-  closeModal('newTaskModal');
-};
-
-window.saveNewConvicted = function() {
-  const name = document.getElementById('conv-name').value;
-  if (!name) return alert("Xodim F.I.SH kiritilishi shart!");
-  alert("Sudlangan xodim bazaga kiritildi!");
-  closeModal('newConvictedModal');
-};
-
-window.saveNewOperation = function() {
-  alert("Tezkor tadbir saqlandi!");
-  closeModal('newOperationModal');
-};
-
-window.saveNewInvestigation = function() {
-  alert("Xizmat tekshiruvi ochildi!");
-  closeModal('newInvestigationModal');
-};
-
-window.exportMatrixToExcel = function() {
-  alert("333 ta xizmat tekshiruvi matritsasi Excel formatida eksport qilinmoqda...");
-};
-
 // DASTUR DASTLABKI YUKLANGANDA
 window.addEventListener('DOMContentLoaded', () => {
   renderDynamicChart('month');
@@ -711,5 +750,8 @@ window.addEventListener('DOMContentLoaded', () => {
   renderMatrixTable();
   renderConvictedTable();
   renderOtherRegionsGrids();
+  renderConflictMatritsaTable();
+  renderFiredMatritsaTable();
+  renderRiskCategoryTable();
   initArchive();
 });
